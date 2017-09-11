@@ -1,3 +1,11 @@
 /.project
 
 **/configure/RELEASE.local
+
+O.Common
+O.linux-x86_64
+
+3-4/bin
+3-4/db
+3-4/dbd
+3-4/lib
