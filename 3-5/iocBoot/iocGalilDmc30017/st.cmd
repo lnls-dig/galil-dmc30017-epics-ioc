@@ -12,4 +12,6 @@ cd "${TOP}/iocBoot/${IOC}"
 
 epicsEnvSet("IOC_APP_DIR", "${TOP}/GalilDmc30017App")
 
+GalilCreateController("Galil", "${IPADDR}", 8)
+
 iocInit
