@@ -14,6 +14,9 @@ DBD += GalilDmc30017.dbd
 
 # GalilDmc30017.dbd will be made up from these files:
 GalilDmc30017_DBD += base.dbd
+GalilDmc30017_DBD += asyn.dbd
+GalilDmc30017_DBD += calcSupport.dbd
+GalilDmc30017_DBD += motorSupport.dbd
 GalilDmc30017_DBD += GalilSupport.dbd
 
 # Include dbd files from all support applications:
@@ -33,6 +36,9 @@ GalilDmc30017_SRCS_vxWorks += -nil-
 #GalilDmc30017_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
 
 # Finally link to the EPICS Base libraries
+GalilDmc30017_LIBS += asyn
+GalilDmc30017_LIBS += calc
+GalilDmc30017_LIBS += motor
 GalilDmc30017_LIBS += GalilSupport
 GalilDmc30017_LIBS += $(EPICS_BASE_IOC_LIBS)
 
