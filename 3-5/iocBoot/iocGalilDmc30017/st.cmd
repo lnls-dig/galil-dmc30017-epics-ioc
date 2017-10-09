@@ -21,3 +21,5 @@ GalilCreateAxis("Galil","A",1,"",1)
 GalilStartController("Galil", "", 1, 0)
 
 iocInit
+
+dbpf "DMC01:A_AMPGAIN_CMD" "2"
