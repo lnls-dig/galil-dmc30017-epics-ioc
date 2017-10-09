@@ -13,6 +13,7 @@ cd "${TOP}/iocBoot/${IOC}"
 epicsEnvSet("IOC_APP_DIR", "${TOP}/GalilDmc30017App")
 
 dbLoadTemplate("${IOC_APP_DIR}/Db/galil_motors.substitutions")
+dbLoadTemplate("${IOC_APP_DIR}/Db/galil_motor_extras.substitutions")
 dbLoadTemplate("${IOC_APP_DIR}/Db/galil_dmc_ctrl.substitutions")
 
 GalilCreateController("Galil", "${IPADDR}", 8)
