@@ -18,5 +18,6 @@ dbLoadTemplate("${IOC_APP_DIR}/Db/galil_dmc_ctrl.substitutions")
 
 GalilCreateController("Galil", "${IPADDR}", 8)
 GalilCreateAxis("Galil","A",1,"",1)
+GalilStartController("Galil", "", 1, 0)
 
 iocInit
