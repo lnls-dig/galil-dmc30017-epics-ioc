@@ -1,7 +1,0 @@
-## configure/RELEASE: Location of external products
-
-# See $(TOP)/configure/RELEASE.local.example for the variables that need to be
-# configured
-include $(TOP)/configure/RELEASE.local
-
-TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
