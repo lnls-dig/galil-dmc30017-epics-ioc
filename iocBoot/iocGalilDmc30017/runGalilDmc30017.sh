@@ -52,4 +52,4 @@ fi
 
 cd "$IOC_BOOT_DIR"
 
-IPADDR="$IPADDR" IPPORT="$IPPORT" P="$P" R="$R" "$IOC_BIN" st.cmd
+IPADDR="$IPADDR" IPPORT="$IPPORT" P="$P" R="$R" "$IOC_BIN" stGalilDmc30017.cmd
