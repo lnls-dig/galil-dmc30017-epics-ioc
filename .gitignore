@@ -1,11 +1,39 @@
-/.project
+# Galil generated scripts
+iocBoot/iocGalilDmc30017/*.dmc
 
-**/configure/RELEASE.local
+# General files
+*.orig
+*.swap
+*~
+*.bak
+*.backup
+*.swp
 
-O.Common
-O.linux-x86_64
+# EPICS generated
+/bin/
+/lib/
+/include/
+db
+dbd
+*_BAK.adl
+documentation.html
+envPaths*
+cdCommands
+dllPath.bat
+auto_settings*.sav*
+configure/*.local
+O.*/
+*~
+.cproject
+.project
 
-3-4/bin
-3-4/db
-3-4/dbd
-3-4/lib
+# CSS files
+op/opi/logs.*
+op/opi/.metadata
+
+# Documentation files
+documentation/*.aux
+documentation/*.log
+documentation/*.out
+documentation/*.toc
+documentation/*.pdf
