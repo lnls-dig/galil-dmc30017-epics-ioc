@@ -1,0 +1,13 @@
+# This file exemplifies how to write the RELEASE.local file
+
+SUPPORT=/opt/epics/synApps_5_8/support
+EPICS_BASE=/opt/epics/base
+AUTOSAVE=$(SUPPORT)/autosave-5-6-1
+SNCSEQ=$(SUPPORT)/seq-2-2-1
+SSCAN=$(SUPPORT)/sscan-2-10-1
+CALC=$(SUPPORT)/calc-3-4-2-1
+ASYN=$(SUPPORT)/asyn-4-26
+BUSY=$(SUPPORT)/busy-1-6-1
+MOTOR=$(SUPPORT)/motor-6-9
+GALIL=/opt/epics/Galil-3-0/3-6
+IPAC=$(SUPPORT)/ipac-2-13
