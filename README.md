@@ -1,6 +1,6 @@
 # galil-dmc30017-epics-ioc
 
-## Overall
+### Overall
 
 Repository containing the EPICS IOC support for the DMC 30017 Galil Motion Controller.
 
@@ -23,7 +23,7 @@ $ ./runGalilDmc30017.sh -i "IPADDR"
 where `IPADDR` is the IP address of the device to connect to. The options
 that you can specify (after `./runGalilDmc30017.sh`) are:
 
-- `-p IPPORT`: device port to connect to (optional)
+- `-p IPPORT`: device port to connect to (optional, default is 5025)
 - `-P PREFIX1`: the value of the EPICS `$(P)` macro used to prefix the PV names (optional)
 - `-R PREFIX2`: the value of the EPICS `$(R)` macro used to prefix the PV names (optional)
 
