@@ -1,0 +1,22 @@
+[Unit]
+Description=Galil DMC 30017 IOC %p%I
+After=rc-local.service
+Wants=rc-local.service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# Source environment
+EnvironmentFile=/etc/sysconfig/galil-dmc30017-epics-ioc
+EnvironmentFile=/etc/sysconfig/galil-dmc30017-epics-ioc-mapping
+# Execute pre with root
+PermissionsStartOnly=true
+Environment=DMC30017_INSTANCE=%i
+ExecStartPre=/bin/mkdir -p /var/log/procServ/%p%i
+ExecStartPre=/bin/mkdir -p /var/run/procServ/%p%i
+WorkingDirectory=/opt/epics/startup/ioc/galil-dmc30017-epics-ioc/iocBoot/iocGalilDmc30017
+# Run procServ with IOC
+ExecStart="/usr/local/bin/runGalilDmc30017.sh"
+
+[Install]
+WantedBy=multi-user.target
