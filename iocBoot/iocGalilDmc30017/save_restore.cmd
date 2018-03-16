@@ -1,6 +1,6 @@
 ### save_restore setup
 # status-PV prefix
-save_restoreSet_status_prefix("${P}${R}")
+save_restoreSet_status_prefix("${PREFIX}")
 # Debug-output level
 save_restoreSet_Debug(0)
 
@@ -29,14 +29,15 @@ set_savefile_path("$(TOP)/iocBoot/$(IOC)", "autosave")
 # Save files associated with the request files 'auto_positions.req' and
 # 'auto_settings.req'.  These files are the standard way to use autosave in
 # synApps.
-set_pass0_restoreFile("auto_settings_${P}${R}.sav")
-set_pass1_restoreFile("auto_settings_${P}${R}.sav")
+set_pass0_restoreFile("auto_settings_${PREFIX}.sav")
+set_pass1_restoreFile("auto_settings_${PREFIX}.sav")
 
 # specify directories in which to to search for included request files
 set_requestfile_path("${GALIL}/GalilSup/Db", "")
+set_requestfile_path("${MOTOR}/motorApp/Db", "")
 set_requestfile_path("$(TOP)/iocBoot/$(IOC)", "")
 set_requestfile_path("$(TOP)/iocBoot/$(IOC)", "autosave")
 set_requestfile_path("$(TOP)", "galilDmc30017App/Db")
 set_requestfile_path("$(AUTOSAVE)", "asApp/Db")
 
-dbLoadRecords("$(AUTOSAVE)/asApp/Db/save_restoreStatus.db", "P=${P}${R}")
+dbLoadRecords("$(AUTOSAVE)/asApp/Db/save_restoreStatus.db", "P=${PREFIX}")
