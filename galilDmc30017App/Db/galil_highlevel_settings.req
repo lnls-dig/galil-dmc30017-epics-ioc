@@ -1,0 +1,3 @@
+# High level PVs that should be saved
+$(P)StoredPos-SP
+$(P)StoredPos-RB

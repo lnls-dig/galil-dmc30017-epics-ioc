@@ -12,7 +12,7 @@
 
 # Motor Record
 # Source: $(GALIL)/GalilSup/Db/galil_motor.template
-alias(  "$(P)$(M)",                       "$(P)Motor")                  # Standard Motor record which groups many of the motor's features
+alias(  "$(P)$(M)",                       "$(P)Mtr")                    # Standard Motor record which groups many of the motor's features
 
 # DMC Control records
 # Source: $(GALIL)/GalilSup/Db/galil_dmc_ctrl.template
@@ -155,12 +155,59 @@ alias(  "$(P)$(ANALOG_IN1)Deadb_SP",     "$(P)$(ANALOG_IN1)DeadBand-RB")     # A
 # Desc: Records that provide high level features to the IOC,
 # in order to allow easy control of it.
 
-# ??????????????????????????????
-#record(bo, "$(P)"){
-#  field(DESC, "?????????????????????")
-#}
+# Specific motor position that should be stored
+record(ao, "$(P)StoredPos-SP"){
+  field(DESC, "Store position value")
+  field(EGU, "$(EGU)")
+  field(PREC, "6")
+  field(OUT, "$(P)StoredPos-RB")
+}
 
-# ??????????????????????????????????
-#record(bi, "$(P)"){
-#  field(DESC, "???????????????????????")
-#}
+# Readback value of specific motor position stored
+record(ai, "$(P)StoredPos-RB"){
+  field(DESC, "Stored position value RB")
+  field(EGU, "$(EGU)")
+  field(PREC, "6")
+}
+
+# Command motor to go to the stored motor position
+record(bo, "$(P)GoToStoredPos-Cmd"){
+  field(DESC, "Move motor to stored position")
+  field(ONAM, "On")
+  field(ZNAM, "Off")
+  field(HIGH, "0.5")
+  field(FLNK, "$(P)TransferPos")
+}
+
+# Transfer stored value to motor record value
+record(calcout, "$(P)TransferPos"){
+  field(DESC, "Transfer stored position to motor")
+  field(INPA, "$(P)StoredPos-RB")
+  field(INPB, "$(P)GoToStoredPos-Cmd")
+  field(CALC, "B")                                                    # Command state
+  field(OCAL, "A")                                                    # Value to be transferred
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P)$(M).VAL PP")                                       # Command motor to go to stored position
+}
+
+# Load stored motor position with encoder readback value
+record(bo, "$(P)StoreEncPos-Cmd"){
+  field(DESC, "Load stored position with encoder read")
+  field(ONAM, "On")
+  field(ZNAM, "Off")
+  field(HIGH, "0.5")
+  field(FLNK, "$(P)StoreEncPosCalc")
+}
+
+# Transfer encorder position (motor RBV) to stored position
+record(calcout, "$(P)StoreEncPosCalc"){
+  field(DESC, "Transfer encoder read to stored position")
+  field(INPA, "$(P)$(M).RBV")
+  field(INPB, "$(P)StoreEncPos-Cmd")
+  field(CALC, "B")                                                    # Command state
+  field(OCAL, "A")                                                    # Value to be transferred
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P)StoredPos-SP PP")                                      # Transfer encoder position to stored position
+}

@@ -1,2 +1,3 @@
 file galil_dmc30017_positions.req       P=$(P), M=$(M)
 file galil_dmc30017_settings.req        P=$(P), M=$(M), DIG_OUT0=$(DIG_OUT0), DIG_OUT1=$(DIG_OUT1), DIG_OUT2=$(DIG_OUT2), DIG_OUT3=$(DIG_OUT3), DIG_IN0=$(DIG_IN0), DIG_IN1=$(DIG_IN1), DIG_IN2=$(DIG_IN2), DIG_IN3=$(DIG_IN3), DIG_IN4=$(DIG_IN4), DIG_IN5=$(DIG_IN5), DIG_IN6=$(DIG_IN6), DIG_IN7=$(DIG_IN7), ANALOG_OUT0=$(ANALOG_OUT0), ANALOG_OUT1=$(ANALOG_OUT1), ANALOG_IN0=$(ANALOG_IN0), ANALOG_IN1=$(ANALOG_IN1)
+file galil_highlevel_settings.req       P=$(P)
