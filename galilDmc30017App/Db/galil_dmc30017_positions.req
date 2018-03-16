@@ -1,1 +1,2 @@
-$(P)A.DVAL
+# Save motor position
+$(P)$(M).DVAL
