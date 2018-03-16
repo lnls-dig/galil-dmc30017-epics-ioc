@@ -1,6 +1,9 @@
 # Galil generated scripts
 iocBoot/iocGalilDmc30017/*.dmc
 
+# Galil generated debug files
+iocBoot/iocGalilDmc30017/galil_debug.txt
+
 # General files
 *.orig
 *.swap
