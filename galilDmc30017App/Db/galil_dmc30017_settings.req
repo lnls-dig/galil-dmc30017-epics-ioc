@@ -34,6 +34,7 @@ file "galil_digital_in_bit.req" P=$(P), R=$(DIG_IN7)
 
 # Analog input
 file "galil_analog_in.req" P=$(P), R=$(ANALOG_IN0)
+file "galil_analog_in.req" P=$(P), R=$(ANALOG_IN1)
 
 # All 2 Analog outputs
 file "galil_analog_out.req" P=$(P), R=$(ANALOG_OUT0)

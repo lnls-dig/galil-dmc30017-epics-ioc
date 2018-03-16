@@ -116,6 +116,39 @@ alias(  "$(P)$(DIG_OUT2)_CMD",            "$(P)$(DIG_OUT2)-Sel")        # Digita
 alias(  "$(P)$(DIG_OUT3)_STATUS",         "$(P)$(DIG_OUT3)-Sts")        # Digital output bit 3 state (read)
 alias(  "$(P)$(DIG_OUT3)_CMD",            "$(P)$(DIG_OUT3)-Sel")        # Digital output bit 3 state (set)
 
+# Digital inputs control
+# Source: $(GALIL)/GalilSup/Db/galil_digital_in_bit.template
+alias(  "$(P)$(DIG_IN0)_STATUS",          "$(P)$(DIG_IN0)-Mon")        # Digital input bit 0 monitor
+alias(  "$(P)$(DIG_IN1)_STATUS",          "$(P)$(DIG_IN1)-Mon")        # Digital input bit 1 monitor
+alias(  "$(P)$(DIG_IN2)_STATUS",          "$(P)$(DIG_IN2)-Mon")        # Digital input bit 2 monitor
+alias(  "$(P)$(DIG_IN3)_STATUS",          "$(P)$(DIG_IN3)-Mon")        # Digital input bit 3 monitor
+alias(  "$(P)$(DIG_IN4)_STATUS",          "$(P)$(DIG_IN4)-Mon")        # Digital input bit 4 monitor
+alias(  "$(P)$(DIG_IN5)_STATUS",          "$(P)$(DIG_IN5)-Mon")        # Digital input bit 5 monitor
+alias(  "$(P)$(DIG_IN6)_STATUS",          "$(P)$(DIG_IN6)-Mon")        # Digital input bit 6 monitor
+alias(  "$(P)$(DIG_IN7)_STATUS",          "$(P)$(DIG_IN7)-Mon")        # Digital input bit 7 monitor
+
+# Analog outputs control
+# Source: $(GALIL)/GalilSup/Db/galil_analog_out.template
+alias(  "$(P)$(ANALOG_OUT0)_MON",         "$(P)$(ANALOG_OUT0)-RB")     # Analog output 0 state (read)
+alias(  "$(P)$(ANALOG_OUT0)_SP",          "$(P)$(ANALOG_OUT0)-SP")     # Analog output 0 state (set)
+alias(  "$(P)$(ANALOG_OUT0)Deadb_SP",     "$(P)$(ANALOG_OUT0)DeadBand-SP")     # Analog output 0 deadband state (set)
+alias(  "$(P)$(ANALOG_OUT0)Deadb_SP",     "$(P)$(ANALOG_OUT0)DeadBand-RB")     # Analog output 0 deadband dummy readback
+
+alias(  "$(P)$(ANALOG_OUT1)_MON",         "$(P)$(ANALOG_OUT1)-RB")     # Analog output 1 state (read)
+alias(  "$(P)$(ANALOG_OUT1)_SP",          "$(P)$(ANALOG_OUT1)-SP")     # Analog output 1 state (set)
+alias(  "$(P)$(ANALOG_OUT1)Deadb_SP",     "$(P)$(ANALOG_OUT1)DeadBand-SP")     # Analog output 1 deadband state (set)
+alias(  "$(P)$(ANALOG_OUT1)Deadb_SP",     "$(P)$(ANALOG_OUT1)DeadBand-RB")     # Analog output 1 deadband dummy readback
+
+# Analog inputs control
+# Source: $(GALIL)/GalilSup/Db/galil_analog_in.template
+alias(  "$(P)$(ANALOG_IN0)_MON",         "$(P)$(ANALOG_IN0)-Mon")     # Analog input 0 monitor
+alias(  "$(P)$(ANALOG_IN0)Deadb_SP",     "$(P)$(ANALOG_IN0)DeadBand-SP")     # Analog input 0 deadband state (set)
+alias(  "$(P)$(ANALOG_IN0)Deadb_SP",     "$(P)$(ANALOG_IN0)DeadBand-RB")     # Analog input 0 deadband dummy readback
+
+alias(  "$(P)$(ANALOG_IN1)_MON",         "$(P)$(ANALOG_IN1)-Mon")     # Analog input 1 monitor
+alias(  "$(P)$(ANALOG_IN1)Deadb_SP",     "$(P)$(ANALOG_IN1)DeadBand-SP")     # Analog input 1 deadband state (set)
+alias(  "$(P)$(ANALOG_IN1)Deadb_SP",     "$(P)$(ANALOG_IN1)DeadBand-RB")     # Analog input 1 deadband dummy readback
+
 #####################################################################
 # HIGH LEVEL FEATURES
 #

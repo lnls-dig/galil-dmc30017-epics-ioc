@@ -65,3 +65,4 @@ dbLoadRecords("$(GALIL)/GalilSup/Db/galil_analog_out.template", "P=$(PREFIX), R=
 
 dbLoadRecords("$(GALIL)/GalilSup/Db/galil_analog_in.template", "P=$(PREFIX), R=$(ANALOG_IN0), PORT=$(PORT), ADDR=1, SCAN=I/O Intr, PREC=6")
 
+dbLoadRecords("$(GALIL)/GalilSup/Db/galil_analog_in.template", "P=$(PREFIX), R=$(ANALOG_IN1), PORT=$(PORT), ADDR=2, SCAN=I/O Intr, PREC=6")
