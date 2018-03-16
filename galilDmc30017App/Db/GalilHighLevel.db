@@ -1,0 +1,133 @@
+######################################################################
+#
+#            Galil DMC 30017 High Level Record Database
+#
+# Desc: These records provide an abstraction layer for
+# the Galil Driver records.
+
+#####################################################################
+# ALIASES
+#
+# Desc: Aliases for the Galil Driver records.
+
+# Motor Record
+# Source: $(GALIL)/GalilSup/Db/galil_motor.template
+alias(  "$(P)$(M)",                       "$(P)Motor")                  # Standard Motor record which groups many of the motor's features
+
+# DMC Control records
+# Source: $(GALIL)/GalilSup/Db/galil_dmc_ctrl.template
+alias(  "$(P)MODEL_MON",                  "$(P)ControllerModel-Mon")    # Controller model monitor
+alias(  "$(P)ADDRESS_MON",                "$(P)ControllerAddr-Mon")     # Controller address monitor
+alias(  "$(P)LIMITTYPE_STATUS",           "$(P)LimSwType-Sts")          # Limit switch type configuration (read)
+alias(  "$(P)LIMITTYPE_CMD",              "$(P)LimSwType-Sel")          # Limit switch type configuration (set)
+alias(  "$(P)HOMETYPE_STATUS",            "$(P)HomeSwType-Sts")         # Home switch type configuration (read)
+alias(  "$(P)HOMETYPE_CMD",               "$(P)HomeSwType-Sel")         # Home switch type configuration (set)
+alias(  "$(P)ETHADDR_MON",                "$(P)MacAddr-Mon")            # Controller MAC address monitor
+alias(  "$(P)SERIALNUM_MON",              "$(P)SerialNr-Mon")           # Controller serial number monitor
+alias(  "$(P)COMMERR_STATUS",             "$(P)CommErr-Mon")            # Communication Error monitor
+alias(  "$(P)START_STATUS",               "$(P)ControllerStart-Mon")    # Controller startup status monitor
+alias(  "$(P)DEFER_STATUS",               "$(P)DeferredMove-Sts")       # Deferred moves option (read)
+alias(  "$(P)DEFER_CMD",                  "$(P)DeferredMove-Sel")       # Deferred moves option (set)
+alias(  "$(P)UPLOAD_CMD",                 "$(P)UploadUserArray-Cmd")    # Upload user array command
+alias(  "$(P)UPLOAD_STATUS",              "$(P)UploadUserArray-Mon")    # Array upload status monitor
+alias(  "$(P)DEFER_MODE_STATUS",          "$(P)DeferredMoveMode-Sts")   # Deferred move mode (read)
+alias(  "$(P)DEFER_MODE_CMD",             "$(P)DeferredMoveMode-Sel")   # Deferred move mode (set)
+alias(  "$(P)ERROR_MON",                  "$(P)ControllerErr-Mon")      # Controller error monitor
+alias(  "$(P)SEND_STR_CMD",               "$(P)Send-Cmd")               # Send a command string to the controller
+alias(  "$(P)SEND_STR_MON",               "$(P)Response-Mon")           # Last response string received after sending a command to the controller using "Send-Cmd"
+alias(  "$(P)SEND_STRVAL_MON",            "$(P)ReponseVal-Mon")         # Display last response received when it is a number
+
+# Extra features not provided by Motor Record
+# Source: $(GALIL)/GalilSup/Db/galil_motor_extras.template
+alias(  "$(P)$(M)_ESTALL_STATUS",         "$(P)Estall-Sts")             # Encoder stall status
+alias(  "$(P)$(M)_ESTALLTIME_MON",        "$(P)EstallTime-RB")          # Estall time read
+alias(  "$(P)$(M)_ESTALLTIME_SP",         "$(P)EstallTime-SP")          # Estall time set
+alias(  "$(P)$(M)_STEPSMOOTH_MON",        "$(P)StepSmooth-RB")          # Step smoothing read
+alias(  "$(P)$(M)_STEPSMOOTH_SP",         "$(P)StepSmooth-SP")          # Step smoothing set
+alias(  "$(P)$(M)_MCONN_STATUS",          "$(P)MtrConnect-Mon")         # Connection status
+alias(  "$(P)$(M)_UINDEX_STATUS",         "$(P)UseIdx-Sts")             # Use encoder index when homing (read)
+alias(  "$(P)$(M)_UINDEX_CMD",            "$(P)UseIdx-Sel")             # Use encoder index when homing (set)
+alias(  "$(P)$(M)_USWITCH_STATUS",        "$(P)UseSw-Sts")              # Use limit switch when homing (read)
+alias(  "$(P)$(M)_USWITCH_CMD",           "$(P)UseSw-Sel")              # Use limit switch when homing (set)
+alias(  "$(P)$(M)_USERDATA_MON",          "$(P)UserData-Mon")           # User data (read)
+alias(  "$(P)$(M)_USERDATADEADB_SP",      "$(P)UserDataDeadBand-SP")    # User data deadband (set)
+alias(  "$(P)$(M)_JAH_STATUS",            "$(P)JogAfterHome-Sts")       # Jog after home (read)
+alias(  "$(P)$(M)_JAH_CMD",               "$(P)JogAfterHome-Sel")       # Jog after home (set)
+alias(  "$(P)$(M)_JAHV_MON",              "$(P)JogAfterHome-RB")        # Jog after home to position (read)
+alias(  "$(P)$(M)_JAHV_SP",               "$(P)JogAfterHome-SP")        # Jog after home to position (set)
+alias(  "$(P)$(M)_EGUAFTLIMIT_MON",       "$(P)EguAfterLim-RB")         # EGU after limit (read)
+alias(  "$(P)$(M)_EGUAFTLIMIT_SP",        "$(P)EguAfterLim-SP")         # EGU after limit (set)
+alias(  "$(P)$(M)_STATUS_POLL_DELAY_CMD", "$(P)PollFreq-SP")            # Control poll frequency for axis and encoder status (read)
+alias(  "$(P)$(M)_STATUS_POLL_DELAY_MON", "$(P)PollFreq-RB")            # Control poll frequency for axis and encoder status (set)
+alias(  "$(P)$(M)_HOMEALLOWED_CMD",       "$(P)HomeMove-Sel")           # Enable directions for homing (set)
+alias(  "$(P)$(M)_HOMEALLOWED_STATUS",    "$(P)HomeMove-Sts")           # Enable directions for homing (read)
+alias(  "$(P)$(M)_STOPDELAY_MON",         "$(P)StopDelay-RB")           # Motor stop delay (read)
+alias(  "$(P)$(M)_STOPDELAY_SP",          "$(P)StopDelay-SP")           # Motor stop delay (set)
+alias(  "$(P)$(M)_AMPGAIN_CMD",           "$(P)AmpGain-Sel")            # Amplifier gain (set)
+alias(  "$(P)$(M)_AMPGAIN_STATUS",        "$(P)AmpGain-Sts")            # Amplifier gain (read)
+alias(  "$(P)$(M)_AMPCLGAIN_CMD",         "$(P)AmpCurrLoopGain-Sel")    # Amplifier current loop gain (set)
+alias(  "$(P)$(M)_AMPCLGAIN_STATUS",      "$(P)AmpCurrLoopGain-Sts")    # Amplifier current loop gain (read)
+alias(  "$(P)$(M)_AMPLC_SP",              "$(P)LowCurrMode-SP")         # Specify period before going to low curr mode, or disable low curr mode for n=0 (set)
+alias(  "$(P)$(M)_AMPLC_MON",             "$(P)LowCurrMode-RB")         # Specify period before going to low curr mode, or disable low curr mode for n=0 (read)
+alias(  "$(P)$(M)_ERRLIMIT_SP",           "$(P)ErrLim-SP")              # Position error limit in counts (set)
+alias(  "$(P)$(M)_ERRLIMIT_MON",          "$(P)ErrLim-RB")              # Position error limit in counts (read)
+alias(  "$(P)$(M)_ERR_MON",               "$(P)ErrLim-Mon")             # Position error monitor
+alias(  "$(P)$(M)_VELOCITYRAW_MON",       "$(P)VeloRaw-Mon")            # Velocity monitor in counts/second
+alias(  "$(P)$(M)_VELOCITYEGU_MON",       "$(P)VeloEgu-Mon")            # Velocity monitor in engineering units
+alias(  "$(P)$(M)_OFFONERR_CMD",          "$(P)ErrLimType-Sel")         # Error state source (set)
+alias(  "$(P)$(M)_OFFONERR_STATUS",       "$(P)ErrLimType-Sts")         # Error state source (read)
+alias(  "$(P)$(M)_AXIS_STATUS",           "$(P)Axis-Mon")               # Selected Axis monitor
+alias(  "$(P)$(M)_MTRTYPE_CMD",           "$(P)MtrType-Sel")            # Motor type (set)
+alias(  "$(P)$(M)_MTRTYPE_STATUS",        "$(P)MtrType-Sts")            # Motor type (read)
+alias(  "$(P)$(M)_MENCTYPE_CMD",          "$(P)MainEncType-Sel")        # Main encoder type (set)
+alias(  "$(P)$(M)_MENCTYPE_STATUS",       "$(P)MainEncType-Sts")        # Main encoder type (read)
+alias(  "$(P)$(M)_AENCTYPE_CMD",          "$(P)AuxEncType-Sel")         # Auxiliar encoder typw (set)
+alias(  "$(P)$(M)_AENCTYPE_STATUS",       "$(P)AuxEncType-Sts")         # Auxiliar encoder typw (read)
+alias(  "$(P)$(M)_WLP_CMD",               "$(P)LimProtectEnbl-Sel")     # Limit protection enable (set)
+alias(  "$(P)$(M)_WLP_STATUS",            "$(P)LimProtectEnbl-Sts")     # Limit protection enable (read)
+alias(  "$(P)$(M)_WLPACTIVE_STATUS",      "$(P)LimProtect-Mon")         # Limit protection state monitor
+alias(  "$(P)$(M)_AUTOONOFF_CMD",         "$(P)AutoOnOff-Sel")          # Motor auto power on/off between moves (set)
+alias(  "$(P)$(M)_AUTOONOFF_STATUS",      "$(P)$(P)AutoOnOff-Sts")      # Motor auto power on/off between moves (read)
+alias(  "$(P)$(M)_ONDELAY_MON",           "$(P)AutoOnDelay-RB")         # Motor auto power on delay (read)
+alias(  "$(P)$(M)_ONDELAY_SP",            "$(P)AutoOnDelay-SP")         # Motor auto power on delay (set)
+alias(  "$(P)$(M)_OFFDELAY_MON",          "$(P)AutoOffDelay-RB")        # Motor auto power off delay (read)
+alias(  "$(P)$(M)_OFFDELAY_SP",           "$(P)AutoOffDelay-SP")        # Motor auto power off delay (set)
+alias(  "$(P)$(M)_BRAKE_CMD",             "$(P)Brake-Cmd")              # Motor brake manual control (set)
+alias(  "$(P)$(M)_BRAKE_STATUS",          "$(P)Brake-Mon")              # Motor brake manual control (read)
+alias(  "$(P)$(M)_AUTOBRAKE_CMD",         "$(P)AutoBrakeEnbl-Sel")      # Motor auto brake enable (set)
+alias(  "$(P)$(M)_AUTOBRAKE_STATUS",      "$(P)AutoBrakeEnbl-Sts")      # Motor auto brake enable (read)
+alias(  "$(P)$(M)_BRAKEPORT_MON",         "$(P)AutoBrakeiDigPort-RB")   # Motor brake digital port (read)
+alias(  "$(P)$(M)_BRAKEPORT_SP",          "$(P)AutoBrakeDigPort-SP")    # Motor brake digital port (set)
+alias(  "$(P)$(M)_BRAKEONDELAY_MON",      "$(P)AutoBrakeDelay-RB")      # Motor auto brake on delay (read)
+alias(  "$(P)$(M)_BRAKEONDELAY_SP",       "$(P)AutoBrakeDelay-SP")      # Motor auto brake on delay (set)
+alias(  "$(P)$(M)_LIMITDISABLE_CMD",      "$(P)LimSwDsbl-Sel")          # Disable limit switches mode (set)
+alias(  "$(P)$(M)_LIMITDISABLE_STATUS",   "$(P)LimSwDsbl-Sts")          # Disable limit switches mode (read)
+alias(  "$(P)$(M)_ON_STATUS",             "$(P)AmpEnbl-Sts")            # Turn galil amplifier on/off (read)
+alias(  "$(P)$(M)_ON_CMD",                "$(P)AmpEnbl-Sel")            # Turn galil amplifier on/off (set)
+
+# Digital outputs control
+# Source: $(GALIL)/GalilSup/Db/galil_digital_out_bit.template
+alias(  "$(P)$(DIG_OUT0)_STATUS",         "$(P)$(DIG_OUT0)-Sts")        # Digital output bit 0 state (read)
+alias(  "$(P)$(DIG_OUT0)_CMD",            "$(P)$(DIG_OUT0)-Sel")        # Digital output bit 0 state (set)
+alias(  "$(P)$(DIG_OUT1)_STATUS",         "$(P)$(DIG_OUT1)-Sts")        # Digital output bit 1 state (read)
+alias(  "$(P)$(DIG_OUT1)_CMD",            "$(P)$(DIG_OUT1)-Sel")        # Digital output bit 1 state (set)
+alias(  "$(P)$(DIG_OUT2)_STATUS",         "$(P)$(DIG_OUT2)-Sts")        # Digital output bit 2 state (read)
+alias(  "$(P)$(DIG_OUT2)_CMD",            "$(P)$(DIG_OUT2)-Sel")        # Digital output bit 2 state (set)
+alias(  "$(P)$(DIG_OUT3)_STATUS",         "$(P)$(DIG_OUT3)-Sts")        # Digital output bit 3 state (read)
+alias(  "$(P)$(DIG_OUT3)_CMD",            "$(P)$(DIG_OUT3)-Sel")        # Digital output bit 3 state (set)
+
+#####################################################################
+# HIGH LEVEL FEATURES
+#
+# Desc: Records that provide high level features to the IOC,
+# in order to allow easy control of it.
+
+# ??????????????????????????????
+#record(bo, "$(P)"){
+#  field(DESC, "?????????????????????")
+#}
+
+# ??????????????????????????????????
+#record(bi, "$(P)"){
+#  field(DESC, "???????????????????????")
+#}
