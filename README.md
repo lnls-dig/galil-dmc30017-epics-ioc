@@ -41,7 +41,7 @@ that you can specify (after `./runGalilDmc30017.sh`) are:
 - `-u UEIP`: option specifying whether driver should use encoder when it is present (no, yes)
 - `-y RTRY`: the movement retry count
 - `-n NTM`: option specifying whether motor shoukd track new target positions immediately or wait the previous move to finish (no, yes)
-- `-m MTRTYPE`: the motor type (, , , , )
+- `-m MTRTYPE`: the motor type (servo, rev-servo, ha-stepper, la-stepper, rev-ha-stepper, rev-la-stepper, pwm-servo, pwm-rev-servo, ethcat-pos, ethcat-torque, ethcat-rev-torque)
 - `-k MTRON`: option specifying whether motor should start powered on/off (no, yes)
 - `-g EGU`: the engineering units used
 - `-w DEFAULT_HOMETYPE`:  the home switch type, normal open (NO) or normal closed (NC)
