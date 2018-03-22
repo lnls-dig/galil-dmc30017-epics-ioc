@@ -11,11 +11,11 @@
 # Desc: Aliases for the Galil Driver records.
 
 # Motor Record
-# Source: $(GALIL)/GalilSup/Db/galil_motor.template
+# Source: <Galil support top directory>/GalilSup/Db/galil_motor.template
 alias(  "$(P)$(M)",                       "$(P)Mtr")                    # Standard Motor record which groups many of the motor's features
 
 # DMC Control records
-# Source: $(GALIL)/GalilSup/Db/galil_dmc_ctrl.template
+# Source: <Galil support top directory>/GalilSup/Db/galil_dmc_ctrl.template
 alias(  "$(P)MODEL_MON",                  "$(P)ControllerModel-Mon")    # Controller model monitor
 alias(  "$(P)ADDRESS_MON",                "$(P)ControllerAddr-Mon")     # Controller address monitor
 alias(  "$(P)LIMITTYPE_STATUS",           "$(P)LimSwType-Sts")          # Limit switch type configuration (read)
@@ -38,7 +38,7 @@ alias(  "$(P)SEND_STR_MON",               "$(P)Response-Mon")           # Last r
 alias(  "$(P)SEND_STRVAL_MON",            "$(P)ReponseVal-Mon")         # Display last response received when it is a number
 
 # Extra features not provided by Motor Record
-# Source: $(GALIL)/GalilSup/Db/galil_motor_extras.template
+# Source: <Galil support top directory>/GalilSup/Db/galil_motor_extras.template
 alias(  "$(P)$(M)_ESTALL_STATUS",         "$(P)Estall-Sts")             # Encoder stall status
 alias(  "$(P)$(M)_ESTALLTIME_MON",        "$(P)EstallTime-RB")          # Estall time read
 alias(  "$(P)$(M)_ESTALLTIME_SP",         "$(P)EstallTime-SP")          # Estall time set
@@ -59,8 +59,8 @@ alias(  "$(P)$(M)_EGUAFTLIMIT_MON",       "$(P)EguAfterLim-RB")         # EGU af
 alias(  "$(P)$(M)_EGUAFTLIMIT_SP",        "$(P)EguAfterLim-SP")         # EGU after limit (set)
 alias(  "$(P)$(M)_STATUS_POLL_DELAY_CMD", "$(P)PollFreq-SP")            # Control poll frequency for axis and encoder status (read)
 alias(  "$(P)$(M)_STATUS_POLL_DELAY_MON", "$(P)PollFreq-RB")            # Control poll frequency for axis and encoder status (set)
-alias(  "$(P)$(M)_HOMEALLOWED_CMD",       "$(P)HomeMove-Sel")           # Enable directions for homing (set)
-alias(  "$(P)$(M)_HOMEALLOWED_STATUS",    "$(P)HomeMove-Sts")           # Enable directions for homing (read)
+alias(  "$(P)$(M)_HOMEALLOWED_CMD",       "$(P)HomeEnblDir-Sel")        # Enable directions for homing (set)
+alias(  "$(P)$(M)_HOMEALLOWED_STATUS",    "$(P)HomeEnblDir-Sts")        # Enable directions for homing (read)
 alias(  "$(P)$(M)_STOPDELAY_MON",         "$(P)StopDelay-RB")           # Motor stop delay (read)
 alias(  "$(P)$(M)_STOPDELAY_SP",          "$(P)StopDelay-SP")           # Motor stop delay (set)
 alias(  "$(P)$(M)_AMPGAIN_CMD",           "$(P)AmpGain-Sel")            # Amplifier gain (set)
@@ -69,9 +69,9 @@ alias(  "$(P)$(M)_AMPCLGAIN_CMD",         "$(P)AmpCurrLoopGain-Sel")    # Amplif
 alias(  "$(P)$(M)_AMPCLGAIN_STATUS",      "$(P)AmpCurrLoopGain-Sts")    # Amplifier current loop gain (read)
 alias(  "$(P)$(M)_AMPLC_SP",              "$(P)LowCurrMode-SP")         # Specify period before going to low curr mode, or disable low curr mode for n=0 (set)
 alias(  "$(P)$(M)_AMPLC_MON",             "$(P)LowCurrMode-RB")         # Specify period before going to low curr mode, or disable low curr mode for n=0 (read)
-alias(  "$(P)$(M)_ERRLIMIT_SP",           "$(P)ErrLim-SP")              # Position error limit in counts (set)
-alias(  "$(P)$(M)_ERRLIMIT_MON",          "$(P)ErrLim-RB")              # Position error limit in counts (read)
-alias(  "$(P)$(M)_ERR_MON",               "$(P)ErrLim-Mon")             # Position error monitor
+alias(  "$(P)$(M)_ERRLIMIT_SP",           "$(P)PosErrLim-SP")           # Position error limit in counts (set)
+alias(  "$(P)$(M)_ERRLIMIT_MON",          "$(P)PosErrLim-RB")           # Position error limit in counts (read)
+alias(  "$(P)$(M)_ERR_MON",               "$(P)PosErr-Mon")             # Position error monitor
 alias(  "$(P)$(M)_VELOCITYRAW_MON",       "$(P)VeloRaw-Mon")            # Velocity monitor in counts/second
 alias(  "$(P)$(M)_VELOCITYEGU_MON",       "$(P)VeloEgu-Mon")            # Velocity monitor in engineering units
 alias(  "$(P)$(M)_OFFONERR_CMD",          "$(P)ErrLimType-Sel")         # Error state source (set)
@@ -106,7 +106,7 @@ alias(  "$(P)$(M)_ON_STATUS",             "$(P)AmpEnbl-Sts")            # Turn g
 alias(  "$(P)$(M)_ON_CMD",                "$(P)AmpEnbl-Sel")            # Turn galil amplifier on/off (set)
 
 # Digital outputs control
-# Source: $(GALIL)/GalilSup/Db/galil_digital_out_bit.template
+# Source: <Galil support top directory>/GalilSup/Db/galil_digital_out_bit.template
 alias(  "$(P)$(DIG_OUT0)_STATUS",         "$(P)$(DIG_OUT0)-Sts")        # Digital output bit 0 state (read)
 alias(  "$(P)$(DIG_OUT0)_CMD",            "$(P)$(DIG_OUT0)-Sel")        # Digital output bit 0 state (set)
 alias(  "$(P)$(DIG_OUT1)_STATUS",         "$(P)$(DIG_OUT1)-Sts")        # Digital output bit 1 state (read)
@@ -117,7 +117,7 @@ alias(  "$(P)$(DIG_OUT3)_STATUS",         "$(P)$(DIG_OUT3)-Sts")        # Digita
 alias(  "$(P)$(DIG_OUT3)_CMD",            "$(P)$(DIG_OUT3)-Sel")        # Digital output bit 3 state (set)
 
 # Digital inputs control
-# Source: $(GALIL)/GalilSup/Db/galil_digital_in_bit.template
+# Source: <Galil support top directory>/GalilSup/Db/galil_digital_in_bit.template
 alias(  "$(P)$(DIG_IN0)_STATUS",          "$(P)$(DIG_IN0)-Mon")        # Digital input bit 0 monitor
 alias(  "$(P)$(DIG_IN1)_STATUS",          "$(P)$(DIG_IN1)-Mon")        # Digital input bit 1 monitor
 alias(  "$(P)$(DIG_IN2)_STATUS",          "$(P)$(DIG_IN2)-Mon")        # Digital input bit 2 monitor
@@ -128,7 +128,7 @@ alias(  "$(P)$(DIG_IN6)_STATUS",          "$(P)$(DIG_IN6)-Mon")        # Digital
 alias(  "$(P)$(DIG_IN7)_STATUS",          "$(P)$(DIG_IN7)-Mon")        # Digital input bit 7 monitor
 
 # Analog outputs control
-# Source: $(GALIL)/GalilSup/Db/galil_analog_out.template
+# Source: <Galil support top directory>/GalilSup/Db/galil_analog_out.template
 alias(  "$(P)$(ANALOG_OUT0)_MON",         "$(P)$(ANALOG_OUT0)-RB")     # Analog output 0 state (read)
 alias(  "$(P)$(ANALOG_OUT0)_SP",          "$(P)$(ANALOG_OUT0)-SP")     # Analog output 0 state (set)
 alias(  "$(P)$(ANALOG_OUT0)Deadb_SP",     "$(P)$(ANALOG_OUT0)DeadBand-SP")     # Analog output 0 deadband state (set)
@@ -140,7 +140,7 @@ alias(  "$(P)$(ANALOG_OUT1)Deadb_SP",     "$(P)$(ANALOG_OUT1)DeadBand-SP")     #
 alias(  "$(P)$(ANALOG_OUT1)Deadb_SP",     "$(P)$(ANALOG_OUT1)DeadBand-RB")     # Analog output 1 deadband dummy readback
 
 # Analog inputs control
-# Source: $(GALIL)/GalilSup/Db/galil_analog_in.template
+# Source: <Galil support top directory>/GalilSup/Db/galil_analog_in.template
 alias(  "$(P)$(ANALOG_IN0)_MON",         "$(P)$(ANALOG_IN0)-Mon")     # Analog input 0 monitor
 alias(  "$(P)$(ANALOG_IN0)Deadb_SP",     "$(P)$(ANALOG_IN0)DeadBand-SP")     # Analog input 0 deadband state (set)
 alias(  "$(P)$(ANALOG_IN0)Deadb_SP",     "$(P)$(ANALOG_IN0)DeadBand-RB")     # Analog input 0 deadband dummy readback
@@ -209,5 +209,170 @@ record(calcout, "$(P)StoreEncPosCalc"){
   field(OCAL, "A")                                                    # Value to be transferred
   field(OOPT, "When Non-zero")
   field(DOPT, "Use OCAL")
-  field(OUT, "$(P)StoredPos-SP PP")                                      # Transfer encoder position to stored position
+  field(OUT, "$(P)StoredPos-SP PP")                                   # Transfer encoder position to stored position
+}
+
+#####################################################################
+# HIGH LEVEL RECORDS FOR MOTOR FIELDS
+#
+# Desc: High Level records that fit the most relevant Motor Record
+# fields into the Sirius Naming Standard.
+
+# DIFF - Difference between motor DVAL and DRBV.
+record(ai, "$(P)PosDiff-Mon"){
+  field(DESC, "Encoder read and commanded position diff")
+  field(EGU, "$(EGU)")
+  field(PREC, "$(PREC)")
+  field(INP, "$(P)$(M).DIFF CPP")
+}
+
+# DMOV - Done moving to value.
+record(bi, "$(P)DoneMov-Mon"){
+  field(DESC, "Motor is done moving flag")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(INP, "$(P)$(M).DMOV CPP")
+}
+
+# HLS - At High Limit Switch.
+record(bi, "$(P)HighLimSw-Mon"){
+  field(DESC, "At high limit switch flag")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(INP, "$(P)$(M).HLS CPP")
+}
+
+# HOME - Depending on DIR, move back to home using jog function
+# Unlike the Home functions, the Jog functions adapt themselves to the DIR value
+record(bo, "$(P)Home-Cmd"){
+  field(DESC, "Homing command")
+  field(ZNAM, "Off")
+  field(ONAM, "On")
+  field(HIGH, "0.5")
+  field(FLNK, "$(P)HomeCalc")
+}
+
+# Validate the homing command
+record(calcout, "$(P)HomeCalc"){
+  field(DESC, "Home command calc")
+  field(INPA, "$(P)Home-Cmd")
+  field(CALC, "A=0?0:1")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(M).JOGR PP")
+}
+
+# LLS - At Low Limit Switch.
+record(bi, "$(P)LowLimSw-Mon"){
+  field(DESC, "At low limit switch flag")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(INP, "$(P)$(M).LLS CPP")
+}
+
+# RBV - User Readback Value.
+record(ai, "$(P)EncPos-Mon"){
+  field(DESC, "Encoder position")
+  field(EGU, "$(EGU)")
+  field(PREC, "$(PREC)")
+  field(INP, "$(P)$(M).RBV CPP")
+}
+
+# RLV - Relative Value.
+record(ao, "$(P)MoveRelative-Cmd"){
+  field(DESC, "Move a relative distance")
+  field(EGU, "$(EGU)")
+  field(PREC, "$(PREC)")
+  field(OUT, "$(P)$(M).RLV PP")
+}
+
+# STOP - Stop Move.
+record(bo, "$(P)Stop-Cmd"){
+  field(DESC, "Stop motor command")
+  field(ZNAM, "Off")
+  field(ONAM, "On")
+  field(HIGH, "0.5")
+  field(FLNK, "$(P)StopCalc")
+}
+
+# Validate stop motor command
+record(calcout, "$(P)StopCalc"){
+  field(DESC, "Validate stop command")
+  field(INPA, "$(P)Stop-Cmd")
+  field(CALC, "A")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(M).STOP PP")
+}
+
+# TWF - Tweak motor Forward.
+record(bo, "$(P)TweakFwd-Cmd"){
+  field(DESC, "Move motor a tweak step size forward")
+  field(ZNAM, "Off")
+  field(ONAM, "On")
+  field(HIGH, "0.5")
+  field(OUT, "$(P)$(M).TWF PP")
+}
+
+# TWR - Tweak motor Reverse.
+record(bo, "$(P)TweakBack-Cmd"){
+  field(DESC, "Move motor a tweak step size back")
+  field(ZNAM, "Off")
+  field(ONAM, "On")
+  field(HIGH, "0.5")
+  field(OUT, "$(P)$(M).TWR PP")
+}
+
+# TWV - Tweak Step Size (EGU).
+record(ao, "$(P)TweakStep-SP"){
+  field(DESC, "Step size used in tweak moves")
+  field(EGU, "$(EGU)")
+  field(PREC, "$(PREC)")
+  field(OUT, "$(P)$(M).TWV PP")
+  field(FLNK, "$(P)TweakStep-RB")
+}
+
+# Tweak Step Size Readback
+record(ai, "$(P)TweakStep-RB"){
+  field(DESC, "Step size used in tweak moves RB")
+  field(EGU, "$(EGU)")
+  field(PREC, "$(PREC)")
+  field(INP, "$(P)$(M).TWV CPP")
+}
+
+# VAL - User Desired Absolute Position Value.
+record(ao, "$(P)AbsPos-SP"){
+  field(DESC, "Move to an absolute position")
+  field(EGU, "$(EGU)")
+  field(PREC, "$(PREC)")
+  field(OUT, "$(P)$(M).VAL PP")
+}
+
+# Absolute Position Readback Value.
+record(ai, "$(P)AbsPos-RB"){
+  field(DESC, "Absolute position RB")
+  field(EGU, "$(EGU)")
+  field(PREC, "$(PREC)")
+  field(INP, "$(P)$(M).VAL CPP")
+}
+
+#####################################################################
+# INITIALIZATION AND AUTO CONFIGURATION
+#
+# Desc: High Level initialization and auto-configuration operations.
+
+# Auto update jog acceleration
+# Since jog is used by high level for homing, it is the homing acceleration
+record(calcout, "$(P)JogAccAutoConfig"){
+  field(DESC, "Transform acc. period to jog acc.")
+  field(INPA, "$(P)$(M).ACCL CPP")
+  field(INPB, "$(P)$(M).VELO CPP")
+  field(CALC, "B/A")
+  field(OUT, "$(P)$(M).JAR PP")
+}
+
+record(seq, "$(P)AutoConfig"){
+  field(DESC, "High level auto configuration")
+  field(SELM, "All")
+  field(DOL1, "$(P)$(M).VELO CPP")                                    # Motor velocity should be transferred to jog velocity
+  field(LNK1, "$(P)$(M).JVEL PP")                                     # Jog acceleration <= motor acceleration
+  field(PINI, "YES")
 }

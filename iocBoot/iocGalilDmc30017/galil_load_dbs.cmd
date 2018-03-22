@@ -7,14 +7,14 @@
 # -----------------------
 #  Motor record features 
 # -----------------------
-dbLoadRecords("$(GALIL)/GalilSup/Db/galil_motor.template", "P=$(PREFIX), M=$(M), PORT=$(PORT), ADDR=0, EGU=$(EGU), DESC=, VELO=$(VELO),  VMAX=$(VMAX), ACCL=$(ACCL), BDST=$(BDST), BVEL=$(BVEL), BACC=$(BACC), MRES=$(MRES), SREV=$(SREV), ERES=$(ERES), PREC=6, DHLM=$(DHLM), DLLM=$(DLLM), OFF=$(OFF), UEIP=$(UEIP), RTRY=$(RTRY), NTM=$(NTM), PCOF=0, ICOF=0, DCOF=0")
+dbLoadRecords("$(GALIL)/GalilSup/Db/galil_motor.template", "P=$(PREFIX), M=$(M), PORT=$(PORT), ADDR=0, EGU=$(EGU), DESC=, VELO=$(VELO),  VMAX=$(VMAX), ACCL=$(ACCL), BDST=$(BDST), BVEL=$(BVEL), BACC=$(BACC), MRES=$(MRES), SREV=$(SREV), ERES=$(ERES), PREC=${PREC}, DHLM=$(DHLM), DLLM=$(DLLM), OFF=$(OFF), UEIP=$(UEIP), RTRY=$(RTRY), NTM=$(NTM), PCOF=0, ICOF=0, DCOF=0")
 
 # ----------------------------------------------------
 # Additional features to Motor record's functionality
 # ----------------------------------------------------
-dbLoadRecords("$(GALIL)/GalilSup/Db/galil_motor_extras.template", "P=$(PREFIX), M=$(M), PORT=$(PORT), ADDR=0, PREC=6, SCAN=Passive, MTRTYPE=$(MTRTYPE), MTRON=$(MTRON), EGU=$(EGU)")
+dbLoadRecords("$(GALIL)/GalilSup/Db/galil_motor_extras.template", "P=$(PREFIX), M=$(M), PORT=$(PORT), ADDR=0, PREC=${PREC}, SCAN=Passive, MTRTYPE=$(MTRTYPE), MTRON=$(MTRON), EGU=$(EGU)")
 
-dbLoadRecords("$(GALIL)/GalilSup/Db/galil_dmc_ctrl.template", "P=$(PREFIX), PORT=$(PORT), SCAN=Passive, DEFAULT_HOMETYPE=$(DEFAULT_HOMETYPE), DEFAULT_LIMITTYPE=$(DEFAULT_LIMITTYPE), PREC=6")
+dbLoadRecords("$(GALIL)/GalilSup/Db/galil_dmc_ctrl.template", "P=$(PREFIX), PORT=$(PORT), SCAN=Passive, DEFAULT_HOMETYPE=$(DEFAULT_HOMETYPE), DEFAULT_LIMITTYPE=$(DEFAULT_LIMITTYPE), PREC=${PREC}")
 
 # ----------------
 # Digital outputs
@@ -55,14 +55,14 @@ dbLoadRecords("$(GALIL)/GalilSup/Db/galil_digital_in_bit.template", "P=$(PREFIX)
 # Analog outputs
 # ---------------
 
-dbLoadRecords("$(GALIL)/GalilSup/Db/galil_analog_out.template", "P=$(PREFIX), R=$(ANALOG_OUT0), PORT=$(PORT), ADDR=1, PREC=6, LOPR=-10, HOPR=10")
+dbLoadRecords("$(GALIL)/GalilSup/Db/galil_analog_out.template", "P=$(PREFIX), R=$(ANALOG_OUT0), PORT=$(PORT), ADDR=1, PREC=${PREC}, LOPR=-10, HOPR=10")
 
-dbLoadRecords("$(GALIL)/GalilSup/Db/galil_analog_out.template", "P=$(PREFIX), R=$(ANALOG_OUT1), PORT=$(PORT), ADDR=2, PREC=6, LOPR=-10, HOPR=10")
+dbLoadRecords("$(GALIL)/GalilSup/Db/galil_analog_out.template", "P=$(PREFIX), R=$(ANALOG_OUT1), PORT=$(PORT), ADDR=2, PREC=${PREC}, LOPR=-10, HOPR=10")
 
 # --------------
 # Analog inputs
 # --------------
 
-dbLoadRecords("$(GALIL)/GalilSup/Db/galil_analog_in.template", "P=$(PREFIX), R=$(ANALOG_IN0), PORT=$(PORT), ADDR=1, SCAN=I/O Intr, PREC=6")
+dbLoadRecords("$(GALIL)/GalilSup/Db/galil_analog_in.template", "P=$(PREFIX), R=$(ANALOG_IN0), PORT=$(PORT), ADDR=1, SCAN=I/O Intr, PREC=${PREC}")
 
-dbLoadRecords("$(GALIL)/GalilSup/Db/galil_analog_in.template", "P=$(PREFIX), R=$(ANALOG_IN1), PORT=$(PORT), ADDR=2, SCAN=I/O Intr, PREC=6")
+dbLoadRecords("$(GALIL)/GalilSup/Db/galil_analog_in.template", "P=$(PREFIX), R=$(ANALOG_IN1), PORT=$(PORT), ADDR=2, SCAN=I/O Intr, PREC=${PREC}")
