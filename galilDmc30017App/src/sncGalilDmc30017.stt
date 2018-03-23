@@ -1,0 +1,134 @@
+program sncGalilDmc30017
+
+%%//----------------------------------------
+%%// 	      Variables
+%%//----------------------------------------
+
+
+
+%%//----------------------------------------
+%%// 	      Monitored PVs
+%%//----------------------------------------
+
+int home_cmd;
+assign home_cmd to "{P}Home-Cmd.VAL";
+monitor home_cmd;
+evflag home_cmd_Flag;
+sync home_cmd home_cmd_Flag;
+
+int low_limit_switch;
+assign low_limit_switch to "{P}{M}.LLS";
+monitor low_limit_switch;
+
+int done_moving;
+assign done_moving to "{P}{M}.DMOV";
+monitor done_moving;
+
+int position;
+assign position to "{P}{M}.VAL";
+
+int cmd_mode;
+assign cmd_mode to "{P}{M}.SET";
+
+int rst_pos_enbl;
+assign rst_pos_enbl to "{P}RstPosAfterHome-Sts";
+monitor rst_pos_enbl;
+
+%%//----------------------------------------
+%%// 	    State Notation Language
+%%//----------------------------------------
+
+ss homing {
+
+    state init {
+
+	when ( efTestAndClear(home_cmd_Flag) && home_cmd == 1){
+
+		%{/* Go to the homing started state */}%
+
+	} state started
+    }
+
+    state started {
+	
+	when (done_moving == 0){
+
+		%{/* Motor started moving */}%
+
+	} state wait
+
+	when (delay(1)){
+
+		%{/* Could not move for some reason */}%
+
+	} state init
+
+    }
+
+    state wait {
+
+        when (done_moving != 0) {
+
+            %{/* The motor has stopped moving */}%
+
+        } state stopped
+
+    }
+
+    state stopped {
+
+        when (rst_pos_enbl == 0) {
+
+            %{/* Position reset in homing is disabled, nothing to be done */}%
+
+        } state init
+
+	when (delay(1) && low_limit_switch == 0) {
+
+		%{/* Stopped moving without completing homing procedure */}%
+
+                %%// DEBUGGING
+		printf("[GALIL STATE MACHINE]: Motor stopped moving without completing homing.\n");
+
+	} state init
+
+	when (low_limit_switch != 0) {
+
+		%{/* The low limit switch has been hit */}%
+
+	} state reset_pos
+
+    }
+
+    state reset_pos {
+
+        entry {
+
+            %%// Set motor position command mode to "Set", instead of "Use"
+	    cmd_mode = 1;
+	    pvPut(cmd_mode, SYNC);
+
+            %%// Update position value
+            pvGet(position);
+        }
+
+        when ((delay(0.2)) && (position != 0)) {
+
+            %%// Reset absolute and encoder positions
+	    position = 0;
+	    pvPut(position, SYNC);
+
+        } state reset_pos
+
+        when ((delay(0.4)) && (position == 0)) {
+
+            %%// Set motor position command mode back to "Use"
+            cmd_mode = 0;
+            pvPut(cmd_mode, SYNC);
+
+        } state init
+
+    }
+	
+}
+

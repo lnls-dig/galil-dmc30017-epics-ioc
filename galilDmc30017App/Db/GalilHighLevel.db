@@ -212,6 +212,24 @@ record(calcout, "$(P)StoreEncPosCalc"){
   field(OUT, "$(P)StoredPos-SP PP")                                   # Transfer encoder position to stored position
 }
 
+# Reset Position After Homing
+# This record is used by a sequencer state machine
+record(bo, "$(P)RstPosAfterHome-Sel"){
+  field(DESC, "Reset position after homing")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(FLNK, "$(P)RstPosAfterHome-Sts")
+}
+
+# Reset Position After Homing status
+# This record is used by a sequencer state machine
+record(bi, "$(P)RstPosAfterHome-Sts"){
+  field(DESC, "Reset position after homing status")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(INP, "$(P)RstPosAfterHome-Sel")
+}
+
 #####################################################################
 # HIGH LEVEL RECORDS FOR MOTOR FIELDS
 #

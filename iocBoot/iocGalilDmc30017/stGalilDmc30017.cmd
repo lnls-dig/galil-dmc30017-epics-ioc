@@ -36,6 +36,11 @@ iocInit
 # Set controller gain to comply with motor rated current
 dbpf "DMC01:A_AMPGAIN_CMD" "1"
 
+## Start any sequence programs
+
+# Auxiliary tasks
+seq sncGalilDmc30017, "P=$(PREFIX), M=$(M)"
+
 # save things every 5 seconds
 create_monitor_set("auto_settings_galil_dmc30017.req", 5,"P=$(PREFIX), M=$(M), EGU=$(EGU), PREC=$(PREC), DIG_OUT0=$(DIG_OUT0), DIG_OUT1=$(DIG_OUT1), DIG_OUT2=$(DIG_OUT2), DIG_OUT3=$(DIG_OUT3), DIG_IN0=$(DIG_IN0), DIG_IN1=$(DIG_IN1), DIG_IN2=$(DIG_IN2), DIG_IN3=$(DIG_IN3), DIG_IN4=$(DIG_IN4), DIG_IN5=$(DIG_IN5), DIG_IN6=$(DIG_IN6), DIG_IN7=$(DIG_IN7), ANALOG_OUT0=$(ANALOG_OUT0), ANALOG_OUT1=$(ANALOG_OUT1), ANALOG_IN0=$(ANALOG_IN0), ANALOG_IN1=$(ANALOG_IN1)")
 # The following line is necessary because of the save file name used in save_restore.cmd
