@@ -387,6 +387,29 @@ record(calcout, "$(P)JogAccAutoConfig"){
   field(OUT, "$(P)$(M).JAR PP")
 }
 
+# Value of amplifier gain macro passed
+# by the user
+record(stringin, "$(P)AmpGainMacro-Cte"){
+  field(DESC, "Amp gain macro passed by user")
+  field(VAL, "$(AMP_GAIN)")
+}
+
+# Initialize $(P)AmpGain-Sel if a macro
+# was passed on startup by the user
+record(scalcout, "$(P)ApplyAmpGainMacro"){
+  field(DESC, "Initialize amp gain if macro not empty")
+  field(PINI, "YES")
+  field(INAA, "$(P)AmpGainMacro-Cte")
+  field(CALC, "len(AA)=0?0:1")
+  field(OCAL, "AA")
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
+  field(ODLY, "2")                                                    # Wait a little bit so that the motor type can be set
+  field(OUT, "$(P)AmpGain-Sel PP")
+}
+
+# Automatically set Jog velocity to keep 
+# being the same as the motor velocity
 record(seq, "$(P)AutoConfig"){
   field(DESC, "High level auto configuration")
   field(SELM, "All")

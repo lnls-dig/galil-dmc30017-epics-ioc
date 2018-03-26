@@ -21,7 +21,7 @@ epicsEnvSet("IOC_APP_DIR", "${TOP}/galilDmc30017App")
 < galil_load_dbs.cmd
 
 ## Load Sirius-standard high level records and aliases
-dbLoadRecords("$(TOP)/db/GalilHighLevel.db", "P=$(PREFIX), M=$(M), EGU=$(EGU), PREC=$(PREC), DIG_OUT0=$(DIG_OUT0), DIG_OUT1=$(DIG_OUT1), DIG_OUT2=$(DIG_OUT2), DIG_OUT3=$(DIG_OUT3), DIG_IN0=$(DIG_IN0), DIG_IN1=$(DIG_IN1), DIG_IN2=$(DIG_IN2), DIG_IN3=$(DIG_IN3), DIG_IN4=$(DIG_IN4), DIG_IN5=$(DIG_IN5), DIG_IN6=$(DIG_IN6), DIG_IN7=$(DIG_IN7), ANALOG_OUT0=$(ANALOG_OUT0), ANALOG_OUT1=$(ANALOG_OUT1), ANALOG_IN0=$(ANALOG_IN0), ANALOG_IN1=$(ANALOG_IN1)")
+dbLoadRecords("$(TOP)/db/GalilHighLevel.db", "P=$(PREFIX), M=$(M), EGU=$(EGU), AMP_GAIN=$(AMP_GAIN), PREC=$(PREC), DIG_OUT0=$(DIG_OUT0), DIG_OUT1=$(DIG_OUT1), DIG_OUT2=$(DIG_OUT2), DIG_OUT3=$(DIG_OUT3), DIG_IN0=$(DIG_IN0), DIG_IN1=$(DIG_IN1), DIG_IN2=$(DIG_IN2), DIG_IN3=$(DIG_IN3), DIG_IN4=$(DIG_IN4), DIG_IN5=$(DIG_IN5), DIG_IN6=$(DIG_IN6), DIG_IN7=$(DIG_IN7), ANALOG_OUT0=$(ANALOG_OUT0), ANALOG_OUT1=$(ANALOG_OUT1), ANALOG_IN0=$(ANALOG_IN0), ANALOG_IN1=$(ANALOG_IN1)")
 
 ## Galil Driver required functions
 
@@ -32,9 +32,6 @@ GalilStartController("$(PORT)", "", 1, 0)
 < save_restore.cmd
 
 iocInit
-
-# Set controller gain to comply with motor rated current
-dbpf "DMC01:A_AMPGAIN_CMD" "1"
 
 ## Start any sequence programs
 

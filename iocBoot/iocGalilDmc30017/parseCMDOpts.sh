@@ -43,6 +43,7 @@ while [ "$#" -gt 0 ]; do
 	                         "ethcat-pos") MTRTYPE="8" ;; # EtherCat Position
 	                         "ethcat-torque") MTRTYPE="9" ;; # EtherCat Torque
 	                         "ethcat-rev-torque") MTRTYPE="10" ;; # EtherCat Rev Torque
+                                 *) MTRTYPE="0" ;; # Servo, if no option passed
                             esac
                             ;;
         "-k"|"--motor-on") if [ "$(echo "$2" | tr "[:upper:]" "[:lower:]")" = "yes" ]; then
@@ -64,6 +65,18 @@ while [ "$#" -gt 0 ]; do
                                        DEFAULT_LIMITTYPE="1" # normal closed
                                    fi
                                    ;;
+        "-G"|"--amplifier-gain") case "$(echo "$2" | tr "[:upper:]" "[:lower:]")" in
+                                 "0") AMP_GAIN="0" ;; # 0.75 A for stepper, 0.4 A for servo
+                                 "1") AMP_GAIN="1" ;; # 1.5 A for stepper, 0.8 A for servo
+	                         "2") AMP_GAIN="2" ;; # 3 A for stepper, 1.6 A for servo
+	                         "3") AMP_GAIN="3" ;; # 6 A for stepper, N/A
+	                         "zero") AMP_GAIN="0" ;; # 0.75 A for stepper, 0.4 A for servo
+	                         "one") AMP_GAIN="1" ;; # 1.5 A for stepper, 0.8 A for servo
+	                         "two") AMP_GAIN="2" ;; # 3 A for stepper, 1.6 A for servo
+	                         "three") AMP_GAIN="3" ;; # 6 A for stepper, N/A
+	                         *) AMP_GAIN="0" ;; # Least gain, if no option specified
+                            esac
+                            ;;
         *) echo "Usage:" >&2
             echo "  $0 -i IPADDR -p IPPORT [-P P_VAL] [-R R_VAL]" >&2
             echo >&2
@@ -92,6 +105,7 @@ while [ "$#" -gt 0 ]; do
             echo "  -g or --egu                    Configure engineering units" >&2
             echo "  -w or --home-switch-type       Configure home switch type (NO/NC)" >&2
             echo "  -z or --limit-switch-type      Configure limit switch type (NO/NC)" >&2
+            echo "  -G or --amplifier-gain         Configure amplifier gain (0, 1, 2, 3). See dmc30017 manual for the current corresponding to each option." >&2
             exit 2
     esac
 

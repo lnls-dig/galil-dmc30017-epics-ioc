@@ -25,6 +25,7 @@ DMC30017_1_MTRON=No             # Configure motor to start powered on/off
 DMC30017_1_EGU=mm               # Engineering units used
 DMC30017_1_DEFAULT_HOMETYPE=NC  # Default home switch type, normal open (NO) or normal closed (NC)
 DMC30017_1_DEFAULT_LIMITTYPE=NC # Default limit switch type, normal open (NO) or normal closed (NC)
+DMC30017_1_AMP_GAIN=0           # Default amplifier gain option
 
 # --- DMC30017 XX ---
 
@@ -53,4 +54,5 @@ DMC30017_XX_MTRON=
 DMC30017_XX_EGU=
 DMC30017_XX_DEFAULT_HOMETYPE=
 DMC30017_XX_DEFAULT_LIMITTYPE=
+DMC30017_XX_AMP_GAIN=
 
