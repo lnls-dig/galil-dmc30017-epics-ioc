@@ -1,3 +1,12 @@
-# High level PVs that should be saved
+## High level PVs that should be saved
+
+# Special position stored for later use
 $(P)StoredPos-SP
 $(P)StoredPos-RB
+
+# Should reset position value to configured Home position
+# after a Home procedure?
+$(P)RstPosAfterHome-Sel
+
+# Reference Home position value
+$(P)RefHomePos-SP

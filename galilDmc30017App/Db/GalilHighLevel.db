@@ -235,6 +235,7 @@ record(calcout, "$(P)ValidHomeToLimSw"){
 # This record is used by a sequencer state machine
 record(bo, "$(P)RstPosAfterHome-Sel"){
   field(DESC, "Reset position after homing")
+  field(PINI, "YES")
   field(ZNAM, "No")
   field(ONAM, "Yes")
   field(FLNK, "$(P)RstPosAfterHome-Sts")
@@ -287,6 +288,7 @@ record(sseq, "$(P)RstPosSeq"){
 # Reference position for Home
 record(ao, "$(P)RefHomePos-SP"){
   field(DESC, "Reference position for Home")
+  field(PINI, "YES")
   field(PREC, "$(PREC)")
   field(FLNK, "$(P)RefHomePos-RB")
 }
