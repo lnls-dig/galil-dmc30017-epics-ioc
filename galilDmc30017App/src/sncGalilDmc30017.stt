@@ -10,11 +10,11 @@ program sncGalilDmc30017
 %%// 	      Monitored PVs
 %%//----------------------------------------
 
-int home_cmd;
-assign home_cmd to "{P}Home-Cmd.VAL";
-monitor home_cmd;
-evflag home_cmd_Flag;
-sync home_cmd home_cmd_Flag;
+int home_limsw_cmd;
+assign home_limsw_cmd to "{P}HomeToLimSw-Cmd.VAL";
+monitor home_limsw_cmd;
+evflag home_limsw_cmd_Flag;
+sync home_limsw_cmd home_limsw_cmd_Flag;
 
 int low_limit_switch;
 assign low_limit_switch to "{P}{M}.LLS";
@@ -34,6 +34,9 @@ int rst_pos_enbl;
 assign rst_pos_enbl to "{P}RstPosAfterHome-Sts";
 monitor rst_pos_enbl;
 
+int rst_pos_cmd;
+assign rst_pos_cmd to "{P}RstPos-Cmd";
+
 %%//----------------------------------------
 %%// 	    State Notation Language
 %%//----------------------------------------
@@ -42,7 +45,7 @@ ss homing {
 
     state init {
 
-	when ( efTestAndClear(home_cmd_Flag) && home_cmd == 1){
+	when ( efTestAndClear(home_limsw_cmd_Flag) && home_limsw_cmd == 1){
 
 		%{/* Go to the homing started state */}%
 
@@ -94,41 +97,17 @@ ss homing {
 
 	when (low_limit_switch != 0) {
 
-		%{/* The low limit switch has been hit */}%
+		%{/* The low limit switch has been hit.
+                     Set the motor position to the home reference value,
+                     without moving the motor. */}%
 
-	} state reset_pos
+                %%// Reset position
+                rst_pos_cmd = 1;
+                pvPut(rst_pos_cmd, SYNC);
 
-    }
-
-    state reset_pos {
-
-        entry {
-
-            %%// Set motor position command mode to "Set", instead of "Use"
-	    cmd_mode = 1;
-	    pvPut(cmd_mode, SYNC);
-
-            %%// Update position value
-            pvGet(position);
-        }
-
-        when ((delay(0.2)) && (position != 0)) {
-
-            %%// Reset absolute and encoder positions
-	    position = 0;
-	    pvPut(position, SYNC);
-
-        } state reset_pos
-
-        when ((delay(0.4)) && (position == 0)) {
-
-            %%// Set motor position command mode back to "Use"
-            cmd_mode = 0;
-            pvPut(cmd_mode, SYNC);
-
-        } state init
+	} state init
 
     }
-	
+
 }
 

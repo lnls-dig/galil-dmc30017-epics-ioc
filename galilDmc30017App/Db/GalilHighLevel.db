@@ -212,6 +212,25 @@ record(calcout, "$(P)StoreEncPosCalc"){
   field(OUT, "$(P)StoredPos-SP PP")                                   # Transfer encoder position to stored position
 }
 
+# Homing - Depending on DIR, move back to home using jog function
+# Unlike the Home functions, the Jog functions adapt themselves to the DIR value
+record(bo, "$(P)HomeToLimSw-Cmd"){
+  field(DESC, "Homing command")
+  field(ZNAM, "Off")
+  field(ONAM, "On")
+  field(HIGH, "0.5")
+  field(FLNK, "$(P)ValidHomeToLimSw")
+}
+
+# Validate the homing command
+record(calcout, "$(P)ValidHomeToLimSw"){
+  field(DESC, "Home command calc")
+  field(INPA, "$(P)HomeToLimSw-Cmd")
+  field(CALC, "A=0?0:1")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)$(M).JOGR PP")
+}
+
 # Reset Position After Homing
 # This record is used by a sequencer state machine
 record(bo, "$(P)RstPosAfterHome-Sel"){
@@ -228,6 +247,55 @@ record(bi, "$(P)RstPosAfterHome-Sts"){
   field(ZNAM, "No")
   field(ONAM, "Yes")
   field(INP, "$(P)RstPosAfterHome-Sel")
+}
+
+# Set Position to Home Reference Position
+# Set the motor commanded and readback positions to a given value
+# without moving the motor.
+record(bo, "$(P)RstPos-Cmd"){
+  field(DESC, "Rst motor position without moving motor")
+  field(ZNAM, "Off")
+  field(ONAM, "On")
+  field(HIGH, "0.5")
+  field(FLNK, "$(P)ValidRstPos")
+}
+
+# Validate the reset position command
+record(calcout, "$(P)ValidRstPos"){
+  field(DESC, "Validate rst position cmd")
+  field(INPA, "$(P)RstPos-Cmd")
+  field(CALC, "A")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)RstPosSeq.PROC PP")
+}
+
+# Sequence for setting position without moving motor
+record(sseq, "$(P)RstPosSeq"){
+  field(DESC, "Set pos without moving motor sequence")
+  field(SELM, "All")
+  field(STR1, "Set")
+  field(DOL2, "$(P)RefHomePos-RB")
+  field(STR3, "Use")
+  field(LNK1, "$(P)$(M).SET CA")
+  field(LNK2, "$(P)$(M).VAL CA")
+  field(LNK3, "$(P)$(M).SET CA")
+  field(WAIT1, "Wait")                                                # Wait for link 1 to finish processing
+  field(WAIT2, "Wait")                                                # Wait for link 2 to finish processing
+  field(WAIT3, "Wait")                                                # Wait for link 3 to finish processing
+}
+
+# Reference position for Home
+record(ao, "$(P)RefHomePos-SP"){
+  field(DESC, "Reference position for Home")
+  field(PREC, "$(PREC)")
+  field(FLNK, "$(P)RefHomePos-RB")
+}
+
+# Reference position for Home readback
+record(ai, "$(P)RefHomePos-RB"){
+  field(DESC, "Reference position for Home RB")
+  field(PREC, "$(PREC)")
+  field(INP, "$(P)RefHomePos-SP")
 }
 
 #####################################################################
@@ -258,25 +326,6 @@ record(bi, "$(P)HighLimSw-Mon"){
   field(ZNAM, "No")
   field(ONAM, "Yes")
   field(INP, "$(P)$(M).HLS CPP")
-}
-
-# HOME - Depending on DIR, move back to home using jog function
-# Unlike the Home functions, the Jog functions adapt themselves to the DIR value
-record(bo, "$(P)Home-Cmd"){
-  field(DESC, "Homing command")
-  field(ZNAM, "Off")
-  field(ONAM, "On")
-  field(HIGH, "0.5")
-  field(FLNK, "$(P)HomeCalc")
-}
-
-# Validate the homing command
-record(calcout, "$(P)HomeCalc"){
-  field(DESC, "Home command calc")
-  field(INPA, "$(P)Home-Cmd")
-  field(CALC, "A=0?0:1")
-  field(OOPT, "When Non-zero")
-  field(OUT, "$(P)$(M).JOGR PP")
 }
 
 # LLS - At Low Limit Switch.
