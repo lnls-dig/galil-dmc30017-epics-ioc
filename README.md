@@ -50,11 +50,11 @@ that you can specify (after `./runGalilDmc30017.sh`) are:
 
 Obs:
 
-...DMC30017 configuration options only take effect when there is no
+⋅⋅⋅DMC30017 configuration options only take effect when there is no
 autosave file to use in startup. The amplifier gain option is the
 only exception, taking precedence over the autosave value when defined.
 
-...The motor type option only takes effect if the DMC30017 amplifier
+⋅⋅⋅The motor type option only takes effect if the DMC30017 amplifier
 is powered off before starting the IOC. This restriction does not
 prevent the IOC from setting the motor type while also powering
 the amplifier on at startup.
