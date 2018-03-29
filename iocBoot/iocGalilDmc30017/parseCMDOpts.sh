@@ -43,7 +43,7 @@ while [ "$#" -gt 0 ]; do
 	                         "ethcat-pos") MTRTYPE="8" ;; # EtherCat Position
 	                         "ethcat-torque") MTRTYPE="9" ;; # EtherCat Torque
 	                         "ethcat-rev-torque") MTRTYPE="10" ;; # EtherCat Rev Torque
-                                 *) MTRTYPE="0" ;; # Servo, if no option passed
+                                 *) MTRTYPE="" ;; # Motor type is undefined
                             esac
                             ;;
         "-k"|"--motor-on") if [ "$(echo "$2" | tr "[:upper:]" "[:lower:]")" = "yes" ]; then
@@ -74,7 +74,31 @@ while [ "$#" -gt 0 ]; do
 	                         "one") AMP_GAIN="1" ;; # 1.5 A for stepper, 0.8 A for servo
 	                         "two") AMP_GAIN="2" ;; # 3 A for stepper, 1.6 A for servo
 	                         "three") AMP_GAIN="3" ;; # 6 A for stepper, N/A
-	                         *) AMP_GAIN="0" ;; # Least gain, if no option specified
+	                         *) AMP_GAIN="" ;; # Amplifier gain is undefined
+                            esac
+                            ;;
+        "-D"|"--user-direction") case "$(echo "$2" | tr "[:upper:]" "[:lower:]")" in
+	                         "pos") DIR="0" ;; # User direction is "Positive"
+	                         "neg") DIR="1" ;; # User direction is "Negative"
+	                         "positive") DIR="0" ;; # User direction is "Positive"
+	                         "negative") DIR="1" ;; # User direction is "Negative"
+                                 "0") DIR="0" ;; # User direction is "Positive"
+                                 "1") DIR="1" ;; # User direction is "Negative"
+	                         "zero") DIR="0" ;; # User direction is "Positive"
+	                         "one") DIR="1" ;; # User direction is "Negative"
+	                         *) DIR="" ;; # User direction is undefined
+                            esac
+                            ;;
+        "-E"|"--main-encoder-type") case "$(echo "$2" | tr "[:upper:]" "[:lower:]")" in
+	                         "normal-quadrature") ENC_TYPE="0" ;; # Encoder type is "Normal Quadrature"
+	                         "normal-quad") ENC_TYPE="0" ;; # Encoder type is "Normal Quadrature"
+	                         "pulse-and-direction") ENC_TYPE="1" ;; # Encoder type is "Pulse and Direction"
+	                         "pulse-and-dir") ENC_TYPE="1" ;; # Encoder type is "Pulse and Direction"
+	                         "reverse-quadrature") ENC_TYPE="2" ;; # Encoder type is "Reverse Quadrature"
+	                         "rev-quad") ENC_TYPE="2" ;; # Encoder type is "Reverse Quadrature"
+	                         "reverse-pulse-and-direction") ENC_TYPE="3" ;; # Encoder type is "Reverse Pulse and Direction"
+	                         "rev-pulse-and-dir") ENC_TYPE="3" ;; # Encoder type is "Reverse Pulse and Direction"
+	                         *) ENC_TYPE="" ;; # Encoder type is undefined
                             esac
                             ;;
         *) echo "Usage:" >&2

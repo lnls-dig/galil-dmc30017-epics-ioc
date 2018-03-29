@@ -424,9 +424,9 @@ record(ai, "$(P)AbsPos-RB"){
 }
 
 #####################################################################
-# INITIALIZATION AND AUTO CONFIGURATION
+# AUTO CONFIGURATION
 #
-# Desc: High Level initialization and auto-configuration operations.
+# Desc: High Level auto-configuration operations.
 
 # Auto update jog acceleration
 # Since jog is used by high level for homing, it is the homing acceleration
@@ -437,6 +437,23 @@ record(calcout, "$(P)JogAccAutoConfig"){
   field(CALC, "B/A")
   field(OUT, "$(P)$(M).JAR PP")
 }
+
+# Automatically set Jog velocity to keep 
+# being the same as the motor velocity
+record(seq, "$(P)AutoConfig"){
+  field(DESC, "High level auto configuration")
+  field(SELM, "All")
+  field(DOL1, "$(P)$(M).VELO CPP")                                    # Motor velocity should be transferred to jog velocity
+  field(LNK1, "$(P)$(M).JVEL PP")                                     # Jog acceleration <= motor acceleration
+  field(PINI, "YES")
+}
+
+#####################################################################
+# MACRO BASED CONFIGURATION
+#
+# Desc: Records used to overwrite settings based on macro values.
+#       Undefined macros DO NOT cause overwriting of the corresponding
+#       parameter.
 
 # Value of amplifier gain macro passed
 # by the user
@@ -459,12 +476,43 @@ record(scalcout, "$(P)ApplyAmpGainMacro"){
   field(OUT, "$(P)AmpGain-Sel PP")
 }
 
-# Automatically set Jog velocity to keep 
-# being the same as the motor velocity
-record(seq, "$(P)AutoConfig"){
-  field(DESC, "High level auto configuration")
-  field(SELM, "All")
-  field(DOL1, "$(P)$(M).VELO CPP")                                    # Motor velocity should be transferred to jog velocity
-  field(LNK1, "$(P)$(M).JVEL PP")                                     # Jog acceleration <= motor acceleration
-  field(PINI, "YES")
+# Value of direction passed by the user
+record(stringin, "$(P)DirMacro-Cte"){
+  field(DESC, "User direction macro passed by user")
+  field(VAL, "$(DIR)")
 }
+
+# Initialize $(P)$(M).DIR if a macro
+# was passed on startup by the user
+record(scalcout, "$(P)ApplyDirMacro"){
+  field(DESC, "Initialize user direction if macro not empty")
+  field(PINI, "YES")
+  field(INAA, "$(P)DirMacro-Cte")
+  field(CALC, "len(AA)=0?0:1")
+  field(OCAL, "AA")
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
+  field(ODLY, "2")                                                    # Wait a little bit
+  field(OUT, "$(P)$(M).DIR PP")
+}
+
+# Value of main encoder type passed by the user
+record(stringin, "$(P)EncTypeMacro-Cte"){
+  field(DESC, "Main encoder type macro passed by user")
+  field(VAL, "$(ENC_TYPE)")
+}
+
+# Initialize $(P)$(M)_MENCTYPE_CMD if a macro
+# was passed on startup by the user
+record(scalcout, "$(P)ApplyEncTypeMacro"){
+  field(DESC, "Init encoder type if macro not empty")
+  field(PINI, "YES")
+  field(INAA, "$(P)EncTypeMacro-Cte")
+  field(CALC, "len(AA)=0?0:1")
+  field(OCAL, "AA")
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
+  field(ODLY, "2")                                                    # Wait a little bit
+  field(OUT, "$(P)$(M)_MENCTYPE_CMD PP")
+}
+
