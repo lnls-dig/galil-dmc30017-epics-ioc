@@ -168,6 +168,8 @@ record(ai, "$(P)StoredPos-RB"){
   field(DESC, "Stored position value RB")
   field(EGU, "$(EGU)")
   field(PREC, "6")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
 }
 
 # Command motor to go to the stored motor position
@@ -298,6 +300,8 @@ record(ai, "$(P)RefHomePos-RB"){
   field(DESC, "Reference position for Home RB")
   field(PREC, "$(PREC)")
   field(INP, "$(P)RefHomePos-SP")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
 }
 
 #####################################################################
@@ -312,6 +316,8 @@ record(ai, "$(P)PosDiff-Mon"){
   field(EGU, "$(EGU)")
   field(PREC, "$(PREC)")
   field(INP, "$(P)$(M).DIFF CPP")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
 }
 
 # DMOV - Done moving to value.
@@ -344,6 +350,8 @@ record(ai, "$(P)EncPos-Mon"){
   field(EGU, "$(EGU)")
   field(PREC, "$(PREC)")
   field(INP, "$(P)$(M).RBV CPP")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
 }
 
 # RLV - Relative Value.
@@ -405,6 +413,8 @@ record(ai, "$(P)TweakStep-RB"){
   field(EGU, "$(EGU)")
   field(PREC, "$(PREC)")
   field(INP, "$(P)$(M).TWV CPP")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
 }
 
 # VAL - User Desired Absolute Position Value.
@@ -421,6 +431,8 @@ record(ai, "$(P)AbsPos-RB"){
   field(EGU, "$(EGU)")
   field(PREC, "$(PREC)")
   field(INP, "$(P)$(M).VAL CPP")
+  field(ADEL, "-1")
+  field(MDEL, "-1")
 }
 
 #####################################################################
@@ -432,20 +444,39 @@ record(ai, "$(P)AbsPos-RB"){
 # Since jog is used by high level for homing, it is the homing acceleration
 record(calcout, "$(P)JogAccAutoConfig"){
   field(DESC, "Transform acc. period to jog acc.")
+  field(PINI, "YES")
   field(INPA, "$(P)$(M).ACCL CPP")
   field(INPB, "$(P)$(M).VELO CPP")
-  field(CALC, "B/A")
+  field(INPC, "$(P)$(M).JAR CPP")
+  field(CALC, "C#(B/A)?1:0")
+  field(OCAL, "B/A")
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
   field(OUT, "$(P)$(M).JAR PP")
 }
 
-# Automatically set Jog velocity to keep 
-# being the same as the motor velocity
-record(seq, "$(P)AutoConfig"){
-  field(DESC, "High level auto configuration")
-  field(SELM, "All")
-  field(DOL1, "$(P)$(M).VELO CPP")                                    # Motor velocity should be transferred to jog velocity
-  field(LNK1, "$(P)$(M).JVEL PP")                                     # Jog acceleration <= motor acceleration
+# Automatically set Jog velocity so that
+# it is the same as the motor velocity
+record(calcout, "$(P)JogVelAutoConfig"){
+  field(DESC, "Keep jog vel equal to motor vel")
   field(PINI, "YES")
+  field(INPA, "$(P)$(M).VELO CPP")
+  field(INPB, "$(P)$(M).JVEL CPP")
+  field(CALC, "A#B")                                                  # Only continue if jog velo different from motor velo
+  field(OCAL, "A")
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P)$(M).JVEL PP")                                      # Jog acceleration <= motor acceleration
+}
+
+# Automatically turn motor on/off
+# after a controller disconnection/reconnection
+record(calcout, "$(P)AutoMotorEnbl"){
+  field(DESC, "Auto enbl motor after disconnection")
+  field(INPA, "$(P)COMMERR_STATUS CPP")
+  field(CALC, "A")
+  field(OOPT, "Transition To Zero")                                   # Recovery after disconnection
+  field(OUT, "$(P)$(M)_ON_CMD.PROC PP")                               # Process amplifier enbl record
 }
 
 #####################################################################
@@ -485,7 +516,7 @@ record(stringin, "$(P)DirMacro-Cte"){
 # Initialize $(P)$(M).DIR if a macro
 # was passed on startup by the user
 record(scalcout, "$(P)ApplyDirMacro"){
-  field(DESC, "Initialize user direction if macro not empty")
+  field(DESC, "Init user direction if macro not empty")
   field(PINI, "YES")
   field(INAA, "$(P)DirMacro-Cte")
   field(CALC, "len(AA)=0?0:1")
