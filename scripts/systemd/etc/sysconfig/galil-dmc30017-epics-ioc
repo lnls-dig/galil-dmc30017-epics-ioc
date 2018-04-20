@@ -1,5 +1,4 @@
 # General configuration
-DMC30017_IOC_STARTUP=/opt/epics/startup/ioc/galil-dmc30017-epics-ioc/iocBoot/iocGalilDmc30017
 EPICS_HOST_ARCH=linux-x86_64
 PROCSERV_DMC30017_PORT_PREFIX=400
 EPICS_CA_MAX_ARRAY_BYTES=50000000
