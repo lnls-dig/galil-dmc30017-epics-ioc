@@ -1,6 +1,9 @@
 #!../../bin/linux-x86_64/GalilDmc30017
 
 < envPaths
+
+epicsEnvSet("TOP", "../..")
+
 < galil_dmc30017.config
 
 # Log solicited command/response traffic into galil_debug.txt
