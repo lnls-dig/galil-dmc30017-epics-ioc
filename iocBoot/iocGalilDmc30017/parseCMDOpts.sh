@@ -1,37 +1,75 @@
 #!/bin/sh
 
-while [ "$#" -gt 0 ]; do
-    case "$1" in
-        "-P") P="$2" ;;
-        "-R") R="$2" ;;
-        "-i"|"--ip-addr") IPADDR="$2" ;;
-        "-p"|"--ip-port") IPPORT="$2" ;;
-        "-s"|"--speed") VELO="$2" ;;
-        "-x"|"--max-speed") VMAX="$2" ;;
-        "-a"|"--acceleration") ACCL="$2" ;;
-        "-d"|"--backlash-distance") BDST="$2" ;;
-        "-v"|"--backlash-velocity") BVEL="$2" ;;
-        "-c"|"--backlash-acceleration") BACC="$2" ;;
-        "-r"|"--motor-resolution") MRES="$2" ;;
-        "-t"|"--steps-per-revolution") SREV="$2" ;;
-        "-e"|"--encoder-resolution") ERES="$2" ;;
-        "-h"|"--high-soft-limit") DHLM="$2" ;;
-        "-l"|"--low-soft-limit") DLLM="$2" ;;
-        "-o"|"--user-offset") OFF="$2" ;;
-        "-u"|"--use-encoder")        if [ "$(echo "$2" | tr "[:upper:]" "[:lower:]")" = "yes" ]; then
+set -e 
+
+usage () {
+    echo "Usage:" >&2
+    echo "  $1 -t PROCSERV_TELNET_PORT [-P P_VAL] [-R R_VAL] -i IPADDR -p IPPORT " >&2
+    echo >&2
+    echo " Options:" >&2
+    echo "  -t                  Configure procServ telnet port" >&2
+    echo "  -P                  Configure value of \$(P) macro" >&2
+    echo "  -R                  Configure value of \$(R) macro" >&2
+    echo "  -i                  Configure IP address to connect to device (required)" >&2
+    echo "  -p                  Configure IP port number to connect to device" >&2
+    echo "  -s                  Configure motor speed (EGU/s)" >&2
+    echo "  -x                  Configure motor max speed (EGU/s)" >&2
+    echo "  -a                  Configure motor acceleration period (s)" >&2
+    echo "  -d                  Configure backlash distance (EGU)" >&2
+    echo "  -v                  Configure backlash velocity (EGU/s)" >&2
+    echo "  -c                  Configure backlash acceleration period (s)" >&2
+    echo "  -r                  Configure motor resolution (EGU/step)" >&2
+    echo "  -T                  Configure motor steps per revolution" >&2
+    echo "  -e                  Configure encoder resolution (EGU/step)" >&2
+    echo "  -h                  Configure high software limit (EGU)" >&2
+    echo "  -l                  Configure low software limit (EGU)" >&2
+    echo "  -o                  Configure user offset (EGU)" >&2
+    echo "  -u                  Enable encoder use if present (yes/no)" >&2
+    echo "  -y                  Configure motor number of retries" >&2
+    echo "  -n                  Configure new target monitor (yes/no)" >&2
+    echo "  -m                  Configure motor type (servo, rev-servo, ha-stepper, la-stepper, rev-ha-stepper, rev-la-stepper, pwm-servo, pwm-rev-servo, ethcat-pos, ethcat-torque, ethcat-rev-torque)" >&2
+    echo "  -k                  Power motor on (yes/no)" >&2
+    echo "  -g                  Configure engineering units" >&2
+    echo "  -w                  Configure home switch type (NO/NC)" >&2
+    echo "  -z                  Configure limit switch type (NO/NC)" >&2
+    echo "  -G                  Configure amplifier gain (0, 1, 2, 3). See dmc30017 manual for the current corresponding to each option." >&2
+    echo "  -D                  Configure user direction (pos/neg)" >&2
+    echo "  -E                  Configure main encoder type (normal-quad, pulse-and-dir, rev-quad, rev-pulse-and-dir)." >&2
+}
+
+while getopts ":t:P:R:i:p:s:x:a:d:v:c:r:T:e:h:l:o:u:y:n:m:k:g:w:z:G:D:E" opt; do
+    case "$opt" in
+        t) DEVICE_TELNET_PORT="$OPTARG" ;;
+        P) P="$OPTARG" ;;
+        R) R="$OPTARG" ;;
+        i) IPADDR="$OPTARG" ;;
+        p) IPPORT="$OPTARG" ;;
+        s) VELO="$OPTARG" ;;
+        x) VMAX="$OPTARG" ;;
+        a) ACCL="$OPTARG" ;;
+        d) BDST="$OPTARG" ;;
+        v) BVEL="$OPTARG" ;;
+        c) BACC="$OPTARG" ;;
+        r) MRES="$OPTARG" ;;
+        T) SREV="$OPTARG" ;;
+        e) ERES="$OPTARG" ;;
+        h) DHLM="$OPTARG" ;;
+        l) DLLM="$OPTARG" ;;
+        o) OFF="$OPTARG" ;;
+        u)        if [ "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" = "yes" ]; then
                                        UEIP="Yes"
                                      else
                                        UEIP="No"
                                      fi
                                      ;;
-        "-y"|"--retry") RTRY="$2" ;;
-        "-n"|"--new-target-monitor") if [ "$(echo "$2" | tr "[:upper:]" "[:lower:]")" = "yes" ]; then
+        y) RTRY="$OPTARG" ;;
+        n) if [ "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" = "yes" ]; then
                                        NTM="YES"
                                      else
                                        NTM="NO"
                                      fi
                                      ;;
-        "-m"|"--motor-type") case "$(echo "$2" | tr "[:upper:]" "[:lower:]")" in
+        m) case "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" in
                                  "servo") MTRTYPE="0" ;; # Servo
                                  "rev-servo") MTRTYPE="1" ;; # Rev Servo
 	                         "ha-stepper") MTRTYPE="2" ;; # HA Stepper
@@ -46,26 +84,26 @@ while [ "$#" -gt 0 ]; do
                                  *) MTRTYPE="" ;; # Motor type is undefined
                             esac
                             ;;
-        "-k"|"--motor-on") if [ "$(echo "$2" | tr "[:upper:]" "[:lower:]")" = "yes" ]; then
+        k) if [ "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" = "yes" ]; then
                                       MTRON="1" # On
                                      else
                                       MTRON="0" # Off
                                      fi
                                      ;;
-        "-g"|"--egu") EGU="$2" ;;
-        "-w"|"--home-switch-type") if [ "$(echo "$2" | tr "[:upper:]" "[:lower:]")" = "no" ]; then
+        g) EGU="$OPTARG" ;;
+        w) if [ "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" = "no" ]; then
                                        DEFAULT_HOMETYPE="0" # normal open
                                    else
                                        DEFAULT_HOMETYPE="1" # normal closed
                                    fi
                                    ;;
-        "-z"|"--limit-switch-type") if [ "$(echo "$2" | tr "[:upper:]" "[:lower:]")" = "no" ]; then
+        z) if [ "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" = "no" ]; then
                                        DEFAULT_LIMITTYPE="0" # normal open
                                    else
                                        DEFAULT_LIMITTYPE="1" # normal closed
                                    fi
                                    ;;
-        "-G"|"--amplifier-gain") case "$(echo "$2" | tr "[:upper:]" "[:lower:]")" in
+        G) case "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" in
                                  "0") AMP_GAIN="0" ;; # 0.75 A for stepper, 0.4 A for servo
                                  "1") AMP_GAIN="1" ;; # 1.5 A for stepper, 0.8 A for servo
 	                         "2") AMP_GAIN="2" ;; # 3 A for stepper, 1.6 A for servo
@@ -77,7 +115,7 @@ while [ "$#" -gt 0 ]; do
 	                         *) AMP_GAIN="" ;; # Amplifier gain is undefined
                             esac
                             ;;
-        "-D"|"--user-direction") case "$(echo "$2" | tr "[:upper:]" "[:lower:]")" in
+        D) case "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" in
 	                         "pos") DIR="0" ;; # User direction is "Positive"
 	                         "neg") DIR="1" ;; # User direction is "Negative"
 	                         "positive") DIR="0" ;; # User direction is "Positive"
@@ -89,7 +127,7 @@ while [ "$#" -gt 0 ]; do
 	                         *) DIR="" ;; # User direction is undefined
                             esac
                             ;;
-        "-E"|"--main-encoder-type") case "$(echo "$2" | tr "[:upper:]" "[:lower:]")" in
+        E) case "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" in
 	                         "normal-quadrature") ENC_TYPE="0" ;; # Encoder type is "Normal Quadrature"
 	                         "normal-quad") ENC_TYPE="0" ;; # Encoder type is "Normal Quadrature"
 	                         "pulse-and-direction") ENC_TYPE="1" ;; # Encoder type is "Pulse and Direction"
@@ -101,41 +139,21 @@ while [ "$#" -gt 0 ]; do
 	                         *) ENC_TYPE="" ;; # Encoder type is undefined
                             esac
                             ;;
-        *) echo "Usage:" >&2
-            echo "  $0 -i IPADDR -p IPPORT [-P P_VAL] [-R R_VAL]" >&2
-            echo >&2
-            echo " Options:" >&2
-            echo "  -i or --ip-addr                Configure IP address to connect to device (required)" >&2
-            echo "  -p or --ip-port                Configure IP port number to connect to device" >&2
-            echo "  -P                             Configure value of \$(P) macro" >&2
-            echo "  -R                             Configure value of \$(R) macro" >&2
-            echo "  -s or --speed                  Configure motor speed (EGU/s)" >&2
-            echo "  -x or --max-speed              Configure motor max speed (EGU/s)" >&2
-            echo "  -a or --acceleration           Configure motor acceleration period (s)" >&2
-            echo "  -d or --backlash-distance      Configure backlash distance (EGU)" >&2
-            echo "  -v or --backlash-velocity      Configure backlash velocity (EGU/s)" >&2
-            echo "  -c or --backlash-acceleration  Configure backlash acceleration period (s)" >&2
-            echo "  -r or --motor-resolution       Configure motor resolution (EGU/step)" >&2
-            echo "  -t or --steps-per-revolution   Configure motor steps per revolution" >&2
-            echo "  -e or --encoder-resolution     Configure encoder resolution (EGU/step)" >&2
-            echo "  -h or --high-soft-limit        Configure high software limit (EGU)" >&2
-            echo "  -l or --low-soft-limit         Configure low software limit (EGU)" >&2
-            echo "  -o or --user-offset            Configure user offset (EGU)" >&2
-            echo "  -u or --use-encoder            Enable encoder use if present (yes/no)" >&2
-            echo "  -y or --retry                  Configure motor number of retries" >&2
-            echo "  -n or --new-target-monitor     Configure new target monitor (yes/no)" >&2
-            echo "  -m or --motor-type             Configure motor type (servo, rev-servo, ha-stepper, la-stepper, rev-ha-stepper, rev-la-stepper, pwm-servo, pwm-rev-servo, ethcat-pos, ethcat-torque, ethcat-rev-torque)" >&2
-            echo "  -k or --motor-on               Power motor on (yes/no)" >&2
-            echo "  -g or --egu                    Configure engineering units" >&2
-            echo "  -w or --home-switch-type       Configure home switch type (NO/NC)" >&2
-            echo "  -z or --limit-switch-type      Configure limit switch type (NO/NC)" >&2
-            echo "  -G or --amplifier-gain         Configure amplifier gain (0, 1, 2, 3). See dmc30017 manual for the current corresponding to each option." >&2
-            exit 2
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            usage $0
+            exit 1
+            ;;
+        :)
+            echo "Option -$OPTARG requires an argument." >&2
+            usage $0
+            exit 1
+            ;;
     esac
-
-    shift 2
 done
 
-if [ -z "$IPPORT" ]; then
-    IPPORT=5025
+if [ "$OPTIND" -le "$#" ]; then
+            echo "Invalid argument '$OPTARG' does not have a corresponding option." >&2
+            usage $0
+            exit 1
 fi

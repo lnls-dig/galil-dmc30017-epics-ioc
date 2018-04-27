@@ -33,7 +33,7 @@ that you can specify (after `./runGalilDmc30017.sh`) are:
 - `-v BVEL`: the default backlash velocity (EGU/s)
 - `-c BACC`: the default backlash acceleration period (seconds)
 - `-r MRES`: the default motor resolution (EGU)
-- `-t SREV`: the motor's number of steps per revolution
+- `-T SREV`: the motor's number of steps per revolution
 - `-e ERES`: the encoder resolution (EGU)
 - `-h DHLM`: the software high position limit (EGU)
 - `-l DLLM`: the software low position limit (EGU)
