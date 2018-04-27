@@ -153,7 +153,7 @@ while getopts ":t:P:R:i:p:s:x:a:d:v:c:r:T:e:h:l:o:u:y:n:m:k:g:w:z:G:D:E" opt; do
 done
 
 if [ "$OPTIND" -le "$#" ]; then
-            echo "Invalid argument '$OPTARG' does not have a corresponding option." >&2
-            usage $0
-            exit 1
+    echo "Invalid argument at index '$OPTIND' does not have a corresponding option." >&2
+    usage $0
+    exit 1
 fi
