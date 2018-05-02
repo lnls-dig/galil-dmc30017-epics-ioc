@@ -15,7 +15,7 @@ cd "${TOP}"
 dbLoadDatabase "dbd/GalilDmc30017.dbd"
 GalilDmc30017_registerRecordDeviceDriver pdbbase
 
-cd "${TOP}/iocBoot/${IOC}"
+cd "iocBoot/${IOC}"
 
 epicsEnvSet("IOC_APP_DIR", "${TOP}/galilDmc30017App")
 
