@@ -19,6 +19,8 @@
   <macros>
     <include_parent_macros>true</include_parent_macros>
     <P>dmc1:</P>
+    <DMC>dmc1:</DMC>
+    <M>A</M>
   </macros>
   <name></name>
   <rules />
@@ -92,7 +94,7 @@
       <color red="192" green="192" blue="192" />
     </foreground_color>
     <height>166</height>
-    <lock_children>true</lock_children>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -120,7 +122,7 @@
       <anti_alias>true</anti_alias>
       <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
       <background_color>
-        <color red="255" green="255" blue="255" />
+        <color red="240" green="240" blue="240" />
       </background_color>
       <bg_gradient_color>
         <color red="255" green="255" blue="255" />
@@ -1244,7 +1246,7 @@ $(pv_value)</tooltip>
     <foreground_color>
       <color red="0" green="0" blue="0" />
     </foreground_color>
-    <format_type>0</format_type>
+    <format_type>4</format_type>
     <height>20</height>
     <horizontal_alignment>0</horizontal_alignment>
     <name>Text Update</name>
@@ -1292,8 +1294,8 @@ $(pv_value)</tooltip>
     <foreground_color>
       <color red="192" green="192" blue="192" />
     </foreground_color>
-    <height>115</height>
-    <lock_children>true</lock_children>
+    <height>109</height>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -1321,7 +1323,7 @@ $(pv_value)</tooltip>
       <anti_alias>true</anti_alias>
       <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
       <background_color>
-        <color red="255" green="255" blue="255" />
+        <color red="240" green="240" blue="240" />
       </background_color>
       <bg_gradient_color>
         <color red="255" green="255" blue="255" />
@@ -1345,7 +1347,7 @@ $(pv_value)</tooltip>
         <color red="255" green="0" blue="0" />
       </foreground_color>
       <gradient>false</gradient>
-      <height>115</height>
+      <height>109</height>
       <horizontal_fill>true</horizontal_fill>
       <line_color>
         <color red="128" green="0" blue="255" />
@@ -1571,8 +1573,8 @@ $(pv_value)</tooltip>
       <height>25</height>
       <horizontal_alignment>0</horizontal_alignment>
       <limits_from_pv>false</limits_from_pv>
-      <maximum>Infinity</maximum>
-      <minimum>-Infinity</minimum>
+      <maximum>1.7976931348623157E308</maximum>
+      <minimum>-1.7976931348623157E308</minimum>
       <multiline_input>false</multiline_input>
       <name>Text Input</name>
       <precision>0</precision>
@@ -1661,7 +1663,7 @@ $(pv_value)</tooltip>
       <color red="192" green="192" blue="192" />
     </foreground_color>
     <height>234</height>
-    <lock_children>true</lock_children>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -1689,7 +1691,7 @@ $(pv_value)</tooltip>
       <anti_alias>true</anti_alias>
       <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
       <background_color>
-        <color red="255" green="255" blue="255" />
+        <color red="240" green="240" blue="240" />
       </background_color>
       <bg_gradient_color>
         <color red="255" green="255" blue="255" />
@@ -2179,8 +2181,8 @@ $(pv_value)</tooltip>
       <height>25</height>
       <horizontal_alignment>0</horizontal_alignment>
       <limits_from_pv>false</limits_from_pv>
-      <maximum>Infinity</maximum>
-      <minimum>-Infinity</minimum>
+      <maximum>1.7976931348623157E308</maximum>
+      <minimum>-1.7976931348623157E308</minimum>
       <multiline_input>false</multiline_input>
       <name>Text Input</name>
       <precision>0</precision>
@@ -2280,11 +2282,11 @@ $(pv_value)</tooltip>
       <height>20</height>
       <name>LED</name>
       <off_color>
-        <color red="0" green="100" blue="0" />
+        <color red="165" green="42" blue="42" />
       </off_color>
       <off_label>OFF</off_label>
       <on_color>
-        <color red="0" green="255" blue="0" />
+        <color red="255" green="0" blue="0" />
       </on_color>
       <on_label>ON</on_label>
       <pv_name>$(P)Estall-Sts</pv_name>
@@ -2353,10 +2355,10 @@ $(pv_value)</tooltip>
       <vertical_alignment>1</vertical_alignment>
       <visible>true</visible>
       <widget_type>Text Update</widget_type>
-      <width>59</width>
+      <width>83</width>
       <wrap_words>false</wrap_words>
       <wuid>6e34871b:162f3391a85:-7721</wuid>
-      <x>145</x>
+      <x>133</x>
       <y>105</y>
     </widget>
     <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -2666,7 +2668,7 @@ $(pv_value)</tooltip>
       <color red="192" green="192" blue="192" />
     </foreground_color>
     <height>433</height>
-    <lock_children>true</lock_children>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -2694,7 +2696,7 @@ $(pv_value)</tooltip>
       <anti_alias>true</anti_alias>
       <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
       <background_color>
-        <color red="255" green="255" blue="255" />
+        <color red="240" green="240" blue="240" />
       </background_color>
       <bg_gradient_color>
         <color red="255" green="255" blue="255" />
@@ -3128,8 +3130,8 @@ $(pv_value)</tooltip>
       <horizontal_alignment>1</horizontal_alignment>
       <horizontal_buttons_layout>false</horizontal_buttons_layout>
       <limits_from_pv>false</limits_from_pv>
-      <maximum>Infinity</maximum>
-      <minimum>-Infinity</minimum>
+      <maximum>1.7976931348623157E308</maximum>
+      <minimum>-1.7976931348623157E308</minimum>
       <name>Spinner</name>
       <page_increment>10.0</page_increment>
       <precision>3</precision>
@@ -3577,8 +3579,8 @@ $(pv_value)</tooltip>
       <height>25</height>
       <horizontal_alignment>0</horizontal_alignment>
       <limits_from_pv>false</limits_from_pv>
-      <maximum>Infinity</maximum>
-      <minimum>-Infinity</minimum>
+      <maximum>1.7976931348623157E308</maximum>
+      <minimum>-1.7976931348623157E308</minimum>
       <multiline_input>false</multiline_input>
       <name>Text Input</name>
       <precision>0</precision>
@@ -4115,8 +4117,8 @@ $(pv_value)</tooltip>
     <foreground_color>
       <color red="192" green="192" blue="192" />
     </foreground_color>
-    <height>655</height>
-    <lock_children>true</lock_children>
+    <height>658</height>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -4144,7 +4146,7 @@ $(pv_value)</tooltip>
       <anti_alias>true</anti_alias>
       <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
       <background_color>
-        <color red="255" green="255" blue="255" />
+        <color red="240" green="240" blue="240" />
       </background_color>
       <bg_gradient_color>
         <color red="255" green="255" blue="255" />
@@ -4168,7 +4170,7 @@ $(pv_value)</tooltip>
         <color red="255" green="0" blue="0" />
       </foreground_color>
       <gradient>false</gradient>
-      <height>654</height>
+      <height>655</height>
       <horizontal_fill>true</horizontal_fill>
       <line_color>
         <color red="128" green="0" blue="255" />
@@ -4967,8 +4969,8 @@ $(pv_value)</tooltip>
       <height>25</height>
       <horizontal_alignment>0</horizontal_alignment>
       <limits_from_pv>false</limits_from_pv>
-      <maximum>Infinity</maximum>
-      <minimum>-Infinity</minimum>
+      <maximum>1.7976931348623157E308</maximum>
+      <minimum>-1.7976931348623157E308</minimum>
       <multiline_input>false</multiline_input>
       <name>Text Input_2</name>
       <precision>0</precision>
@@ -5081,8 +5083,8 @@ $(pv_value)</tooltip>
       <horizontal_alignment>1</horizontal_alignment>
       <horizontal_buttons_layout>false</horizontal_buttons_layout>
       <limits_from_pv>false</limits_from_pv>
-      <maximum>Infinity</maximum>
-      <minimum>-Infinity</minimum>
+      <maximum>1.7976931348623157E308</maximum>
+      <minimum>-1.7976931348623157E308</minimum>
       <name>Spinner</name>
       <page_increment>10.0</page_increment>
       <precision>3</precision>
@@ -5611,8 +5613,8 @@ $(pv_value)</tooltip>
       <horizontal_alignment>1</horizontal_alignment>
       <horizontal_buttons_layout>false</horizontal_buttons_layout>
       <limits_from_pv>false</limits_from_pv>
-      <maximum>Infinity</maximum>
-      <minimum>-Infinity</minimum>
+      <maximum>1.7976931348623157E308</maximum>
+      <minimum>-1.7976931348623157E308</minimum>
       <name>Spinner_5</name>
       <page_increment>10.0</page_increment>
       <precision>3</precision>
@@ -6918,7 +6920,7 @@ $(pv_value)</tooltip>
       <color red="192" green="192" blue="192" />
     </foreground_color>
     <height>172</height>
-    <lock_children>true</lock_children>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -6946,7 +6948,7 @@ $(pv_value)</tooltip>
       <anti_alias>true</anti_alias>
       <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
       <background_color>
-        <color red="255" green="255" blue="255" />
+        <color red="240" green="240" blue="240" />
       </background_color>
       <bg_gradient_color>
         <color red="255" green="255" blue="255" />
@@ -7549,7 +7551,7 @@ $(pv_value)</tooltip>
       <color red="192" green="192" blue="192" />
     </foreground_color>
     <height>180</height>
-    <lock_children>true</lock_children>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -7577,7 +7579,7 @@ $(pv_value)</tooltip>
       <anti_alias>true</anti_alias>
       <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
       <background_color>
-        <color red="255" green="255" blue="255" />
+        <color red="240" green="240" blue="240" />
       </background_color>
       <bg_gradient_color>
         <color red="255" green="255" blue="255" />
@@ -8324,7 +8326,7 @@ $(pv_value)</tooltip>
       <color red="192" green="192" blue="192" />
     </foreground_color>
     <height>165</height>
-    <lock_children>true</lock_children>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -8352,7 +8354,7 @@ $(pv_value)</tooltip>
       <anti_alias>true</anti_alias>
       <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
       <background_color>
-        <color red="255" green="255" blue="255" />
+        <color red="240" green="240" blue="240" />
       </background_color>
       <bg_gradient_color>
         <color red="255" green="255" blue="255" />
@@ -9247,7 +9249,7 @@ $(pv_value)</tooltip>
       <color red="192" green="192" blue="192" />
     </foreground_color>
     <height>330</height>
-    <lock_children>true</lock_children>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -9275,7 +9277,7 @@ $(pv_value)</tooltip>
       <anti_alias>true</anti_alias>
       <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
       <background_color>
-        <color red="255" green="255" blue="255" />
+        <color red="240" green="240" blue="240" />
       </background_color>
       <bg_gradient_color>
         <color red="255" green="255" blue="255" />
@@ -10179,8 +10181,8 @@ $(pv_value)</tooltip>
       <height>25</height>
       <horizontal_alignment>0</horizontal_alignment>
       <limits_from_pv>false</limits_from_pv>
-      <maximum>Infinity</maximum>
-      <minimum>-Infinity</minimum>
+      <maximum>1.7976931348623157E308</maximum>
+      <minimum>-1.7976931348623157E308</minimum>
       <multiline_input>false</multiline_input>
       <name>Text Input</name>
       <precision>0</precision>
@@ -10637,7 +10639,7 @@ $(pv_value)</tooltip>
       <color red="192" green="192" blue="192" />
     </foreground_color>
     <height>175</height>
-    <lock_children>true</lock_children>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -10665,7 +10667,7 @@ $(pv_value)</tooltip>
       <anti_alias>true</anti_alias>
       <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
       <background_color>
-        <color red="255" green="255" blue="255" />
+        <color red="240" green="240" blue="240" />
       </background_color>
       <bg_gradient_color>
         <color red="255" green="255" blue="255" />
@@ -10945,8 +10947,8 @@ Deadband</text>
       <horizontal_alignment>1</horizontal_alignment>
       <horizontal_buttons_layout>false</horizontal_buttons_layout>
       <limits_from_pv>false</limits_from_pv>
-      <maximum>Infinity</maximum>
-      <minimum>-Infinity</minimum>
+      <maximum>1.7976931348623157E308</maximum>
+      <minimum>-1.7976931348623157E308</minimum>
       <name>Spinner</name>
       <page_increment>10.0</page_increment>
       <precision>3</precision>
@@ -11361,8 +11363,8 @@ $(pv_value)</tooltip>
     <foreground_color>
       <color red="192" green="192" blue="192" />
     </foreground_color>
-    <height>175</height>
-    <lock_children>true</lock_children>
+    <height>177</height>
+    <lock_children>false</lock_children>
     <macros>
       <include_parent_macros>true</include_parent_macros>
     </macros>
@@ -11390,7 +11392,7 @@ $(pv_value)</tooltip>
       <anti_alias>true</anti_alias>
       <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
       <background_color>
-        <color red="255" green="255" blue="255" />
+        <color red="240" green="240" blue="240" />
       </background_color>
       <bg_gradient_color>
         <color red="255" green="255" blue="255" />
@@ -11959,5 +11961,115 @@ $(pv_value)</tooltip>
       <x>238</x>
       <y>134</y>
     </widget>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
+    <actions hook="false" hook_all="false">
+      <action type="OPEN_DISPLAY">
+        <path>galil_dmc_ctrl.opi</path>
+        <macros>
+          <include_parent_macros>true</include_parent_macros>
+        </macros>
+        <mode>1</mode>
+        <description></description>
+      </action>
+    </actions>
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Ubuntu" height="11" style="0">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <height>40</height>
+    <image></image>
+    <name>Action Button</name>
+    <push_action_index>0</push_action_index>
+    <pv_name></pv_name>
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <style>0</style>
+    <text>$(actions)</text>
+    <toggle_button>false</toggle_button>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>Action Button</widget_type>
+    <width>204</width>
+    <wuid>6e34871b:162f3391a85:-5048</wuid>
+    <x>30</x>
+    <y>864</y>
+  </widget>
+  <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
+    <actions hook="false" hook_all="false">
+      <action type="OPEN_DISPLAY">
+        <path>galil_motor_extras.opi</path>
+        <macros>
+          <include_parent_macros>true</include_parent_macros>
+        </macros>
+        <mode>1</mode>
+        <description></description>
+      </action>
+    </actions>
+    <alarm_pulsing>false</alarm_pulsing>
+    <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+    <background_color>
+      <color red="240" green="240" blue="240" />
+    </background_color>
+    <border_alarm_sensitive>false</border_alarm_sensitive>
+    <border_color>
+      <color red="0" green="128" blue="255" />
+    </border_color>
+    <border_style>0</border_style>
+    <border_width>1</border_width>
+    <enabled>true</enabled>
+    <font>
+      <opifont.name fontName="Ubuntu" height="11" style="0">Default</opifont.name>
+    </font>
+    <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+    <foreground_color>
+      <color red="0" green="0" blue="0" />
+    </foreground_color>
+    <height>40</height>
+    <image></image>
+    <name>Action Button_1</name>
+    <push_action_index>0</push_action_index>
+    <pv_name></pv_name>
+    <pv_value />
+    <rules />
+    <scale_options>
+      <width_scalable>true</width_scalable>
+      <height_scalable>true</height_scalable>
+      <keep_wh_ratio>false</keep_wh_ratio>
+    </scale_options>
+    <scripts />
+    <style>0</style>
+    <text>$(actions)</text>
+    <toggle_button>false</toggle_button>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    <visible>true</visible>
+    <widget_type>Action Button</widget_type>
+    <width>204</width>
+    <wuid>6e34871b:162f3391a85:-4d57</wuid>
+    <x>246</x>
+    <y>864</y>
   </widget>
 </display>
