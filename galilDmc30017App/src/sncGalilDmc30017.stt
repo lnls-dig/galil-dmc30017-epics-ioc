@@ -4,7 +4,11 @@ program sncGalilDmc30017
 %%// 	      Variables
 %%//----------------------------------------
 
-
+string HOMING_READY = "Ready for command";
+string HOMING_STARTED = "Homing started";
+string HOMING_FAILED_MOVE = "Could not start moving";
+string HOMING_COMPLETE = "Homing complete";
+string HOMING_NOT_COMPLETED = "Motor stopped before homing was complete";
 
 %%//----------------------------------------
 %%// 	      Monitored PVs
@@ -37,11 +41,31 @@ monitor rst_pos_enbl;
 int rst_pos_cmd;
 assign rst_pos_cmd to "{P}RstPos-Cmd";
 
+string homing_state;
+assign homing_state to "{P}HomingState-Mon";
+
 %%//----------------------------------------
 %%// 	    State Notation Language
 %%//----------------------------------------
 
 ss homing {
+
+    state default_values {
+
+        entry {
+
+            %{/* Reset homing state */}%
+
+            strcpy(homing_state, HOMING_READY);
+            pvPut(homing_state, SYNC);
+        }
+
+        when () {
+
+            %{/* Go to state init */}%
+
+        } state init
+    }
 
     state init {
 
@@ -56,13 +80,21 @@ ss homing {
 	
 	when (done_moving == 0){
 
-		%{/* Motor started moving */}%
+            %{/* Motor started moving */}%
+
+            %%// update homing state
+            strcpy(homing_state, HOMING_STARTED);
+            pvPut(homing_state, SYNC);
 
 	} state wait
 
 	when (delay(1)){
 
 		%{/* Could not move for some reason */}%
+
+            %%// update homing state
+            strcpy(homing_state, HOMING_FAILED_MOVE);
+            pvPut(homing_state, SYNC);
 
 	} state init
 
@@ -80,30 +112,42 @@ ss homing {
 
     state stopped {
 
-        when (rst_pos_enbl == 0) {
+        when (rst_pos_enbl == 0 && low_limit_switch != 0) {
 
             %{/* Position reset in homing is disabled, nothing to be done */}%
+
+            %%// update homing state
+            strcpy(homing_state, HOMING_COMPLETE);
+            pvPut(homing_state, SYNC);
 
         } state init
 
 	when (delay(1) && low_limit_switch == 0) {
 
-		%{/* Stopped moving without completing homing procedure */}%
+            %{/* Stopped moving without completing homing procedure */}%
 
-                %%// DEBUGGING
-		printf("[GALIL STATE MACHINE]: Motor stopped moving without completing homing.\n");
+            %%// DEBUGGING
+            printf("[GALIL STATE MACHINE]: Motor stopped moving without completing homing.\n");
+
+            %%// update homing state
+            strcpy(homing_state, HOMING_NOT_COMPLETED);
+            pvPut(homing_state, SYNC);
 
 	} state init
 
-	when (low_limit_switch != 0) {
+	when (rst_pos_enbl != 0 && low_limit_switch != 0) {
 
-		%{/* The low limit switch has been hit.
-                     Set the motor position to the home reference value,
-                     without moving the motor. */}%
+            %{/* The low limit switch has been hit.
+                 Set the motor position to the home reference value,
+                 without moving the motor. */}%
 
-                %%// Reset position
-                rst_pos_cmd = 1;
-                pvPut(rst_pos_cmd, SYNC);
+            %%// Reset position
+            rst_pos_cmd = 1;
+            pvPut(rst_pos_cmd, SYNC);
+
+            %%// update homing state
+            strcpy(homing_state, HOMING_COMPLETE);
+            pvPut(homing_state, SYNC);
 
 	} state init
 
