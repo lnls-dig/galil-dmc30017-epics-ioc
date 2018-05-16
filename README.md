@@ -25,6 +25,7 @@ that you can specify (after `./runGalilDmc30017.sh`) are:
 
 - `-p IPPORT`: device port to connect to (default is 5025)
 - `-P PREFIX1`: the value of the EPICS `$(P)` macro used to prefix the PV names
+- `-t TELNET_PORT`: telnet port to use for connecting to procServ
 - `-R PREFIX2`: the value of the EPICS `$(R)` macro used to prefix the PV names
 - `-s VELO`: the default motor velocity (EGU/s)
 - `-x VMAX`: the default maximum motor velocity (EGU/s)
