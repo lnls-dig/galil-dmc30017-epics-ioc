@@ -37,7 +37,7 @@ usage () {
     echo "  -E                  Configure main encoder type (normal-quad, pulse-and-dir, rev-quad, rev-pulse-and-dir)." >&2
 }
 
-while getopts ":t:P:R:i:p:s:x:a:d:v:c:r:T:e:h:l:o:u:y:n:m:k:g:w:z:G:D:E" opt; do
+while getopts ":t:P:R:i:p:s:x:a:d:v:c:r:T:e:h:l:o:u:y:n:m:k:g:w:z:G:D:E:" opt; do
     case "$opt" in
         t) DEVICE_TELNET_PORT="$OPTARG" ;;
         P) P="$OPTARG" ;;
