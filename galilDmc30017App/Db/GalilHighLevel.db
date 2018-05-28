@@ -118,36 +118,57 @@ alias(  "$(P)$(DIG_OUT3)_CMD",            "$(P)$(DIG_OUT3)-Sel")        # Digita
 
 # Digital inputs control
 # Source: <Galil support top directory>/GalilSup/Db/galil_digital_in_bit.template
-alias(  "$(P)$(DIG_IN0)_STATUS",          "$(P)$(DIG_IN0)-Mon")        # Digital input bit 0 monitor
-alias(  "$(P)$(DIG_IN1)_STATUS",          "$(P)$(DIG_IN1)-Mon")        # Digital input bit 1 monitor
-alias(  "$(P)$(DIG_IN2)_STATUS",          "$(P)$(DIG_IN2)-Mon")        # Digital input bit 2 monitor
-alias(  "$(P)$(DIG_IN3)_STATUS",          "$(P)$(DIG_IN3)-Mon")        # Digital input bit 3 monitor
-alias(  "$(P)$(DIG_IN4)_STATUS",          "$(P)$(DIG_IN4)-Mon")        # Digital input bit 4 monitor
-alias(  "$(P)$(DIG_IN5)_STATUS",          "$(P)$(DIG_IN5)-Mon")        # Digital input bit 5 monitor
-alias(  "$(P)$(DIG_IN6)_STATUS",          "$(P)$(DIG_IN6)-Mon")        # Digital input bit 6 monitor
-alias(  "$(P)$(DIG_IN7)_STATUS",          "$(P)$(DIG_IN7)-Mon")        # Digital input bit 7 monitor
+alias(  "$(P)$(DIG_IN0)_STATUS",          "$(P)$(DIG_IN0)-Mon")         # Digital input bit 0 monitor
+alias(  "$(P)$(DIG_IN1)_STATUS",          "$(P)$(DIG_IN1)-Mon")         # Digital input bit 1 monitor
+alias(  "$(P)$(DIG_IN2)_STATUS",          "$(P)$(DIG_IN2)-Mon")         # Digital input bit 2 monitor
+alias(  "$(P)$(DIG_IN3)_STATUS",          "$(P)$(DIG_IN3)-Mon")         # Digital input bit 3 monitor
+alias(  "$(P)$(DIG_IN4)_STATUS",          "$(P)$(DIG_IN4)-Mon")         # Digital input bit 4 monitor
+alias(  "$(P)$(DIG_IN5)_STATUS",          "$(P)$(DIG_IN5)-Mon")         # Digital input bit 5 monitor
+alias(  "$(P)$(DIG_IN6)_STATUS",          "$(P)$(DIG_IN6)-Mon")         # Digital input bit 6 monitor
+alias(  "$(P)$(DIG_IN7)_STATUS",          "$(P)$(DIG_IN7)-Mon")         # Digital input bit 7 monitor
 
 # Analog outputs control
 # Source: <Galil support top directory>/GalilSup/Db/galil_analog_out.template
-alias(  "$(P)$(ANALOG_OUT0)_MON",         "$(P)$(ANALOG_OUT0)-RB")     # Analog output 0 state (read)
-alias(  "$(P)$(ANALOG_OUT0)_SP",          "$(P)$(ANALOG_OUT0)-SP")     # Analog output 0 state (set)
+alias(  "$(P)$(ANALOG_OUT0)_MON",         "$(P)$(ANALOG_OUT0)-RB")      # Analog output 0 state (read)
+alias(  "$(P)$(ANALOG_OUT0)_SP",          "$(P)$(ANALOG_OUT0)-SP")      # Analog output 0 state (set)
 alias(  "$(P)$(ANALOG_OUT0)Deadb_SP",     "$(P)$(ANALOG_OUT0)DeadBand-SP")     # Analog output 0 deadband state (set)
 alias(  "$(P)$(ANALOG_OUT0)Deadb_SP",     "$(P)$(ANALOG_OUT0)DeadBand-RB")     # Analog output 0 deadband dummy readback
 
-alias(  "$(P)$(ANALOG_OUT1)_MON",         "$(P)$(ANALOG_OUT1)-RB")     # Analog output 1 state (read)
-alias(  "$(P)$(ANALOG_OUT1)_SP",          "$(P)$(ANALOG_OUT1)-SP")     # Analog output 1 state (set)
+alias(  "$(P)$(ANALOG_OUT1)_MON",         "$(P)$(ANALOG_OUT1)-RB")      # Analog output 1 state (read)
+alias(  "$(P)$(ANALOG_OUT1)_SP",          "$(P)$(ANALOG_OUT1)-SP")      # Analog output 1 state (set)
 alias(  "$(P)$(ANALOG_OUT1)Deadb_SP",     "$(P)$(ANALOG_OUT1)DeadBand-SP")     # Analog output 1 deadband state (set)
 alias(  "$(P)$(ANALOG_OUT1)Deadb_SP",     "$(P)$(ANALOG_OUT1)DeadBand-RB")     # Analog output 1 deadband dummy readback
 
 # Analog inputs control
 # Source: <Galil support top directory>/GalilSup/Db/galil_analog_in.template
-alias(  "$(P)$(ANALOG_IN0)_MON",         "$(P)$(ANALOG_IN0)-Mon")     # Analog input 0 monitor
+alias(  "$(P)$(ANALOG_IN0)_MON",         "$(P)$(ANALOG_IN0)-Mon")       # Analog input 0 monitor
 alias(  "$(P)$(ANALOG_IN0)Deadb_SP",     "$(P)$(ANALOG_IN0)DeadBand-SP")     # Analog input 0 deadband state (set)
 alias(  "$(P)$(ANALOG_IN0)Deadb_SP",     "$(P)$(ANALOG_IN0)DeadBand-RB")     # Analog input 0 deadband dummy readback
 
-alias(  "$(P)$(ANALOG_IN1)_MON",         "$(P)$(ANALOG_IN1)-Mon")     # Analog input 1 monitor
+alias(  "$(P)$(ANALOG_IN1)_MON",         "$(P)$(ANALOG_IN1)-Mon")       # Analog input 1 monitor
 alias(  "$(P)$(ANALOG_IN1)Deadb_SP",     "$(P)$(ANALOG_IN1)DeadBand-SP")     # Analog input 1 deadband state (set)
 alias(  "$(P)$(ANALOG_IN1)Deadb_SP",     "$(P)$(ANALOG_IN1)DeadBand-RB")     # Analog input 1 deadband dummy readback
+
+# BiSS protocol support
+alias(  "$(P)$(M)_BISSSTAT_CRC",         "$(P)BiSSCRC-Mon")             # BiSS CRC Status
+alias(  "$(P)$(M)_BISSSTAT_ERROR",       "$(P)BiSSErr-Mon")             # BiSS Error Status
+alias(  "$(P)$(M)_BISSSTAT_POLL",        "$(P)BiSSPoll-Sts")            # Poll BiSS Status
+alias(  "$(P)$(M)_BISSSTAT_TIMEOUT",     "$(P)BiSSTimeout-Mon")         # BiSS Timeout
+alias(  "$(P)$(M)_BISSSTAT_WARN",        "$(P)BiSSWarn-Mon")            # BiSS Warning
+alias(  "$(P)BISSCAPABLE_STATUS",        "$(P)BiSSCapable-Mon")         # Is device BiSS Capable
+alias(  "$(P)$(M)_BISSSTAT_POLL_CMD",    "$(P)BiSSPoll-Sel")            # Poll BISS Status
+alias(  "$(P)$(M)_BISSCD_MON",           "$(P)BiSSClkDiv-RB")           # BiSS Clock Div
+alias(  "$(P)$(M)_BISSDATA1_MON",        "$(P)BiSSNumBits1-RB")         # Number of Data Bits in segment 1
+alias(  "$(P)$(M)_BISSDATA2_MON",        "$(P)BiSSNumBits2-RB")         # Number of Data Bits in segment 2
+alias(  "$(P)$(M)_BISSZP_MON",           "$(P)BiSSNumZeroPad-RB")       # Number of Zero Padding Bits
+alias(  "$(P)$(M)_BISSCD_SP",            "$(P)BiSSClkDiv-SP")           # BiSS Clock Div Status
+alias(  "$(P)$(M)_BISSDATA1_SP",         "$(P)BiSSNumBits1-SP")         # Set Number of Data Bits in segment 1
+alias(  "$(P)$(M)_BISSDATA2_SP",         "$(P)BiSSNumBits2-SP")         # Set Number of Data Bits in segment 2
+alias(  "$(P)$(M)_BISSZP_SP",            "$(P)BiSSNumZeroPad-SP")       # Number of Zero Padding Bits
+alias(  "$(P)$(M)_BISSINPUT_STATUS",     "$(P)BiSSIn-Sts")              # BiSS Input Status
+alias(  "$(P)$(M)_BISSLEVEL_STATUS",     "$(P)BiSSLvl-Sts")             # BiSS Active Level Status
+alias(  "$(P)$(M)_BISSINPUT_CMD",        "$(P)BiSSIn-Sel")              # Select BiSS Input
+alias(  "$(P)$(M)_BISSLEVEL_CMD",        "$(P)BiSSLvl-Sel")             # Select BiSS Active Level
 
 #####################################################################
 # HIGH LEVEL FEATURES
