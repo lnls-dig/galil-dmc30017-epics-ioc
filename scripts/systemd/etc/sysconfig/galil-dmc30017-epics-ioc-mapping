@@ -1,3 +1,30 @@
+# PV_AREA_PREFIX:     First part of prefix
+# PV_DEVICE_PREFIX:   Second part of prefix
+# DEVICE_IP:          IP to connect to
+# DEVICE_PORT:        Port to connect to
+# TELNET_PORT_SUFFIX: Telnet port to use
+# VELO:               Default velocity
+# VMAX:               Default max velocity
+# ACCL:               Default acceleration period
+# BDST:               Default backlash distance
+# BVEL:               Default backlash velocity
+# BACC:               Default backlash acceleration period
+# MRES:               Default motor resolution in EGU
+# SREV:               Motor's number of steps per revolution
+# ERES:               Encoder resolution in EGU
+# DHLM:               Software high position limit
+# DLLM:               Software low position limit
+# OFF:                User offset in EGU
+# UEIP:               Allow driver to Use encoder if present
+# RTRY:               Movement retry count
+# NTM:                Allow motor to track new target position or wait previous move to finish
+# MTRTYPE:            Motor type
+# MTRON:              Configure motor to start powered on/off
+# EGU:                Engineering units used
+# DEFAULT_HOMETYPE:   Default home switch type, normal open (NO) or normal closed (NC)
+# DEFAULT_LIMITTYPE:  Default limit switch type, normal open (NO) or normal closed (NC)
+# AMP_GAIN:           Default amplifier gain option
+
 # --- DMC30017 1 ---
 
 DMC30017_1_PV_AREA_PREFIX=TEST:
@@ -5,27 +32,27 @@ DMC30017_1_PV_DEVICE_PREFIX=DI-DMC30017-1:
 DMC30017_1_DEVICE_IP=10.0.18.46
 DMC30017_1_DEVICE_PORT=5025
 DMC30017_1_TELNET_PORT_SUFFIX=01
-DMC30017_1_VELO=1               # Default velocity
-DMC30017_1_VMAX=10              # Default max velocity
-DMC30017_1_ACCL=2               # Default acceleration period
-DMC30017_1_BDST=0               # Default backlash distance
-DMC30017_1_BVEL=0               # Default backlash velocity
-DMC30017_1_BACC=0               # Default backlash acceleration period
-DMC30017_1_MRES=                # Default motor resolution in EGU
-DMC30017_1_SREV=51200           # Motor's number of steps per revolution
-DMC30017_1_ERES=                # Encoder resolution in EGU
-DMC30017_1_DHLM=0               # Software high position limit
-DMC30017_1_DLLM=0               # Software low position limit
-DMC30017_1_OFF=0                # User offset in EGU
-DMC30017_1_UEIP=Yes             # Allow driver to Use encoder if present
-DMC30017_1_RTRY=0               # Movement retry count
-DMC30017_1_NTM=Yes              # Allow motor to track new target position or wait previous move to finish
-DMC30017_1_MTRTYPE="ha-stepper" # Motor type
-DMC30017_1_MTRON=No             # Configure motor to start powered on/off
-DMC30017_1_EGU=mm               # Engineering units used
-DMC30017_1_DEFAULT_HOMETYPE=NC  # Default home switch type, normal open (NO) or normal closed (NC)
-DMC30017_1_DEFAULT_LIMITTYPE=NC # Default limit switch type, normal open (NO) or normal closed (NC)
-DMC30017_1_AMP_GAIN=0           # Default amplifier gain option
+DMC30017_1_VELO=1
+DMC30017_1_VMAX=10
+DMC30017_1_ACCL=2
+DMC30017_1_BDST=0
+DMC30017_1_BVEL=0
+DMC30017_1_BACC=0
+DMC30017_1_MRES=
+DMC30017_1_SREV=51200
+DMC30017_1_ERES=
+DMC30017_1_DHLM=0
+DMC30017_1_DLLM=0
+DMC30017_1_OFF=0
+DMC30017_1_UEIP=Yes
+DMC30017_1_RTRY=0
+DMC30017_1_NTM=Yes
+DMC30017_1_MTRTYPE="ha-stepper"
+DMC30017_1_MTRON=No
+DMC30017_1_EGU=mm
+DMC30017_1_DEFAULT_HOMETYPE=NC
+DMC30017_1_DEFAULT_LIMITTYPE=NC
+DMC30017_1_AMP_GAIN=0
 
 # --- DMC30017 XX ---
 
