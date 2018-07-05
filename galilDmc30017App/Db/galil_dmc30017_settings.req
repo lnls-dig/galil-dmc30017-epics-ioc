@@ -16,26 +16,3 @@ file "galil_motor_settings.req" P=$(P), M=$(M)
 # Real motors only
 file "galil_motor_extras.req" P=$(P), M=$(M)
 
-# All 4 Digital output bits
-file "galil_digital_out_bit.req" P=$(P), R=$(DIG_OUT0)
-file "galil_digital_out_bit.req" P=$(P), R=$(DIG_OUT1)
-file "galil_digital_out_bit.req" P=$(P), R=$(DIG_OUT2)
-file "galil_digital_out_bit.req" P=$(P), R=$(DIG_OUT3)
-
-# All 8 Digital input bits
-file "galil_digital_in_bit.req" P=$(P), R=$(DIG_IN0)
-file "galil_digital_in_bit.req" P=$(P), R=$(DIG_IN1)
-file "galil_digital_in_bit.req" P=$(P), R=$(DIG_IN2)
-file "galil_digital_in_bit.req" P=$(P), R=$(DIG_IN3)
-file "galil_digital_in_bit.req" P=$(P), R=$(DIG_IN4)
-file "galil_digital_in_bit.req" P=$(P), R=$(DIG_IN5)
-file "galil_digital_in_bit.req" P=$(P), R=$(DIG_IN6)
-file "galil_digital_in_bit.req" P=$(P), R=$(DIG_IN7)
-
-# Analog input
-file "galil_analog_in.req" P=$(P), R=$(ANALOG_IN0)
-file "galil_analog_in.req" P=$(P), R=$(ANALOG_IN1)
-
-# All 2 Analog outputs
-file "galil_analog_out.req" P=$(P), R=$(ANALOG_OUT0)
-file "galil_analog_out.req" P=$(P), R=$(ANALOG_OUT1)

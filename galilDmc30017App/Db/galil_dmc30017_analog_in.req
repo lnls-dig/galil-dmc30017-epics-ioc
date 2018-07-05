@@ -1,0 +1,7 @@
+# The files listed here are located at <GALIL support top>/GalilSup/Db
+# as they are provided by the Galil Support Module
+
+# All Analog inputs
+file "galil_analog_in.req" P=$(P), R=$(ANALOG_IN0)
+file "galil_analog_in.req" P=$(P), R=$(ANALOG_IN1)
+
