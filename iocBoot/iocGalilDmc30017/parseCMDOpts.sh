@@ -35,9 +35,16 @@ usage () {
     echo "  -G                  Configure amplifier gain (0, 1, 2, 3). See dmc30017 manual for the current corresponding to each option." >&2
     echo "  -D                  Configure user direction (pos/neg)" >&2
     echo "  -E                  Configure main encoder type (normal-quad, pulse-and-dir, rev-quad, rev-pulse-and-dir)." >&2
+    echo "  -O                  Enable BiSS encoder status polling (yes/no)." >&2
+    echo "  -C                  Configure BiSS encoder clock divider (4 <= clk <= 26)." >&2
+    echo "  -A                  Configure BiSS encoder data 1 number of bits (-38 <= num <= 38)." >&2
+    echo "  -B                  Configure BiSS encoder data 2 number of bits (0 <= num <= 38)." >&2
+    echo "  -Z                  Configure BiSS encoder zero padding (0 <= num <= 7)." >&2
+    echo "  -I                  Configure BiSS encoder input (off, replace-main, replace-aux)." >&2
+    echo "  -L                  Configure BiSS encoder level (low-low, low-high, high-low, high-high)." >&2
 }
 
-while getopts ":t:P:R:i:p:s:x:a:d:v:c:r:T:e:h:l:o:u:y:n:m:k:g:w:z:G:D:E:" opt; do
+while getopts ":t:P:R:i:p:s:x:a:d:v:c:r:T:e:h:l:o:u:y:n:m:k:g:w:z:G:D:E:O:C:A:B:Z:I:L:" opt; do
     case "$opt" in
         t) DEVICE_TELNET_PORT="$OPTARG" ;;
         P) P="$OPTARG" ;;
@@ -137,6 +144,70 @@ while getopts ":t:P:R:i:p:s:x:a:d:v:c:r:T:e:h:l:o:u:y:n:m:k:g:w:z:G:D:E:" opt; d
 	                         "reverse-pulse-and-direction") ENC_TYPE="3" ;; # Encoder type is "Reverse Pulse and Direction"
 	                         "rev-pulse-and-dir") ENC_TYPE="3" ;; # Encoder type is "Reverse Pulse and Direction"
 	                         *) ENC_TYPE="" ;; # Encoder type is undefined
+                            esac
+                            ;;
+        O) case "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" in
+	                         "0") BISS_POLL="No" ;; # Do NOT Poll BiSS Status
+	                         "1") BISS_POLL="Yes" ;; # DO Poll BiSS Status
+	                         "no") BISS_POLL="No" ;; # Do NOT Poll BiSS Status
+	                         "yes") BISS_POLL="Yes" ;; # DO Poll BiSS Status
+	                         *) BISS_POLL="" ;; # BiSS Poll is undefined
+                            esac
+                            ;;
+        C) if [ "$OPTARG" -le "26" ] && [ "$OPTARG" -ge "4" ] ; then
+                                 # Set BiSS Clock Divider
+	                         BISS_CLKDIV="$OPTARG"
+                            else
+                                 # Do NOT set BiSS Clock Divider
+                                 BISS_CLKDIV=""
+                            fi
+                            ;;
+        A) if [ "$OPTARG" -le "38" ] && [ "$OPTARG" -ge "-38" ] ; then
+                                 # Set BiSS Data 1
+	                         BISS_DATA1="$OPTARG"
+                            else
+                                 # Do NOT set BiSS Data 1
+                                 BISS_DATA1=""
+                            fi
+                            ;;
+        B) if [ "$OPTARG" -le "38" ] && [ "$OPTARG" -ge "0" ] ; then
+                                 # Set BiSS Data 2
+	                         BISS_DATA2="$OPTARG"
+                            else
+                                 # Do NOT set BiSS Data 2
+                                 BISS_DATA2=""
+                            fi
+                            ;;
+        Z) if [ "$OPTARG" -le "7" ] && [ "$OPTARG" -ge "0" ] ; then
+                                 # Set BiSS Zero Padding
+	                         BISS_ZEROPAD="$OPTARG"
+                            else
+                                 # Do NOT set BiSS Zero Padding
+                                 BISS_ZEROPAD=""
+                            fi
+                            ;;
+        I) case "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" in
+	                         "0") BISS_INPUT="0" ;; # Set BiSS Input to "Off"
+	                         "1") BISS_INPUT="1" ;; # Set BiSS Input to "Replace main"
+	                         "2") BISS_INPUT="2" ;; # Set BiSS Input to "Replace aux"
+	                         "off") BISS_INPUT="0" ;; # Set BiSS Input to "Off"
+	                         "replace-main") BISS_INPUT="1" ;; # Set BiSS Input to "Replace main"
+	                         "replace-aux") BISS_INPUT="2" ;; # Set BiSS Input to "Replace aux"
+	                         "main") BISS_INPUT="1" ;; # Set BiSS Input to "Replace main"
+	                         "aux") BISS_INPUT="2" ;; # Set BiSS Input to "Replace aux"
+	                         *) BISS_INPUT="" ;; # Do NOT set BiSS Input
+                            esac
+                            ;;
+        L) case "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" in
+	                         "0") BISS_LEVEL="0" ;; # Set BiSS Level to "Low/Low"
+	                         "1") BISS_LEVEL="1" ;; # Set BiSS Level to "Low/High"
+	                         "2") BISS_LEVEL="2" ;; # Set BiSS Level to "High/Low"
+	                         "3") BISS_LEVEL="3" ;; # Set BiSS Level to "High/High"
+	                         "low-low") BISS_LEVEL="0" ;; # Set BiSS Level to "Low/Low"
+	                         "low-high") BISS_LEVEL="1" ;; # Set BiSS Level to "Low/High"
+	                         "high-low") BISS_LEVEL="2" ;; # Set BiSS Level to "High/Low"
+	                         "high-high") BISS_LEVEL="3" ;; # Set BiSS Level to "High/High"
+	                         *) BISS_LEVEL="" ;; # Do NOT set BiSS Level
                             esac
                             ;;
         \?)

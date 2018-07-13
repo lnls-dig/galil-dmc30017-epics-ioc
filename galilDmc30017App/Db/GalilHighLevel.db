@@ -454,6 +454,8 @@ record(calcout, "$(P)AutoMotorEnbl"){
 #       Undefined macros DO NOT cause overwriting of the corresponding
 #       parameter.
 
+# AMPLIFIER GAIN
+
 # Value of amplifier gain macro passed
 # by the user
 record(stringin, "$(P)AmpGainMacro-Cte"){
@@ -475,6 +477,8 @@ record(scalcout, "$(P)ApplyAmpGainMacro"){
   field(OUT, "$(P)AmpGain-Sel PP")
 }
 
+# DIRECTION
+
 # Value of direction passed by the user
 record(stringin, "$(P)DirMacro-Cte"){
   field(DESC, "User direction macro passed by user")
@@ -495,6 +499,8 @@ record(scalcout, "$(P)ApplyDirMacro"){
   field(OUT, "$(P)$(M).DIR PP")
 }
 
+# ENCODER TYPE
+
 # Value of main encoder type passed by the user
 record(stringin, "$(P)EncTypeMacro-Cte"){
   field(DESC, "Main encoder type macro passed by user")
@@ -513,5 +519,215 @@ record(scalcout, "$(P)ApplyEncTypeMacro"){
   field(DOPT, "Use OCAL")
   field(ODLY, "2")                                                    # Wait a little bit
   field(OUT, "$(P)$(M)_MENCTYPE_CMD PP")
+}
+
+# BISS POLL
+
+# Value of BiSS poll passed by the user
+record(stringin, "$(P)BiSSPollMacro-Cte"){
+  field(DESC, "BiSS poll macro passed by user")
+  field(VAL, "$(BISS_POLL)")
+}
+
+# Decide whether use macro or autosaved value to
+# initialize $(P)$(M)_BISSSTAT_POLL_CMD, depending if
+# a macro was passed on startup by the user
+record(scalcout, "$(P)ApplyBiSSPollMacro"){
+  field(DESC, "Check if BiSS poll macro is empty")
+  field(PINI, "YES")
+  field(INAA, "$(P)BiSSPollMacro-Cte")
+  field(CALC, "len(AA)=0?1:2")
+  field(ODLY, "2")                                                    # Wait a little bit
+  field(OUT, "$(P)RestoreBiSSPoll.PROC PP")
+}
+
+record(sseq, "$(P)RestoreBiSSPoll"){
+  field(DESC, "Get BiSS poll from save or macro")
+  field(SELM, "Specified")
+  field(SELL, "$(P)ApplyBiSSPollMacro.VAL")
+  field(DO1, "1")
+  field(DOL2, "$(P)BiSSPollMacro-Cte")
+  field(LNK1, "$(P)$(M)_BISSSTAT_POLL_CMD.PROC PP")
+  field(LNK2, "$(P)$(M)_BISSSTAT_POLL_CMD PP")
+}
+
+# BISS CLOCK DIVIDER
+
+# Value of BiSS Clock Divider passed by the user
+record(stringin, "$(P)BiSSClkDivMacro-Cte"){
+  field(DESC, "BiSS clock div macro passed by user")
+  field(VAL, "$(BISS_CLKDIV)")
+}
+
+# Decide whether use macro or autosaved value to
+# initialize $(P)$(M)_BISSCD_SP, depending if
+# a macro was passed on startup by the user
+record(scalcout, "$(P)ApplyBiSSClkDivMacro"){
+  field(DESC, "Check if BiSS clock div macro is empty")
+  field(PINI, "YES")
+  field(INAA, "$(P)BiSSClkDivMacro-Cte")
+  field(CALC, "len(AA)=0?1:2")
+  field(ODLY, "2")                                                    # Wait a little bit
+  field(OUT, "$(P)RestoreBiSSClkDiv.PROC PP")
+}
+
+record(sseq, "$(P)RestoreBiSSClkDiv"){
+  field(DESC, "Get BiSS clk div from save or macro")
+  field(SELM, "Specified")
+  field(SELL, "$(P)ApplyBiSSClkDivMacro.VAL")
+  field(DO1, "1")
+  field(DOL2, "$(P)BiSSClkDivMacro-Cte")
+  field(LNK1, "$(P)$(M)_BISSCD_SP.PROC PP")
+  field(LNK2, "$(P)$(M)_BISSCD_SP PP")
+}
+
+# BISS DATA 1
+
+# Value of BiSS Data 1 passed by the user
+record(stringin, "$(P)BiSSData1Macro-Cte"){
+  field(DESC, "BiSS Data 1 macro passed by user")
+  field(VAL, "$(BISS_DATA1)")
+}
+
+# Decide whether use macro or autosaved value to
+# initialize $(P)$(M)_BISSDATA1_SP, depending if
+# a macro was passed on startup by the user
+record(scalcout, "$(P)ApplyBiSSData1Macro"){
+  field(DESC, "Check if BiSS data 1 macro is empty")
+  field(PINI, "YES")
+  field(INAA, "$(P)BiSSData1Macro-Cte")
+  field(CALC, "len(AA)=0?1:2")
+  field(ODLY, "2")                                                    # Wait a little bit
+  field(OUT, "$(P)RestoreBiSSData1.PROC PP")
+}
+
+record(sseq, "$(P)RestoreBiSSData1"){
+  field(DESC, "Get BiSS data 1 from save or macro")
+  field(SELM, "Specified")
+  field(SELL, "$(P)ApplyBiSSData1Macro.VAL")
+  field(DO1, "1")
+  field(DOL2, "$(P)BiSSData1Macro-Cte")
+  field(LNK1, "$(P)$(M)_BISSDATA1_SP.PROC PP")
+  field(LNK2, "$(P)$(M)_BISSDATA1_SP PP")
+}
+
+# BISS DATA 2
+
+# Value of BiSS Data 2 passed by the user
+record(stringin, "$(P)BiSSData2Macro-Cte"){
+  field(DESC, "BiSS Data 2 macro passed by user")
+  field(VAL, "$(BISS_DATA2)")
+}
+
+# Decide whether use macro or autosaved value to
+# initialize $(P)$(M)_BISSDATA2_SP, depending if
+# a macro was passed on startup by the user
+record(scalcout, "$(P)ApplyBiSSData2Macro"){
+  field(DESC, "Check if BiSS data 2 macro is empty")
+  field(PINI, "YES")
+  field(INAA, "$(P)BiSSData2Macro-Cte")
+  field(CALC, "len(AA)=0?1:2")
+  field(ODLY, "2")                                                    # Wait a little bit
+  field(OUT, "$(P)RestoreBiSSData2.PROC PP")
+}
+
+record(sseq, "$(P)RestoreBiSSData2"){
+  field(DESC, "Get BiSS data 2 from save or macro")
+  field(SELM, "Specified")
+  field(SELL, "$(P)ApplyBiSSData2Macro.VAL")
+  field(DO1, "1")
+  field(DOL2, "$(P)BiSSData2Macro-Cte")
+  field(LNK1, "$(P)$(M)_BISSDATA2_SP.PROC PP")
+  field(LNK2, "$(P)$(M)_BISSDATA2_SP PP")
+}
+
+# BISS ZERO PADDING
+
+# Value of BiSS Zero Padding passed by the user
+record(stringin, "$(P)BiSSZeroPadMacro-Cte"){
+  field(DESC, "BiSS Zero Pad macro passed by user")
+  field(VAL, "$(BISS_ZEROPAD)")
+}
+
+# Decide whether use macro or autosaved value to
+# initialize $(P)$(M)_BISSZP_SP, depending if
+# a macro was passed on startup by the user
+record(scalcout, "$(P)ApplyBiSSZeroPadMacro"){
+  field(DESC, "Check if BiSS zero pad macro is empty")
+  field(PINI, "YES")
+  field(INAA, "$(P)BiSSZeroPadMacro-Cte")
+  field(CALC, "len(AA)=0?1:2")
+  field(ODLY, "2")                                                    # Wait a little bit
+  field(OUT, "$(P)RestoreBiSSZeroPad.PROC PP")
+}
+
+record(sseq, "$(P)RestoreBiSSZeroPad"){
+  field(DESC, "Get BiSS zero pad from save or macro")
+  field(SELM, "Specified")
+  field(SELL, "$(P)ApplyBiSSZeroPadMacro.VAL")
+  field(DO1, "1")
+  field(DOL2, "$(P)BiSSZeroPadMacro-Cte")
+  field(LNK1, "$(P)$(M)_BISSZP_SP.PROC PP")
+  field(LNK2, "$(P)$(M)_BISSZP_SP PP")
+}
+
+# BISS INPUT
+
+# Value of BiSS Input passed by the user
+record(stringin, "$(P)BiSSInMacro-Cte"){
+  field(DESC, "BiSS Input macro passed by user")
+  field(VAL, "$(BISS_INPUT)")
+}
+
+# Decide whether use macro or autosaved value to
+# initialize $(P)$(M)_BISSINPUT_CMD, depending if
+# a macro was passed on startup by the user
+record(scalcout, "$(P)ApplyBiSSInMacro"){
+  field(DESC, "Check if BiSS Input macro is empty")
+  field(PINI, "YES")
+  field(INAA, "$(P)BiSSInMacro-Cte")
+  field(CALC, "len(AA)=0?1:2")
+  field(ODLY, "2")                                                    # Wait a little bit
+  field(OUT, "$(P)RestoreBiSSIn.PROC PP")
+}
+
+record(sseq, "$(P)RestoreBiSSIn"){
+  field(DESC, "Get BiSS Input from save or macro")
+  field(SELM, "Specified")
+  field(SELL, "$(P)ApplyBiSSInMacro.VAL")
+  field(DO1, "1")
+  field(DOL2, "$(P)BiSSInMacro-Cte")
+  field(LNK1, "$(P)$(M)_BISSINPUT_CMD.PROC PP")
+  field(LNK2, "$(P)$(M)_BISSINPUT_CMD PP")
+}
+
+# BISS LEVEL
+
+# Value of BiSS Level passed by the user
+record(stringin, "$(P)BiSSLvlMacro-Cte"){
+  field(DESC, "BiSS level macro passed by user")
+  field(VAL, "$(BISS_LEVEL)")
+}
+
+# Decide whether use macro or autosaved value to
+# initialize $(P)$(M)_BISSLEVEL_CMD, depending if
+# a macro was passed on startup by the user
+record(scalcout, "$(P)ApplyBiSSLvlMacro"){
+  field(DESC, "Check if BiSS level macro is empty")
+  field(PINI, "YES")
+  field(INAA, "$(P)BiSSLvlMacro-Cte")
+  field(CALC, "len(AA)=0?1:2")
+  field(ODLY, "2")                                                    # Wait a little bit
+  field(OUT, "$(P)RestoreBiSSLvl.PROC PP")
+}
+
+record(sseq, "$(P)RestoreBiSSLvl"){
+  field(DESC, "Get BiSS level from save or macro")
+  field(SELM, "Specified")
+  field(SELL, "$(P)ApplyBiSSLvlMacro.VAL")
+  field(DO1, "1")
+  field(DOL2, "$(P)BiSSLvlMacro-Cte")
+  field(LNK1, "$(P)$(M)_BISSLEVEL_CMD.PROC PP")
+  field(LNK2, "$(P)$(M)_BISSLEVEL_CMD PP")
 }
 
