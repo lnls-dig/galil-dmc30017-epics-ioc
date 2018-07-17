@@ -26,6 +26,13 @@
 # AMP_GAIN:           Default amplifier gain option
 # MTR_DIRECTION:      Default motor direction
 # ENCODER_TYPE:       Default encoder type
+# BISS_POLL:          Enable BiSS status polling (no, yes)
+# BISS_CLKDIV:        BiSS clock divider (4 <= clk <= 26)
+# BISS_DATANUM1:      BiSS data 1 number of bits (-38 <= num <= 38)
+# BISS_DATANUM2:      BiSS data 2 number of bits (0 <= num <= 38)
+# BISS_ZEROPAD:       BiSS zero padding number of bits (0 <= num <= 7)
+# BISS_INPUT:         BiSS input mapping (off, replace-main, replace-aux)
+# BISS_LEVEL:         BiSS level (low-low, low-high, high-low, high-high)
 
 # --- DMC30017 1 ---
 
