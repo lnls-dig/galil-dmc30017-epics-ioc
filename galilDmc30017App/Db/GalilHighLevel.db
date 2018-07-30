@@ -454,6 +454,84 @@ record(calcout, "$(P)AutoMotorEnbl"){
 #       Undefined macros DO NOT cause overwriting of the corresponding
 #       parameter.
 
+# MOTOR ON/OFF AND MOTOR TYPE
+
+# Value of motor on macro passed
+# by the user
+record(stringin, "$(P)MtrOnMacro-Cte"){
+  field(DESC, "Motor on/off macro passed by user")
+  field(VAL, "$(MTRON)")
+}
+
+# Value of motor type macro passed
+# by the user
+record(stringin, "$(P)MtrTypeMacro-Cte"){
+  field(DESC, "Motor type macro passed by user")
+  field(VAL, "$(MTRTYPE)")
+}
+
+record(calcout, "$(P)MtrOffWhileConfig"){
+  field(DESC, "Turn motor off for configuration")
+  field(PINI, "YES")
+  field(INPA, "$(P)AmpEnbl-Sel")
+  field(INPB, "$(P)AmpEnbl-Sel")
+  field(CALC, "B:=A;0")
+  field(OUT, "$(P)AmpEnbl-Sel PP")
+  field(FLNK, "$(P)ApplyMtrTypeMacro")
+}
+
+# Initialize $(P)MtrType-Sel if a macro
+# was passed on startup by the user
+record(scalcout, "$(P)ApplyMtrTypeMacro"){
+  field(DESC, "Initialize motor type if macro not empty")
+  field(INAA, "$(P)MtrTypeMacro-Cte")
+  field(CALC, "len(AA)=0?0:1")
+  field(OCAL, "AA")
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
+  field(ODLY, "2")                                                    # Wait a little so amp can be turned off
+  field(OUT, "$(P)MtrType-Sel PP")
+  field(FLNK, "$(P)ApplyMtrTypeSaved")
+}
+
+# Initialize $(P)MtrType-Sel with autosaved
+# value if macro was not passed
+record(calcout, "$(P)ApplyMtrTypeSaved"){
+  field(DESC, "Process motor type to receive saved val")
+  field(INPA, "$(P)ApplyMtrTypeMacro")
+  field(CALC, "A=0")
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)MtrType-Sel.PROC PP")
+  field(FLNK, "$(P)ApplyMtrOnMacro")
+}
+
+# Initialize $(P)AmpEnl-Sel if a macro
+# was passed on startup by the user
+record(scalcout, "$(P)ApplyMtrOnMacro"){
+  field(DESC, "Initialize motor on if macro not empty")
+  field(INAA, "$(P)MtrOnMacro-Cte")
+  field(CALC, "len(AA)=0?0:1")
+  field(OCAL, "AA")
+  field(OOPT, "When Non-zero")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P)AmpEnbl-Sel PP")
+  field(FLNK, "$(P)ApplyMtrOnSaved")
+}
+
+# Initialize $(P)AmpEnbl-Sel with autosaved
+# value if macro was not passed
+record(calcout, "$(P)ApplyMtrOnSaved"){
+  field(DESC, "Restore motor on with saved val")
+  field(INPA, "$(P)ApplyMtrOnMacro")
+  field(INPB, "$(P)MtrOffWhileConfig.B")
+  field(CALC, "A=0")
+  field(OCAL, "B")
+  field(DOPT, "Use OCAL")
+  field(OOPT, "When Non-zero")
+  field(ODLY, "1")                                                    # Give time to controller to process cmds
+  field(OUT, "$(P)AmpEnbl-Sel PP")
+}
+
 # AMPLIFIER GAIN
 
 # Value of amplifier gain macro passed
@@ -731,3 +809,18 @@ record(sseq, "$(P)RestoreBiSSLvl"){
   field(LNK2, "$(P)$(M)_BISSLEVEL_CMD PP")
 }
 
+#####################################################################
+# RECONNECTION ACTIONS
+#
+# Desc: Records used to restore some configurations when
+#       the controller is reset but the IOC is not.
+
+record(calcout, "$(P)RestoreAmpCurrLoopGain"){
+  field(DESC, "Restore curr loop gain after reset")
+  field(INPA, "$(P)CommErr-Mon CPP")
+  field(CALC, "A")
+  field(OOPT, "Transition To Zero")                                   # After a reconnect
+  field(OCAL, "1")
+  field(DOPT, "Use OCAL")
+  field(OUT, "$(P)AmpCurrLoopGain-Sel.PROC PP")
+}

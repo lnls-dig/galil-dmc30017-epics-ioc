@@ -91,12 +91,12 @@ while getopts ":t:P:R:i:p:s:x:a:d:v:c:r:T:e:h:l:o:u:y:n:m:k:g:w:z:G:D:E:O:C:A:B:
                                  *) MTRTYPE="" ;; # Motor type is undefined
                             esac
                             ;;
-        k) if [ "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" = "yes" ]; then
-                                      MTRON="1" # On
-                                     else
-                                      MTRON="0" # Off
-                                     fi
-                                     ;;
+        k) case "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" in
+                                 "yes") MTRON="1" ;; # On
+                                 "no") MTRON="0" ;; # Off
+                                 *) MTRON="" ;; # Motor on/off is undefined
+                            esac
+                            ;;
         g) EGU="$OPTARG" ;;
         w) if [ "$(echo "$OPTARG" | tr "[:upper:]" "[:lower:]")" = "no" ]; then
                                        DEFAULT_HOMETYPE="0" # normal open
