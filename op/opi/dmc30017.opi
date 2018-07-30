@@ -18,9 +18,8 @@
   <height>1024</height>
   <macros>
     <include_parent_macros>true</include_parent_macros>
-    <P>test:dmc:</P>
-    <DMC>test:dmc:</DMC>
     <M>A</M>
+    <P>galil:test1:</P>
   </macros>
   <name></name>
   <rules />
@@ -8712,7 +8711,7 @@ $(pv_value)</tooltip>
         <keep_wh_ratio>false</keep_wh_ratio>
       </scale_options>
       <scripts />
-      <text>Encoder Type</text>
+      <text>Motor Type</text>
       <tooltip></tooltip>
       <transparent>true</transparent>
       <vertical_alignment>1</vertical_alignment>
@@ -8951,6 +8950,52 @@ $(pv_value)</tooltip>
       <wuid>-7b0115e:16382a57e80:-516c</wuid>
       <x>237</x>
       <y>689</y>
+    </widget>
+    <widget typeId="org.csstudio.opibuilder.widgets.choiceButton" version="1.0.0">
+      <actions hook="false" hook_all="false" />
+      <alarm_pulsing>false</alarm_pulsing>
+      <backcolor_alarm_sensitive>false</backcolor_alarm_sensitive>
+      <background_color>
+        <color red="240" green="240" blue="240" />
+      </background_color>
+      <border_alarm_sensitive>true</border_alarm_sensitive>
+      <border_color>
+        <color red="0" green="128" blue="255" />
+      </border_color>
+      <border_style>0</border_style>
+      <border_width>1</border_width>
+      <enabled>true</enabled>
+      <font>
+        <opifont.name fontName="Ubuntu" height="11" style="0">Default</opifont.name>
+      </font>
+      <forecolor_alarm_sensitive>false</forecolor_alarm_sensitive>
+      <foreground_color>
+        <color red="0" green="0" blue="0" />
+      </foreground_color>
+      <height>24</height>
+      <horizontal>true</horizontal>
+      <items_from_pv>true</items_from_pv>
+      <name>Choice Button</name>
+      <pv_name>$(P)Mtr.DIR</pv_name>
+      <pv_value />
+      <rules />
+      <scale_options>
+        <width_scalable>true</width_scalable>
+        <height_scalable>true</height_scalable>
+        <keep_wh_ratio>false</keep_wh_ratio>
+      </scale_options>
+      <scripts />
+      <selected_color>
+        <color red="255" green="255" blue="255" />
+      </selected_color>
+      <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+      <visible>true</visible>
+      <widget_type>Choice Button</widget_type>
+      <width>100</width>
+      <wuid>20014939:1648fc53909:-79f5</wuid>
+      <x>124</x>
+      <y>295</y>
     </widget>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.groupingContainer" version="1.0.0">
@@ -13072,10 +13117,10 @@ $(pv_value)</tooltip>
       <vertical_alignment>1</vertical_alignment>
       <visible>true</visible>
       <widget_type>Text Update</widget_type>
-      <width>59</width>
+      <width>81</width>
       <wrap_words>false</wrap_words>
       <wuid>6e34871b:162f3391a85:-5f64</wuid>
-      <x>238</x>
+      <x>216</x>
       <y>39</y>
     </widget>
     <widget typeId="org.csstudio.opibuilder.widgets.spinner" version="1.0.0">
@@ -13178,10 +13223,10 @@ $(pv_value)</tooltip>
       <vertical_alignment>1</vertical_alignment>
       <visible>true</visible>
       <widget_type>Text Update</widget_type>
-      <width>59</width>
+      <width>81</width>
       <wrap_words>false</wrap_words>
       <wuid>6e34871b:162f3391a85:-5f5a</wuid>
-      <x>238</x>
+      <x>216</x>
       <y>71</y>
     </widget>
     <widget typeId="org.csstudio.opibuilder.widgets.spinner" version="1.0.0">
@@ -13284,10 +13329,10 @@ $(pv_value)</tooltip>
       <vertical_alignment>1</vertical_alignment>
       <visible>true</visible>
       <widget_type>Text Update</widget_type>
-      <width>59</width>
+      <width>81</width>
       <wrap_words>false</wrap_words>
       <wuid>6e34871b:162f3391a85:-5f4b</wuid>
-      <x>238</x>
+      <x>216</x>
       <y>105</y>
     </widget>
     <widget typeId="org.csstudio.opibuilder.widgets.spinner" version="1.0.0">
@@ -13390,10 +13435,10 @@ $(pv_value)</tooltip>
       <vertical_alignment>1</vertical_alignment>
       <visible>true</visible>
       <widget_type>Text Update</widget_type>
-      <width>59</width>
+      <width>81</width>
       <wrap_words>false</wrap_words>
       <wuid>6e34871b:162f3391a85:-5f3c</wuid>
-      <x>238</x>
+      <x>216</x>
       <y>134</y>
     </widget>
   </widget>
@@ -13743,10 +13788,10 @@ $(pv_value)</tooltip>
       <vertical_alignment>1</vertical_alignment>
       <visible>true</visible>
       <widget_type>Text Update</widget_type>
-      <width>59</width>
+      <width>81</width>
       <wrap_words>false</wrap_words>
       <wuid>6e34871b:162f3391a85:-5b59</wuid>
-      <x>238</x>
+      <x>216</x>
       <y>39</y>
     </widget>
     <widget typeId="org.csstudio.opibuilder.widgets.spinner" version="1.0.0">
@@ -13849,10 +13894,10 @@ $(pv_value)</tooltip>
       <vertical_alignment>1</vertical_alignment>
       <visible>true</visible>
       <widget_type>Text Update</widget_type>
-      <width>59</width>
+      <width>81</width>
       <wrap_words>false</wrap_words>
       <wuid>6e34871b:162f3391a85:-5b57</wuid>
-      <x>238</x>
+      <x>216</x>
       <y>71</y>
     </widget>
     <widget typeId="org.csstudio.opibuilder.widgets.TextUpdate" version="1.0.0">
@@ -13901,10 +13946,10 @@ $(pv_value)</tooltip>
       <vertical_alignment>1</vertical_alignment>
       <visible>true</visible>
       <widget_type>Text Update</widget_type>
-      <width>59</width>
+      <width>81</width>
       <wrap_words>false</wrap_words>
       <wuid>6e34871b:162f3391a85:-5b55</wuid>
-      <x>238</x>
+      <x>216</x>
       <y>105</y>
     </widget>
     <widget typeId="org.csstudio.opibuilder.widgets.spinner" version="1.0.0">
@@ -14007,10 +14052,10 @@ $(pv_value)</tooltip>
       <vertical_alignment>1</vertical_alignment>
       <visible>true</visible>
       <widget_type>Text Update</widget_type>
-      <width>59</width>
+      <width>81</width>
       <wrap_words>false</wrap_words>
       <wuid>6e34871b:162f3391a85:-5b53</wuid>
-      <x>238</x>
+      <x>216</x>
       <y>134</y>
     </widget>
   </widget>
@@ -14020,6 +14065,8 @@ $(pv_value)</tooltip>
         <path>galil_dmc_ctrl.opi</path>
         <macros>
           <include_parent_macros>true</include_parent_macros>
+          <DMC>galil:test1:</DMC>
+          <M>A</M>
         </macros>
         <mode>1</mode>
         <description></description>
