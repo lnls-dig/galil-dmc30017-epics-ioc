@@ -60,20 +60,14 @@ that you can specify (after `./runGalilDmc30017.sh`) are:
 
 Obs:
 
-   DMC30017 configuration options only take effect when there is no
-autosave file to use in startup. The amplifier gain, user direction, 
-encoder type, and BiSS related options are the only exceptions, taking precedence
-over the autosaved values when defined.
+   Most DMC30017 configuration options only take effect when there is no
+autosave file to use in startup. The motor on/off, motor type, amplifier gain,
+user direction, encoder type, and BiSS related options are the only exceptions,
+taking precedence over the autosaved values when defined.
 
-   The motor type option only takes effect if the DMC30017 amplifier
-is powered off before starting the IOC. This restriction does not
-prevent the IOC from setting the motor type while also powering the
-amplifier on at startup.
-
-   Similarly, the encoder type can only be set while the
-amplifier is powered off. But, while the previous amplifier state
-is unimportant for this setting, in order for it to take effect,
-the motor amplifier MUST NOT be powered on at startup.
+   The encoder type can only be set while the amplifier is powered off,
+so in order for the startup settings to take effect, the motor amplifier
+MUST NOT be powered on at startup.
 
 In some situations it is desired to run the process using procServ,
 which enables the IOC to be controlled by the system. In order to
