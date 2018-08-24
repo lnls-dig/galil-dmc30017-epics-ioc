@@ -1,9 +1,7 @@
 # The files listed here are located at <GALIL support top>/GalilSup/Db
 # as they are provided by the Galil Support Module
 
-# All 4 Digital output bits
+# Digital output bits 0 and 1
 file "galil_digital_out_bit.req" P=$(P), R=$(DIG_OUT0)
 file "galil_digital_out_bit.req" P=$(P), R=$(DIG_OUT1)
-file "galil_digital_out_bit.req" P=$(P), R=$(DIG_OUT2)
-file "galil_digital_out_bit.req" P=$(P), R=$(DIG_OUT3)
 

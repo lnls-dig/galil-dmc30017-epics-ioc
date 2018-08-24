@@ -1,0 +1,7 @@
+# The files listed here are located at <GALIL support top>/GalilSup/Db
+# as they are provided by the Galil Support Module
+
+# Digital input bits 2 and 3
+file "galil_digital_in_bit.req" P=$(P), R=$(DIG_IN2)
+file "galil_digital_in_bit.req" P=$(P), R=$(DIG_IN3)
+
