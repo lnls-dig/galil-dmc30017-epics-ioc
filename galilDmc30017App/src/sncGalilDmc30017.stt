@@ -8,7 +8,10 @@ string HOMING_READY = "Ready for command";
 string HOMING_STARTED = "Homing started";
 string HOMING_FAILED_MOVE = "Could not start moving";
 string HOMING_COMPLETE = "Homing complete";
-string HOMING_NOT_COMPLETED = "Motor stopped before homing was complete";
+string HOMING_NOT_COMPLETED = "Motor stopped before homing completed";
+string HOMING_HIT_SWITCH = "Hit switch, repositioning...";
+string HOMING_CORRECTION_FAILED = "Could not correct position after homing";
+string HOMING_CORRECTION_TIMEOUT = "Position correction timeout";
 
 %%//----------------------------------------
 %%// 	      Monitored PVs
@@ -28,11 +31,27 @@ int done_moving;
 assign done_moving to "{P}{M}.DMOV";
 monitor done_moving;
 
-int position;
+float position;
 assign position to "{P}{M}.VAL";
+
+float position_rbv;
+assign position_rbv to "{P}{M}.RBV";
+monitor position_rbv;
+
+float correction;
+assign correction to "{P}HomeToLimSwTweak-RB";
+monitor correction;
+
+float tolerance;
+assign tolerance to "{P}{M}.RDBD";
+monitor tolerance;
+
+int stop_cmd;
+assign stop_cmd to "{P}Stop-Cmd";
 
 int cmd_mode;
 assign cmd_mode to "{P}{M}.SET";
+monitor cmd_mode;
 
 int rst_pos_enbl;
 assign rst_pos_enbl to "{P}RstPosAfterHome-Sts";
@@ -117,10 +136,10 @@ ss homing {
             %{/* Position reset in homing is disabled, nothing to be done */}%
 
             %%// update homing state
-            strcpy(homing_state, HOMING_COMPLETE);
+            strcpy(homing_state, HOMING_HIT_SWITCH);
             pvPut(homing_state, SYNC);
 
-        } state init
+        } state position_correction
 
 	when (delay(1) && low_limit_switch == 0) {
 
@@ -146,10 +165,73 @@ ss homing {
             pvPut(rst_pos_cmd, SYNC);
 
             %%// update homing state
+            strcpy(homing_state, HOMING_HIT_SWITCH);
+            pvPut(homing_state, SYNC);
+
+	} state position_correction
+
+    }
+
+    state position_correction {
+
+        when (delay(1) && cmd_mode == 0) {
+
+            %{/* Move motor by a given step in the other
+                  direction, so that the limit switch do
+                  not remain pressed */}%
+
+            %%// move motor by the correction step length
+            position = position_rbv + correction;
+            pvPut(position, SYNC);
+         
+        } state wait_correction
+    }
+
+    state wait_correction{
+
+        when (done_moving != 0 && 
+                  (((position >= position_rbv) &&
+                      (position - position_rbv <= tolerance)) ||
+                   ((position_rbv > position) && 
+                      (position_rbv - position <= tolerance)))
+             ) {
+
+            %{/* Correction complete */}%
+
+            %%// update homing state
             strcpy(homing_state, HOMING_COMPLETE);
             pvPut(homing_state, SYNC);
 
-	} state init
+        } state init
+
+        when (done_moving != 0 && 
+                  (((position >= position_rbv) &&
+                      (position - position_rbv > tolerance)) ||
+                   ((position_rbv > position) && 
+                      (position_rbv - position > tolerance)))
+             ) {
+
+            %{/* Correction failed, target not reached */}%
+
+            %%// update homing state
+            strcpy(homing_state, HOMING_CORRECTION_FAILED);
+            pvPut(homing_state, SYNC);
+
+        } state init
+
+        when (done_moving == 0 && delay(10)) {
+
+            %{/* Correction timeout expired (10 seg) */}%
+
+            %%// send a stop command
+            stop_cmd = 1;
+            pvPut(stop_cmd, SYNC);
+
+            %%// update homing state
+            strcpy(homing_state, HOMING_CORRECTION_TIMEOUT);
+            pvPut(homing_state, SYNC);
+
+        } state init
 
     }
 

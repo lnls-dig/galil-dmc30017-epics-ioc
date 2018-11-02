@@ -178,6 +178,7 @@ alias(  "$(P)$(M)_BISSLEVEL_CMD",        "$(P)BiSSLvl-Sel")             # Select
 
 # Homing - Depending on DIR, move back to home using jog function
 # Unlike the Home functions, the Jog functions adapt themselves to the DIR value
+# Also, tweak position by a given step back after switch has been hit
 record(bo, "$(P)HomeToLimSw-Cmd"){
   field(DESC, "Homing command")
   field(ZNAM, "Off")
@@ -199,6 +200,24 @@ record(calcout, "$(P)ValidHomeToLimSw"){
 # set by sequencer state machine
 record(stringin, "$(P)HomingState-Mon"){
   field(DESC, "State of homing using limit switch")
+}
+
+# Distance by which the motor should backstep
+# after the switch has been hit
+record(ao, "$(P)HomeToLimSwTweak-SP"){
+  field(DESC, "Step to take back after lim sw homing")
+  field(PINI, "YES")
+  field(PREC, "$(PREC)")
+  field(DRVH, "10000000")
+  field(DRVL, "0")
+  field(VAL, "1")
+  field(FLNK, "$(P)HomeToLimSwTweak-RB")
+}
+
+record(ai, "$(P)HomeToLimSwTweak-RB"){
+  field(DESC, "Step to take back after lim sw homing")
+  field(PREC, "$(PREC)")
+  field(INP, "$(P)HomeToLimSwTweak-SP")
 }
 
 # Reset Position After Homing
