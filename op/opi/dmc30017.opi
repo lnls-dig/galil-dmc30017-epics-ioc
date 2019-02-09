@@ -14100,6 +14100,8 @@ $(pv_value)</tooltip>
         <path>galil_motor_extras.opi</path>
         <macros>
           <include_parent_macros>true</include_parent_macros>
+          <M>A</M>
+          <P>$(P)$(R)</P>
         </macros>
         <mode>1</mode>
         <description></description>
@@ -14318,6 +14320,8 @@ $(pv_value)</tooltip>
         <path>galil_dmc_ctrl.opi</path>
         <macros>
           <include_parent_macros>true</include_parent_macros>
+          <DMC>$(P)$(R)</DMC>
+          <M1>A</M1>
         </macros>
         <mode>1</mode>
         <description></description>
