@@ -23,6 +23,9 @@ monitor home_limsw_cmd;
 evflag home_limsw_cmd_Flag;
 sync home_limsw_cmd home_limsw_cmd_Flag;
 
+int home_limsw_cmd_dsbl;
+assign home_limsw_cmd_dsbl to "{P}HomeToLimSw-Cmd.DISA";
+
 int low_limit_switch;
 assign low_limit_switch to "{P}{M}.LLS";
 monitor low_limit_switch;
@@ -88,9 +91,20 @@ ss homing {
 
     state init {
 
+        entry {
+
+            // enable home to limit switch button
+            home_limsw_cmd_dsbl = 0;
+            pvPut(home_limsw_cmd_dsbl, SYNC);
+        }
+
 	when ( efTestAndClear(home_limsw_cmd_Flag) && home_limsw_cmd == 1){
 
 		%{/* Go to the homing started state */}%
+
+                // disable home to limit switch button
+                home_limsw_cmd_dsbl = 1;
+                pvPut(home_limsw_cmd_dsbl, SYNC);
 
 	} state started
     }

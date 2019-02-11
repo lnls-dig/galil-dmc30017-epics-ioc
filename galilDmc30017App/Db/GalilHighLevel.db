@@ -266,12 +266,9 @@ record(sseq, "$(P)RstPosSeq"){
   field(STR1, "Set")
   field(DOL2, "$(P)RefHomePos-RB")
   field(STR3, "Use")
-  field(LNK1, "$(P)$(M).SET CA")
-  field(LNK2, "$(P)$(M).VAL CA")
-  field(LNK3, "$(P)$(M).SET CA")
-  field(WAIT1, "Wait")                                                # Wait for link 1 to finish processing
-  field(WAIT2, "Wait")                                                # Wait for link 2 to finish processing
-  field(WAIT3, "Wait")                                                # Wait for link 3 to finish processing
+  field(LNK1, "$(P)$(M).SET")
+  field(LNK2, "$(P)$(M).VAL PP")
+  field(LNK3, "$(P)$(M).SET")
 }
 
 # Reference position for Home
