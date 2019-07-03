@@ -831,6 +831,7 @@ record(sseq, "$(P)RestoreBiSSLvl"){
 # Desc: Records used to restore some configurations when
 #       the controller is reset but the IOC is not.
 
+# restore amp curr loop gain
 record(calcout, "$(P)RestoreAmpCurrLoopGain"){
   field(DESC, "Restore curr loop gain after reset")
   field(INPA, "$(P)CommErr-Mon CPP")
@@ -840,3 +841,149 @@ record(calcout, "$(P)RestoreAmpCurrLoopGain"){
   field(DOPT, "Use OCAL")
   field(OUT, "$(P)AmpCurrLoopGain-Sel.PROC PP")
 }
+
+# save last encoder value
+# to B field. B holds the Nth
+# reading, C holds the (N-1)th
+# encoder reading
+record(calcout, "$(P)SaveLastEncPos"){
+  field(DESC, "Save last enc position")
+  field(INPA, "$(P)EncPos-Mon CPP")
+  field(CALC, "C:=B;A")
+  field(VAL, "0")
+  field(OOPT, "On Change")
+  field(OUT, "$(P)SaveLastEncPos.B")
+}
+
+record(bo, "$(P)Rst-Cmd"){
+  field(DESC, "Reset controller")
+  field(ZNAM, "Off")
+  field(ONAM, "On")
+  field(HIGH, "0.5")
+  field(FLNK, "$(P)ValidRst")
+}
+
+record(calcout, "$(P)ValidRst"){
+  field(DESC, "Validate reset command")
+  field(INPA, "$(P)Rst-Cmd")
+  field(CALC, "A")                      # Validate rst cmd
+  field(OOPT, "When Non-zero")
+  field(OUT, "$(P)RstMonSet.PROC PP")
+}
+
+record(calcout, "$(P)RstMonSet"){
+  field(DESC, "Set reset status to In Progress")
+  field(CALC, "0")
+  field(OUT, "$(P)RstDone-Mon PP")
+  field(FLNK, "$(P)RstSend")
+}
+
+record(stringout, "$(P)RstString"){
+  field(DESC, "Reset string")
+  field(VAL, "RS -1")
+}
+
+record(scalcout, "$(P)RstSend"){
+  field(DESC, "Send reset command")
+  field(INAA, "$(P)RstString")          # output string
+  field(CALC, "AA")
+  field(OUT, "$(P)Send-Cmd PP")         # send rst string cmd
+}
+
+record(mbbi, "$(P)RstDone-Mon"){
+  field(DESC, "Reset sequence status")
+  field(ZRST, "In Progress")
+  field(ZRVL, "0")
+  field(ONST, "Finished")
+  field(ONVL, "1")
+  field(VAL, "1")
+}
+
+record(calcout, "$(P)ReconnectProcedure1"){
+  field(DESC, "Reapply config after reconnect")
+  field(INPA, "$(P)CommErr-Mon CPP")
+  field(CALC, "A")
+  field(OOPT, "Transition To Zero")                                   # After a reconnect
+  field(OCAL, "1")
+  field(DOPT, "Use OCAL")
+  field(ODLY, "5")
+  field(OUT, "$(P)ReconnectProcedure2.PROC PP")
+}
+
+record(calcout, "$(P)ReconnectProcedure2"){
+  field(DESC, "Save amplifier SP config")
+  field(INPA, "$(P)AmpEnbl-Sel")
+  field(CALC, "B:=A;1")
+  field(FLNK, "$(P)ReconnectProcedure3")
+}
+
+record(calcout, "$(P)ReconnectProcedure3"){
+  field(DESC, "Save encoder use enable config")
+  field(INPA, "$(P)Mtr.UEIP")
+  field(CALC, "B:=A;1")
+  field(FLNK, "$(P)ReconnectProcedure4")
+}
+
+record(calcout, "$(P)ReconnectProcedure4"){
+  field(DESC, "Save BiSS input config")
+  field(INPA, "$(P)BiSSIn-Sel")
+  field(CALC, "B:=A;1")
+  field(FLNK, "$(P)ReconnectProcedure5")
+}
+
+record(calcout, "$(P)ReconnectProcedure5"){
+  field(DESC, "Save Mtr FOFF config")
+  field(INPA, "$(P)Mtr.FOFF")
+  field(CALC, "B:=A;1")
+  field(FLNK, "$(P)ReconnectProcedure6")
+}
+
+record(seq, "$(P)ReconnectProcedure6"){
+  field(DESC, "Reconnect sequence 1")
+  field(DO1, "0")                                                     # Disable amp
+  field(LNK1, "$(P)AmpEnbl-Sel PP")
+  field(DLY2, "0.5")                                                  # delay
+  field(DO2, "1")                                                     # proc motor type
+  field(LNK2, "$(P)MtrType-Sel.PROC PP")
+  field(DLY3, "0.5")                                                  # delay
+  field(DO3, "1")                                                     # proc low curr mode
+  field(LNK3, "$(P)LowCurrMode-SP.PROC PP")
+  field(DO4, "1")                                                     # proc amp gain
+  field(LNK4, "$(P)AmpGain-Sel.PROC PP")
+  field(DO5, "0")                                                     # Disable encoder
+  field(LNK5, "$(P)Mtr.UEIP PP")
+  field(DLY6, "0.5")                                                  # delay
+  field(DO6, "1")                                                     # Disable BiSS input
+  field(LNK6, "$(P)BiSSIn-Sel")
+  field(DLY7, "0.5")                                                  # delay
+  field(DOL7, "$(P)ReconnectProcedure4.B")                            # recover BiSS input config
+  field(LNK7, "$(P)BiSSIn-Sel PP")
+  field(DLY8, "0.3")                                                  # delay
+  field(DOL8, "$(P)ReconnectProcedure3.B")                            # recover use encoder enbl setting
+  field(LNK8, "$(P)Mtr.UEIP PP")
+  field(DO9, "1")                                                     # proc lim switch type
+  field(LNK9, "$(P)LimSwType-Sel.PROC PP")
+  field(FLNK, "$(P)ReconnectProcedure7")
+}
+
+record(seq, "$(P)ReconnectProcedure7"){
+  field(DESC, "Reconnect sequence 2")
+  field(DO1, "1")                                                     # freeze motor offset
+  field(LNK1, "$(P)Mtr.FOFF")
+  field(DO2, "1")                                                     # Motor SET field = 'Set'
+  field(LNK2, "$(P)Mtr.SET")
+  field(DLY3, "0.2")                                                  # delay
+  field(DOL3, "$(P)SaveLastEncPos.C")                                 # Recover encoder RB position
+  field(LNK3, "$(P)AbsPos-SP PP")
+  field(DLY4, "0.5")                                                  # delay
+  field(DOL4, "$(P)ReconnectProcedure5.B")                            # Recover freeze/variable offset config
+  field(LNK4, "$(P)Mtr.FOFF")
+  field(DO5, "0")                                                     # Motor SET field = 'Use'
+  field(LNK5, "$(P)Mtr.SET")
+  field(DLY9, "0.2")                                                  # delay
+  field(DOL9, "$(P)ReconnectProcedure2.B")                            # Recover amp enbl setting
+  field(LNK9, "$(P)AmpEnbl-Sel PP")
+  field(DOA, "1")                                                     # Reset is finished
+  field(LNKA, "$(P)RstDone-Mon PP")
+}
+
