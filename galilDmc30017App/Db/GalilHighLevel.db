@@ -938,49 +938,60 @@ record(calcout, "$(P)ReconnectProcedure5"){
   field(FLNK, "$(P)ReconnectProcedure6")
 }
 
+# reset main params
 record(seq, "$(P)ReconnectProcedure6"){
   field(DESC, "Reconnect sequence 1")
   field(DO1, "0")                                                     # Disable amp
   field(LNK1, "$(P)AmpEnbl-Sel PP")
-  field(DLY2, "0.5")                                                  # delay
+  field(DLY2, "1.0")                                                  # delay
   field(DO2, "1")                                                     # proc motor type
   field(LNK2, "$(P)MtrType-Sel.PROC PP")
-  field(DLY3, "0.5")                                                  # delay
+  field(DLY3, "1.0")                                                  # delay
   field(DO3, "1")                                                     # proc low curr mode
   field(LNK3, "$(P)LowCurrMode-SP.PROC PP")
   field(DO4, "1")                                                     # proc amp gain
   field(LNK4, "$(P)AmpGain-Sel.PROC PP")
-  field(DO5, "0")                                                     # Disable encoder
-  field(LNK5, "$(P)Mtr.UEIP PP")
-  field(DLY6, "0.5")                                                  # delay
-  field(DO6, "1")                                                     # Disable BiSS input
-  field(LNK6, "$(P)BiSSIn-Sel")
-  field(DLY7, "0.5")                                                  # delay
-  field(DOL7, "$(P)ReconnectProcedure4.B")                            # recover BiSS input config
-  field(LNK7, "$(P)BiSSIn-Sel PP")
-  field(DLY8, "0.3")                                                  # delay
-  field(DOL8, "$(P)ReconnectProcedure3.B")                            # recover use encoder enbl setting
-  field(LNK8, "$(P)Mtr.UEIP PP")
-  field(DO9, "1")                                                     # proc lim switch type
-  field(LNK9, "$(P)LimSwType-Sel.PROC PP")
+  field(DO5, "1")                                                     # proc lim switch type
+  field(LNK5, "$(P)LimSwType-Sel.PROC PP")
   field(FLNK, "$(P)ReconnectProcedure7")
 }
 
+# set enc RB before resetting enc
+# so the last enc value tracked by
+# 'SaveLastEncPos' PV is not replace
+# by spurious enc changes
 record(seq, "$(P)ReconnectProcedure7"){
   field(DESC, "Reconnect sequence 2")
   field(DO1, "1")                                                     # freeze motor offset
   field(LNK1, "$(P)Mtr.FOFF")
   field(DO2, "1")                                                     # Motor SET field = 'Set'
   field(LNK2, "$(P)Mtr.SET")
-  field(DLY3, "0.2")                                                  # delay
+  field(DLY3, "1.0")                                                  # delay
   field(DOL3, "$(P)SaveLastEncPos.C")                                 # Recover encoder RB position
   field(LNK3, "$(P)AbsPos-SP PP")
-  field(DLY4, "0.5")                                                  # delay
+  field(DLY4, "1.0")                                                  # delay
   field(DOL4, "$(P)ReconnectProcedure5.B")                            # Recover freeze/variable offset config
   field(LNK4, "$(P)Mtr.FOFF")
   field(DO5, "0")                                                     # Motor SET field = 'Use'
   field(LNK5, "$(P)Mtr.SET")
-  field(DLY9, "0.2")                                                  # delay
+  field(FLNK, "$(P)ReconnectProcedure8")
+}
+
+# reset encoder and turn on amp
+record(seq, "$(P)ReconnectProcedure8"){
+  field(DESC, "Reconnect sequence 3")
+  field(DO1, "0")                                                     # Disable encoder
+  field(LNK1, "$(P)Mtr.UEIP PP")
+  field(DLY2, "0.5")                                                  # delay
+  field(DO2, "1")                                                     # Disable BiSS input
+  field(LNK2, "$(P)BiSSIn-Sel")
+  field(DLY3, "0.5")                                                  # delay
+  field(DOL3, "$(P)ReconnectProcedure4.B")                            # recover BiSS input config
+  field(LNK3, "$(P)BiSSIn-Sel PP")
+  field(DLY4, "0.5")                                                  # delay
+  field(DOL4, "$(P)ReconnectProcedure3.B")                            # recover use encoder enbl setting
+  field(LNK4, "$(P)Mtr.UEIP PP")
+  field(DLY9, "0.5")                                                  # delay
   field(DOL9, "$(P)ReconnectProcedure2.B")                            # Recover amp enbl setting
   field(LNK9, "$(P)AmpEnbl-Sel PP")
   field(DOA, "1")                                                     # Reset is finished
