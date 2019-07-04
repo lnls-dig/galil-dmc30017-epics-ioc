@@ -953,32 +953,13 @@ record(seq, "$(P)ReconnectProcedure6"){
   field(LNK4, "$(P)AmpGain-Sel.PROC PP")
   field(DO5, "1")                                                     # proc lim switch type
   field(LNK5, "$(P)LimSwType-Sel.PROC PP")
+  field(DOL6, "$(P)SaveLastEncPos.C")                        # protect last enc reading from enc setup...
+  field(LNK6, "$(P)SaveLastEncPos.D")                        # ... in next seq by saving it to D field
   field(FLNK, "$(P)ReconnectProcedure7")
 }
 
-# set enc RB before resetting enc
-# so the last enc value tracked by
-# 'SaveLastEncPos' PV is not replace
-# by spurious enc changes
-record(seq, "$(P)ReconnectProcedure7"){
-  field(DESC, "Reconnect sequence 2")
-  field(DO1, "1")                                                     # freeze motor offset
-  field(LNK1, "$(P)Mtr.FOFF")
-  field(DO2, "1")                                                     # Motor SET field = 'Set'
-  field(LNK2, "$(P)Mtr.SET")
-  field(DLY3, "1.0")                                                  # delay
-  field(DOL3, "$(P)SaveLastEncPos.C")                                 # Recover encoder RB position
-  field(LNK3, "$(P)AbsPos-SP PP")
-  field(DLY4, "1.0")                                                  # delay
-  field(DOL4, "$(P)ReconnectProcedure5.B")                            # Recover freeze/variable offset config
-  field(LNK4, "$(P)Mtr.FOFF")
-  field(DO5, "0")                                                     # Motor SET field = 'Use'
-  field(LNK5, "$(P)Mtr.SET")
-  field(FLNK, "$(P)ReconnectProcedure8")
-}
-
 # reset encoder and turn on amp
-record(seq, "$(P)ReconnectProcedure8"){
+record(seq, "$(P)ReconnectProcedure7"){
   field(DESC, "Reconnect sequence 3")
   field(DO1, "0")                                                     # Disable encoder
   field(LNK1, "$(P)Mtr.UEIP PP")
@@ -991,9 +972,27 @@ record(seq, "$(P)ReconnectProcedure8"){
   field(DLY4, "0.5")                                                  # delay
   field(DOL4, "$(P)ReconnectProcedure3.B")                            # recover use encoder enbl setting
   field(LNK4, "$(P)Mtr.UEIP PP")
-  field(DLY9, "0.5")                                                  # delay
   field(DOL9, "$(P)ReconnectProcedure2.B")                            # Recover amp enbl setting
   field(LNK9, "$(P)AmpEnbl-Sel PP")
+  field(FLNK, "$(P)ReconnectProcedure8")
+}
+
+# set enc RB with value saved at
+# 'SaveLastEncPos.D' PV 
+record(seq, "$(P)ReconnectProcedure8"){
+  field(DESC, "Reconnect sequence 2")
+  field(DO1, "1")                                                     # freeze motor offset
+  field(LNK1, "$(P)Mtr.FOFF")
+  field(DO2, "1")                                                     # Motor SET field = 'Set'
+  field(LNK2, "$(P)Mtr.SET")
+  field(DLY3, "1.0")                                                  # delay
+  field(DOL3, "$(P)SaveLastEncPos.D")                                 # Recover encoder RB position
+  field(LNK3, "$(P)AbsPos-SP PP")
+  field(DLY4, "1.0")                                                  # delay
+  field(DOL4, "$(P)ReconnectProcedure5.B")                            # Recover freeze/variable offset config
+  field(LNK4, "$(P)Mtr.FOFF")
+  field(DO5, "0")                                                     # Motor SET field = 'Use'
+  field(LNK5, "$(P)Mtr.SET")
   field(DOA, "1")                                                     # Reset is finished
   field(LNKA, "$(P)RstDone-Mon PP")
 }
