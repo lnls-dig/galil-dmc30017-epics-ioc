@@ -941,20 +941,21 @@ record(calcout, "$(P)ReconnectProcedure5"){
 # reset main params
 record(seq, "$(P)ReconnectProcedure6"){
   field(DESC, "Reconnect sequence 1")
-  field(DO1, "0")                                                     # Disable amp
-  field(LNK1, "$(P)AmpEnbl-Sel PP")
-  field(DLY2, "1.0")                                                  # delay
-  field(DO2, "1")                                                     # proc motor type
-  field(LNK2, "$(P)MtrType-Sel.PROC PP")
+  field(DOL1, "$(P)SaveLastEncPos.C")                        # protect last enc reading from enc setup...
+  field(LNK1, "$(P)SaveLastEncPos.D")                        # ... in next seq by saving it to D field
+  field(DLY2, "0.3")                                                  # delay
+  field(DO2, "0")                                                     # Disable amp
+  field(LNK2, "$(P)AmpEnbl-Sel PP")
   field(DLY3, "1.0")                                                  # delay
-  field(DO3, "1")                                                     # proc low curr mode
-  field(LNK3, "$(P)LowCurrMode-SP.PROC PP")
-  field(DO4, "1")                                                     # proc amp gain
-  field(LNK4, "$(P)AmpGain-Sel.PROC PP")
-  field(DO5, "1")                                                     # proc lim switch type
-  field(LNK5, "$(P)LimSwType-Sel.PROC PP")
-  field(DOL6, "$(P)SaveLastEncPos.C")                        # protect last enc reading from enc setup...
-  field(LNK6, "$(P)SaveLastEncPos.D")                        # ... in next seq by saving it to D field
+  field(DO3, "1")                                                     # proc motor type
+  field(LNK3, "$(P)MtrType-Sel.PROC PP")
+  field(DLY4, "1.0")                                                  # delay
+  field(DO4, "1")                                                     # proc low curr mode
+  field(LNK4, "$(P)LowCurrMode-SP.PROC PP")
+  field(DO5, "1")                                                     # proc amp gain
+  field(LNK5, "$(P)AmpGain-Sel.PROC PP")
+  field(DO6, "1")                                                     # proc lim switch type
+  field(LNK6, "$(P)LimSwType-Sel.PROC PP")
   field(FLNK, "$(P)ReconnectProcedure7")
 }
 
