@@ -960,7 +960,7 @@ record(seq, "$(P)ReconnectProcedure6"){
 
 # reset encoder and turn on amp
 record(seq, "$(P)ReconnectProcedure7"){
-  field(DESC, "Reconnect sequence 3")
+  field(DESC, "Reconnect sequence 2")
   field(DO1, "0")                                                     # Disable encoder
   field(LNK1, "$(P)Mtr.UEIP PP")
   field(DLY2, "0.5")                                                  # delay
@@ -980,7 +980,7 @@ record(seq, "$(P)ReconnectProcedure7"){
 # set enc RB with value saved at
 # 'SaveLastEncPos.D' PV 
 record(seq, "$(P)ReconnectProcedure8"){
-  field(DESC, "Reconnect sequence 2")
+  field(DESC, "Reconnect sequence 3")
   field(DO1, "1")                                                     # freeze motor offset
   field(LNK1, "$(P)Mtr.FOFF")
   field(DO2, "1")                                                     # Motor SET field = 'Set'
@@ -993,7 +993,25 @@ record(seq, "$(P)ReconnectProcedure8"){
   field(LNK4, "$(P)Mtr.FOFF")
   field(DO5, "0")                                                     # Motor SET field = 'Use'
   field(LNK5, "$(P)Mtr.SET")
+  field(FLNK, "$(P)ReconnectProcedure9")
+}
+
+# proc analog and digital outputs.
+# analog out 0 has another function in this
+# controller, so it is not processed
+record(seq, "$(P)ReconnectProcedure9"){
+  field(DESC, "Reconnect sequence 4")
+  field(DO1, "1")                                                     # proc analog out 1
+  field(LNK1, "$(P)$(ANALOG_OUT1)-SP.PROC PP")
+  field(DO2, "1")                                                     # proc dig out 0
+  field(LNK2, "$(P)$(DIG_OUT0)-Sel.PROC PP")
+  field(DO3, "1")                                                     # proc dig out 1
+  field(LNK3, "$(P)$(DIG_OUT1)-Sel.PROC PP")
+  field(DO4, "1")                                                     # proc dig out 2
+  field(LNK4, "$(P)$(DIG_OUT2)-Sel.PROC PP")
+  field(DO5, "1")                                                     # proc dig out 3
+  field(LNK5, "$(P)$(DIG_OUT3)-Sel.PROC PP")
+  field(DLYA, "0.5")
   field(DOA, "1")                                                     # Reset is finished
   field(LNKA, "$(P)RstDone-Mon PP")
 }
-
