@@ -7,7 +7,7 @@ epicsEnvSet("TOP", "../..")
 < galil_dmc30017.config
 
 # Log solicited command/response traffic into galil_debug.txt
-epicsEnvSet("GALIL_DEBUG_FILE", "galil_debug.txt")
+#epicsEnvSet("GALIL_DEBUG_FILE", "galil_debug.txt")
 
 cd "${TOP}"
 
