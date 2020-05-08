@@ -265,7 +265,7 @@ docker rm <CONTAINER_NAME>
     Each IOC instance should add a prefix to the process variables indicating which device it controls.
 
     % Process Variables description table
-    \begin{longtable}{| m{4.5cm} m{2.5cm}  m{7.0cm} |}
+    \begin{longtable}{| m{4.5cm} m{2.5cm}  m{8.0cm} |}
         \caption{Application Process Variables} \\ \hline
         \bfseries Name & \bfseries Data Type & \bfseries Description \label{tab:PV-description} \endfirsthead
         \caption{Application Process Variables} \\ \hline
@@ -275,12 +275,552 @@ docker rm <CONTAINER_NAME>
                             DESCRIPTION
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
-         &  & \begin{tabular}{@{}m{6cm}@{}}
-                .
+        Mtr & Motor & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M), the motor record associated to the \$(M) axis (there is only 1 axis available in the DMC 30017). Most aspects of motor control as speed, position and direction can be controlled by the fields of this PV. More information about it can be found in the EPICS Motor Record documentation. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        ControllerModel-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)MODEL\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        ControllerAddr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)ADDRESS\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        LimSwType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)LIMITTYPE\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        LimSwType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)LIMITTYPE\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        HomeSwType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)HOMETYPE\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        HomeSwType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)HOMETYPE\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        MacAddr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)ETHADDR\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        SerialNr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)SERIALNUM\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        CommErr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)COMMERR\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        ControllerStart-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)START\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DeferredMove-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)DEFER\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DeferredMove-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)DEFER\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        UploadUserArray-Cmd &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX))UPLOAD\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        UploadUserArray-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)UPLOAD\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DeferredMoveMode-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)DEFER\_MODE\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DeferredMoveMode-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)DEFER\_MODE\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        ControllerErr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)ERROR\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        Send-Cmd &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)SEND\_STR\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        Response-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)SEND\_STR\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        ReponseVal-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)SEND\_STRVAL\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        Estall-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ESTALL\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        EstallTime-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ESTALLTIME\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        EstallTime-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ESTALLTIME\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        StepSmooth-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STEPSMOOTH\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        StepSmooth-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STEPSMOOTH\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        MtrConnect-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_MCONN\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        UseIdx-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_UINDEX\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        UseIdx-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_UINDEX\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        UseSw-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_USWITCH\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        UseSw-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_USWITCH\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        UserData-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_USERDATA\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        UserDataDeadBand-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_USERDATADEADB\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        JogAfterHome-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_JAH\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        JogAfterHome-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_JAH\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        JogAfterHome-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_JAHV\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        JogAfterHome-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_JAHV\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        EguAfterLim-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_EGUAFTLIMIT\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        EguAfterLim-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_EGUAFTLIMIT\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        PollPeriod-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STATUS\_POLL\_DELAY\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        PollPeriod-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STATUS\_POLL\_DELAY\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        HomeEnblDir-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_HOMEALLOWED\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        HomeEnblDir-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_HOMEALLOWED\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        StopDelay-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STOPDELAY\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        StopDelay-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STOPDELAY\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AmpGain-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPGAIN\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AmpGain-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPGAIN\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AmpCurrLoopGain-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AmpCurrLoopGain-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        LowCurrMode-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        LowCurrMode-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        PosErrLim-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ERRLIMIT\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        PosErrLim-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ERRLIMIT\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        PosErr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ERR\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        VeloRaw-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_VELOCITYRAW\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        VeloEgu-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_VELOCITYEGU\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        ErrLimType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_OFFONERR\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        ErrLimType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_OFFONERR\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        Axis-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AXIS\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        MtrType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_MTRTYPE\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        MtrType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_MTRTYPE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        MainEncType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_MENCTYPE\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        MainEncType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_MENCTYPE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AuxEncType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AENCTYPE\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AuxEncType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AENCTYPE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        LimProtectEnbl-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_WLP\_CMD. Wrong limit protection enable. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        LimProtectEnbl-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_WLP\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        LimProtect-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_WLPACTIVE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoOnOff-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AUTOONOFF\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoOnOff-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AUTOONOFF\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoOnDelay-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ONDELAY\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoOnDelay-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ONDELAY\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoOffDelay-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_OFFDELAY\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoOffDelay-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_OFFDELAY\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        Brake-Cmd &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKE\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        Brake-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoBrakeEnbl-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AUTOBRAKE\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoBrakeEnbl-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AUTOBRAKE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoBrakeDigPort-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEPORT\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoBrakeiDigPort-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEPORT\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoBrakeDelay-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEONDELAY\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AutoBrakeDelay-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEONDELAY\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        LimSwDsbl-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_LIMITDISABLE\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        LimSwDsbl-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_LIMITDISABLE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AmpEnbl-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ON\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AmpEnbl-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ON\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSCRC-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_CRC.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSErr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_ERROR.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSPoll-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_POLL\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSPoll-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_POLL.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSTimeout-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_TIMEOUT.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSWarn-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_WARN.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSCapable-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)BISSCAPABLE\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSClkDiv-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSCD\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSClkDiv-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSCD\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSNumBits1-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA1\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSNumBits1-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA1\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSNumBits2-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA2\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSNumBits2-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA2\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSNumZeroPad-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSZP\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSNumZeroPad-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSZP\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSIn-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSINPUT\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSIn-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSINPUT\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSLvl-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSLEVEL\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        BiSSLvl-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSLEVEL\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigOut0-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT0)\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigOut0-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT0)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigOut1-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT1)\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigOut1-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT1)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigOut2-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT2)\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigOut2-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT2)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigOut3-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT3)\_CMD.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigOut3-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT3)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigIn0-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN0)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigIn1-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN1)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigIn2-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN2)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigIn3-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN3)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigIn4-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN4)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigIn5-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN5)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigIn6-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN6)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        DigIn7-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN7)\_STATUS.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogOut0-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogOut0-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogOut0DeadBand-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)Deadb\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogOut0DeadBand-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)Deadb\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogOut1-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogOut1-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogOut1DeadBand-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)Deadb\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogOut1DeadBand-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)Deadb\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogIn0-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogIn0DeadBand-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)Deadb\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogIn0DeadBand-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)Deadb\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogIn1-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)\_MON.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogIn1DeadBand-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)Deadb\_SP.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AnalogIn1DeadBand-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)Deadb\_SP.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
          &  & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \textbf{Alias} for \$(PV\_PREFIX).
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+         &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{Alias} for \$(PV\_PREFIX).
             \end{tabular} \hypertarget{}{}\\ \hline
     \end{longtable}
 
