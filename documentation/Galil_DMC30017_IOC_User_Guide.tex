@@ -1,0 +1,289 @@
+\documentclass[openany]{article}
+\usepackage[a4paper,margin=1in,bottom=1.5in]{geometry} % define margins. Bottom margin is used to lift a little bit the page number.
+\usepackage[english]{babel} % document language is english
+\usepackage{tikz} % for drawing (currently not used).
+\usepackage{graphicx} % for including images
+\usepackage[export]{adjustbox}
+\usepackage{fancyhdr} % used for creating headers and footers. only used in title page in this document.
+\usepackage{tabularx} % creation of more complex tables
+\usepackage{longtable} % tables can span multiple pages
+\usepackage{array} % allow elements of tabular environment to have vertical alignment, e.g., center alignment.
+\usepackage{nameref} % make it possible to reference by name
+\usepackage{hyperref} % allow hiperlinks (links to other document parts and extern links)
+\usepackage{etoc} % used for generation of section local table of contents
+\usepackage{placeins} % defines the \FloatBarrier command
+\usepackage{xcolor} % for modifying box color
+\usepackage{adjustbox} % for modifying box parameters
+\usepackage{textcomp} % for having the degree symbol
+\usepackage{listings} % for code snippets
+
+% configure a listing environment for code snippets
+\lstnewenvironment{code}
+    {\lstset{linewidth=\linewidth,
+             backgroundcolor=\color{white},
+             frame=single,basicstyle=\normalsize\ttfamily\color{black},
+             breaklines=true
+             }}
+    {}
+
+% Define graphics path
+\graphicspath{{figs/}}
+
+% Configure the cross reference hyper links color
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+}
+
+\newcolumntype{C}{>{\centering\arraybackslash}X} % new column type for tabularx
+                         % centered (\centering), adjust width in order to fill table width (X type)
+
+% Configure header in 'titlepage'
+\pagestyle{fancy}
+\lhead{\includegraphics[width=4.5cm]{logo_cnpem}}
+\rhead{\includegraphics[width=4cm]{logo_lnls}}
+\renewcommand{\headrulewidth}{0pt}
+\setlength{\headheight}{52pt}
+% Clean footer
+\fancyfoot{}
+
+% increase table height factor a little bit (taller cells)
+\renewcommand{\arraystretch}{1.5}
+
+%==== Begin DOCUMENT ====
+\begin{document}
+
+%--- Begin title page ---
+\begin{titlepage}
+
+% Add header to this page
+\thispagestyle{fancy}
+
+% Center elements
+\begin{center}
+
+% title of title page
+\topskip0pt % perfectly centered
+\vspace*{\fill}
+\textbf{\Huge Galil DMC 30017 EPICS IOC User Guide}\\[20pt]
+\textbf{\Huge Version 1.0}\\[20pt]
+\textbf{\Huge May/2020}
+\vspace*{\fill}
+
+% footer of title page
+\vfill
+\textbf{Beam Diagnostics Group (DIGS)}\\[5pt]
+\textbf{Brazilian Synchrotron Light Laboratory (LNLS)}\\[5pt]
+\textbf{Brazilian Center for Research in Energy and Materials (CNPEM)}
+\end{center}
+
+\end{titlepage}
+%--- End of title page ---
+
+\newpage
+\pagestyle{plain} % restore default page style
+
+%--- About this manual ---
+\paragraph{}{\Large\bfseries About this manual}
+
+\paragraph{} This manual provides an overview of the Galil DMC 30017 EPICS IOC support. It is assumed that the reader is familiar with the basics of EPICS.
+
+%--- Table of contents ---
+\tableofcontents
+
+\newpage
+%--- Section: Introduction ---
+\section{Introduction}
+
+\paragraph{} The aim of this IOC is to provide a set of already configured files for using the \href{https://github.com/motorapp/Galil-3-0}{Galil-3-0 EPICS driver} to control a DMC 30017. This IOC includes basic configurations regarding the controller type and aliases for the driver PVs that follow Sirius naming convention.
+
+\paragraph{} The Galil DMC 30017 IOC repository is \url{https://github.com/lnls-dig/galil-dmc30017-epics-ioc}.
+
+%--- Section: Installation ---
+\section{Installation}
+
+    \paragraph{Shortcut} It is possible to run a \emph{docker image} containing the IOC and all of its dependencies. Go to the \hyperref[sec:run-with-docker]{Running the IOC from a docker container} section to see how to do it.
+
+    \subsection{Installing without docker}
+
+        \paragraph{Before everything} Make sure you have EPICS Base 3.15 and the following EPICS modules installed (older versions might work but are not recommended):
+
+        \begin{itemize}
+          \item autosave R5-9
+          \item seq 2-2-6
+          \item sscan R2-11-1
+          \item calc R3-7
+          \item asyn R4-33
+          \item busy R1-7
+          \item motor R6-10
+          \item ipac 2-15
+          \item Galil-3-0 V3-6 (driver)
+        \end{itemize} 
+
+        \paragraph{} Clone the IOC repository and checkout the desired commit (in case you are not using master).
+
+            \vspace{1mm}
+            \begin{code}
+git clone https://github.com/lnls-dig/galil-dmc30017-epics-ioc.git <install location>
+cd <install location>
+git checkout <commit>
+            \end{code}
+            \vspace{1mm}
+
+        \paragraph{} Create a \emph{RELEASE.local} file inside the \emph{configure/} directory and add the paths to EPICS Base and external modules. An example file is available at \emph{configure/RELEASE.local.example}.
+
+            \vspace{1mm}
+            \begin{code}
+echo 'EPICS_BASE=<path to EPICS Base>' > configure/RELEASE.local
+echo 'AUTOSAVE=<path to autosave>' >> configure/RELEASE.local
+echo 'SNCSEQ=<path to seq>' >> configure/RELEASE.local
+echo 'SSCAN=<path to sscan>' >> configure/RELEASE.local
+echo 'CALC=<path to calc>' >> configure/RELEASE.local
+echo 'ASYN=<path to asyn>' >> configure/RELEASE.local
+echo 'BUSY=<path to busy>' >> configure/RELEASE.local
+echo 'MOTOR=<path to motor>' >> configure/RELEASE.local
+echo 'IPAC=<path to ipac>' >> configure/RELEASE.local
+echo 'GALIL=<path to Galil-3-0 driver>' >> configure/RELEASE.local
+            \end{code}
+            \vspace{1mm}
+
+        \paragraph{} From the IOC $<$TOP$>$ directory, run make:
+
+            \vspace{1mm}
+            \begin{code}
+make
+            \end{code}
+            \vspace{1mm}
+
+%--- Section: Running the IOC without docker ---
+\section{Running the IOC without docker}
+
+    After successfully building the IOC, from the IOC top directory, run:
+
+        \vspace{1mm}
+        \begin{code}
+cd iocBoot/iocGalilDmc30017 &&
+./runGalilDmc30017.sh <options>
+        \end{code}
+        \vspace{1mm}
+
+    The available options can be listed by passing any invalid option to the startup script, such as:
+
+        \vspace{1mm}
+        \begin{code}
+./runDiffCtrl.sh -h
+        \end{code}
+        \vspace{1mm}
+
+    or can be consulted in the README.md file at the IOC $<$TOP$>$ directory or project page \url{https://github.com/lnls-dig/galil-dmc30017-epics-ioc}.
+
+%--- Section: Running the IOC from a docker container ---
+\section{Running the IOC from a docker container}\label{sec:run-with-docker}
+
+    \paragraph{} Make sure you have docker installed and that you understand the basics of creating, running and acessing a container, and downloading an image.
+
+    \subsection{Downloading the image (IOC + dependencies)}
+
+        \paragraph{} The image named \textbf{lnlsdig/galil-dmc30017-epics-ioc} contains the compiled IOC and dependencies, and can be downloaded to your machine by running:
+
+        \vspace{1mm}
+        \begin{code}
+docker pull lnlsdig/galil-dmc30017-epics-ioc:<IOC_TAG>
+        \end{code}
+        \vspace{1mm}
+
+        where \emph{$<$IOC\_TAG$>$} should be replaced by the desired IOC version.
+
+        \paragraph{} The IOC version list can be found at \url{https://hub.docker.com/r/lnlsdig/galil-dmc30017-epics-ioc/tags}.
+
+        After the IOC image is downloaded, you can instante it by running a container that uses it.
+
+    \subsection{Running a docker container with that image}
+
+        \paragraph{} One way to run the container is to do:
+
+        \vspace{1mm}
+        \begin{code}
+docker run -it --network host --restart always --name <CONTAINER_NAME> lnlsdig/galil-dmc30017-epics-ioc:<IOC_TAG> -P <PREFIX1> -R <PREFIX2> <other options>
+        \end{code}
+        \vspace{1mm}
+
+        Which is going to run the container starting at its default entrypoint, that is, the IOC startup script. The parameter $<$IOC\_TAG$>$ should be replaced by the IOC version. All the arguments after it are passed to the IOC startup script when run in this way. The $<$PREFIX1$>$ and $<$PREFIX2$>$ are the IOC EPICS PVs prefix, combined as follows: \emph{PV\_PREFIX = PREFIX1 + PREFIX2}. The other startup script arguments should be provided as well. They are listed in the IOC README.md file.
+
+        \paragraph{} \textbf{If you run this command before downloading the image, the image is automatically downloaded, provided there is internet connection}.
+
+        \paragraph{} Below you find an explanation for each flag we used in the above command.
+
+        \begin{itemize}
+          \item -it: interactive (STDIN open) and allocate pseudo-TTY. Since we did not change the container entrypoint, your terminal is going to connect to the IOC shell.
+          \item --network host: configures the container to use the host's network stack inside the container. It is the simplest configuration to use, although it provides no isolation.
+          \item --restart always: restarts the container automatically when it exits.
+          \item --name $<$CONTAINER\_NAME$>$: configures the container name as $<$CONTAINER\_NAME$>$.
+        \end{itemize}
+
+        \paragraph{} In order to stop the docker container, i.e., the IOC, run:
+
+        \vspace{1mm}
+        \begin{code}
+docker stop <CONTAINER_NAME>
+        \end{code}
+        \vspace{1mm}
+
+        \paragraph{} If you want to delete the container, after stopping it, run:
+
+        \vspace{1mm}
+        \begin{code}
+docker rm <CONTAINER_NAME>
+        \end{code}
+        \vspace{1mm}
+
+        \paragraph{} You can also run the contaier with the \emph{--rm} flag to clean up the container and remove the file system when it exits.
+
+%--- Section: Alises for Driver PVs ---
+\section{Alises for Driver PVs}\label{sec:dev-reference-frame}
+
+    This document is still under development.
+
+%--- Section: Auto Settings ---
+\section{Auto Settings}
+
+    This document is still under development.
+
+%--- Section: Startup Configuration ---
+\section{Startup Configuration}
+
+    This document is still under development.
+
+%--- Section: CS-Studio OPI Overview ---
+\section{CS-Studio OPI Overview}
+
+    This document is still under development.
+
+\newpage
+\section{Process Variables Description}\label{sec:process-variables}
+
+    Each IOC instance should add a prefix to the process variables indicating which device it controls.
+
+    % Process Variables description table
+    \begin{longtable}{| m{4.5cm} m{2.5cm}  m{7.0cm} |}
+        \caption{Application Process Variables} \\ \hline
+        \bfseries Name & \bfseries Data Type & \bfseries Description \label{tab:PV-description} \endfirsthead
+        \caption{Application Process Variables} \\ \hline
+        \bfseries Name & \bfseries Data Type & \bfseries Description \endhead \hline
+        % --- row ---
+        PV\_NAME & DATA\_TYPE & \begin{tabular}{@{}m{6cm}@{}}
+                            DESCRIPTION
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+         &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+         &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{}{}\\ \hline
+    \end{longtable}
+
+\end{document}
+\grid
+
