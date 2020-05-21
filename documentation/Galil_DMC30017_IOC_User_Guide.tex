@@ -1,7 +1,6 @@
 \documentclass[openany]{article}
 \usepackage[a4paper,margin=1in,bottom=1.5in]{geometry} % define margins. Bottom margin is used to lift a little bit the page number.
 \usepackage[english]{babel} % document language is english
-\usepackage{tikz} % for drawing (currently not used).
 \usepackage{graphicx} % for including images
 \usepackage[export]{adjustbox}
 \usepackage{fancyhdr} % used for creating headers and footers. only used in title page in this document.
@@ -12,7 +11,8 @@
 \usepackage{hyperref} % allow hiperlinks (links to other document parts and extern links)
 \usepackage{etoc} % used for generation of section local table of contents
 \usepackage{placeins} % defines the \FloatBarrier command
-\usepackage{xcolor} % for modifying box color
+\usepackage[dvipsnames]{xcolor} % for modifying box color
+\usepackage{tikz} % for drawing (currently not used).
 \usepackage{adjustbox} % for modifying box parameters
 \usepackage{textcomp} % for having the degree symbol
 \usepackage{listings} % for code snippets
@@ -265,7 +265,7 @@ docker rm <CONTAINER_NAME>
     Each IOC instance should add a prefix to the process variables indicating which device it controls.
 
     % Process Variables description table
-    \begin{longtable}{| m{4.5cm} m{2.5cm}  m{8.0cm} |}
+    \begin{longtable}{| m{4.5cm} m{2.5cm}  m{8.5cm} |}
         \caption{Application Process Variables} \\ \hline
         \bfseries Name & \bfseries Data Type & \bfseries Description \label{tab:PV-description} \endfirsthead
         \caption{Application Process Variables} \\ \hline
@@ -273,554 +273,762 @@ docker rm <CONTAINER_NAME>
         % --- row ---
         PV\_NAME & DATA\_TYPE & \begin{tabular}{@{}m{6cm}@{}}
                             DESCRIPTION
-            \end{tabular} \hypertarget{}{}\\ \hline
+            \end{tabular} \hypertarget{pv:mtr}{}\\ \hline
         % --- row ---
         Mtr & Motor & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M), the motor record associated to the \$(M) axis (there is only 1 axis available in the DMC 30017). Most aspects of motor control as speed, position and direction can be controlled by the fields of this PV. More information about it can be found in the EPICS Motor Record documentation. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M), the motor record associated to the \$(M) axis (there is only 1 axis available in the DMC 30017). Most aspects of motor control as speed, position and direction can be controlled by the fields of this PV. More information about it can be found in the EPICS Motor Record documentation. In this IOC the macro M="A", by default. As a quick reference, the main motor record fields are listed below.
+            \end{tabular} \hypertarget{pv:mtr-mres}{}\\ \hline
+        % --- row ---
+        Mtr.MRES & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} Motor resolution, i.e., distance per step, in engineering units. If the driver has microstepping enabled (which is always true for the DMC 30017), then the microstep resolution should be used. When this field is set, motion, in engineering units, per revolution is updated to match the current number of steps per revolution, i.e., UREV = MRES*SREV. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-srev}{}\\ \hline
+        % --- row ---
+        Mtr.SREV & Long & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} Number of motor steps per revolution. If the driver has microstepping enabled (which is always true for the DMC 30017), then the microstep count per revolution should be used. When this field is set, motor step resolution is automatically updated to match the current motion, in engineering units, per revolution, i.e., MRES = UREV/SREV. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-urev}{}\\ \hline
+        % --- row ---
+        Mtr.UREV & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} Motion, in engineering units, per motor revolution. When this field is set, motor step resolution is automatically updated to match the current number of steps per revolution, i.e., MRES = UREV/SREV. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-velo}{}\\ \hline
+        % --- row ---
+        Mtr.VELO & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} Velocity the motor should have after finishing acceleration, in engineering units. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-vmax}{}\\ \hline
+        % --- row ---
+        Mtr.VMAX & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} User configurable maximum velocity the VELO field can be configured to, in engineering units. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-accl}{}\\ \hline
+        % --- row ---
+        Mtr.ACCL & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} Acceleration time, in seconds. This is the configured time period until the motor reaches the specified velocity, starting from rest. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-set}{}\\ \hline
+        % --- row ---
+        Mtr.SET & Enum: Use (0), Set (1) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} Toggle between move and calibration. When \emph{Use} is selected, writes to the motor VAL field cause it to move. When \emph{Set} is selected, writes to the motor VAL field also change the hardware position register, but do not move the motor. If the FOFF field is equal to 0, then the offset (OFF field) between hardware and user position is updated when a new position is set to VAL. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-foff}{}\\ \hline
+        % --- row ---
+        Mtr.FOFF & Enum: Variable (0), Frozen (1) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} Freeze the "user" and "dial" coordinates difference, i.e., the offset (OFF field) is NOT automatically adjusted when a new position is set to VAL and the SET field is equal to \emph{Set}. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-dir}{}\\ \hline
+        % --- row ---
+        Mtr.DIR & Enum: Pos (0), Neg (1) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} User direction. This field defines whether or not the user position value (set point and encoder reading) have the opposite sign with respect to the hardware values. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-eres}{}\\ \hline
+        % --- row ---
+        Mtr.ERES & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} Encoder step size, in engineering units. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-egu}{}\\ \hline
+        % --- row ---
+        Mtr.EGU & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} The string corresponding to the engineering units being used (configured by the user). More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-hlm}{}\\ \hline
+        % --- row ---
+        Mtr.HLM & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} High position limit. This is a software high limit to the allowed motor command positions. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-llm}{}\\ \hline
+        % --- row ---
+        Mtr.LLM & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} Low position limit. This is a software low limit to the allowed motor command positions. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-homf}{}\\ \hline
+        % --- row ---
+        Mtr.HOMF & Short & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} When set to 1, home the motor forward. The user direction (DIR field) has no effect in the meaning of "forward" in homing. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-homr}{}\\ \hline
+        % --- row ---
+        Mtr.HOMR & Short & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} When set to 1, home the motor backwards. Theuser direction (DIR field) has no effect in the meaning of "backwards" in homing. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-hvel}{}\\ \hline
+        % --- row ---
+        Mtr.HVEL & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} Homing velocity. The velocity used during a homing procedure. This value cannot be set to a value greater than the value of the VMAX field. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-athm}{}\\ \hline
+        % --- row ---
+        Mtr.ATHM & Short & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} The home switch state. It indicates 1 while the home switch is being pressed and 0 when it is not active. More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-bdst}{}\\ \hline
+        % --- row ---
+        Mtr.BDST &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-bvel}{}\\ \hline
+        % --- row ---
+        Mtr.BVEL &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-bacc}{}\\ \hline
+        % --- row ---
+        Mtr.BACC &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-off}{}\\ \hline
+        % --- row ---
+        Mtr.OFF &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-ntm}{}\\ \hline
+        % --- row ---
+        Mtr.NTM &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-ueip}{}\\ \hline
+        % --- row ---
+        Mtr.UEIP &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-rtry}{}\\ \hline
+        % --- row ---
+        Mtr.RTRY &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-rdbd}{}\\ \hline
+        % --- row ---
+        Mtr.RDBD &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-rmod}{}\\ \hline
+        % --- row ---
+        Mtr.RMOD &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:mtr-miss}{}\\ \hline
+        % --- row ---
+        Mtr.MISS &  & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{ForestGreen} Motor record field} More information about it can be found in the EPICS Motor Record documentation.
+            \end{tabular} \hypertarget{pv:controller-model-mon}{}\\ \hline
         % --- row ---
         ControllerModel-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)MODEL\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)MODEL\_MON.
+            \end{tabular} \hypertarget{pv:controller-addr-mon}{}\\ \hline
         % --- row ---
         ControllerAddr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)ADDRESS\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)ADDRESS\_MON.
+            \end{tabular} \hypertarget{pv:lim-sw-type}{}\\ \hline
         % --- row ---
         LimSwType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)LIMITTYPE\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)LIMITTYPE\_CMD.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         LimSwType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)LIMITTYPE\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)LIMITTYPE\_STATUS.
+            \end{tabular} \hypertarget{pv:home-sw-type}{}\\ \hline
         % --- row ---
         HomeSwType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)HOMETYPE\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)HOMETYPE\_CMD.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         HomeSwType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)HOMETYPE\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)HOMETYPE\_STATUS.
+            \end{tabular} \hypertarget{pv:mac-addr-mon}{}\\ \hline
         % --- row ---
         MacAddr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)ETHADDR\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)ETHADDR\_MON.
+            \end{tabular} \hypertarget{pv:serial-nr-mon}{}\\ \hline
         % --- row ---
         SerialNr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)SERIALNUM\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SERIALNUM\_MON.
+            \end{tabular} \hypertarget{pv:comm-err-mon}{}\\ \hline
         % --- row ---
         CommErr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)COMMERR\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)COMMERR\_STATUS.
+            \end{tabular} \hypertarget{pv:controller-start-mon}{}\\ \hline
         % --- row ---
         ControllerStart-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)START\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)START\_STATUS.
+            \end{tabular} \hypertarget{pv:deferred-move}{}\\ \hline
         % --- row ---
         DeferredMove-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)DEFER\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_CMD.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DeferredMove-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)DEFER\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_STATUS.
+            \end{tabular} \hypertarget{pv:upload-user-array-cmd}{}\\ \hline
         % --- row ---
         UploadUserArray-Cmd &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX))UPLOAD\_CMD.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX))UPLOAD\_CMD.
+            \end{tabular} \hypertarget{pv:upload-user-array-mon}{}\\ \hline
         % --- row ---
         UploadUserArray-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)UPLOAD\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)UPLOAD\_STATUS.
+            \end{tabular} \hypertarget{pv:deferred-move-mode}{}\\ \hline
         % --- row ---
         DeferredMoveMode-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)DEFER\_MODE\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_MODE\_CMD.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DeferredMoveMode-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)DEFER\_MODE\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_MODE\_STATUS.
+            \end{tabular} \hypertarget{pv:controller-err-mon}{}\\ \hline
         % --- row ---
         ControllerErr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)ERROR\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)ERROR\_MON.
+            \end{tabular} \hypertarget{pv:send-cmd}{}\\ \hline
         % --- row ---
         Send-Cmd &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)SEND\_STR\_CMD.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SEND\_STR\_CMD.
+            \end{tabular} \hypertarget{pv:response-mon}{}\\ \hline
         % --- row ---
         Response-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)SEND\_STR\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SEND\_STR\_MON.
+            \end{tabular} \hypertarget{pv:response-val-mon}{}\\ \hline
         % --- row ---
         ReponseVal-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)SEND\_STRVAL\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SEND\_STRVAL\_MON.
+            \end{tabular} \hypertarget{pv:estall}{}\\ \hline
         % --- row ---
         Estall-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ESTALL\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ESTALL\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:estall-time}{}\\ \hline
         % --- row ---
         EstallTime-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ESTALLTIME\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ESTALLTIME\_SP. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         EstallTime-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ESTALLTIME\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ESTALLTIME\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:step-smooth}{}\\ \hline
         % --- row ---
         StepSmooth-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STEPSMOOTH\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STEPSMOOTH\_SP. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         StepSmooth-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STEPSMOOTH\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STEPSMOOTH\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:mtr-connect-mon}{}\\ \hline
         % --- row ---
         MtrConnect-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_MCONN\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MCONN\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:use-idx}{}\\ \hline
         % --- row ---
         UseIdx-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_UINDEX\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_UINDEX\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         UseIdx-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_UINDEX\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_UINDEX\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:use-sw}{}\\ \hline
         % --- row ---
         UseSw-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_USWITCH\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_USWITCH\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         UseSw-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_USWITCH\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_USWITCH\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:user-data-mon}{}\\ \hline
         % --- row ---
         UserData-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_USERDATA\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_USERDATA\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:user-data-deadband}{}\\ \hline
         % --- row ---
         UserDataDeadBand-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_USERDATADEADB\_SP. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_USERDATADEADB\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:jog-after-home-sel}{}\\ \hline
         % --- row ---
         JogAfterHome-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_JAH\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAH\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         JogAfterHome-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_JAH\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAH\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:jog-after-home-sp}{}\\ \hline
         % --- row ---
         JogAfterHome-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_JAHV\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAHV\_SP. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         JogAfterHome-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_JAHV\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAHV\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:egu-after-lim}{}\\ \hline
         % --- row ---
         EguAfterLim-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_EGUAFTLIMIT\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_EGUAFTLIMIT\_SP. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         EguAfterLim-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_EGUAFTLIMIT\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_EGUAFTLIMIT\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:poll-period}{}\\ \hline
         % --- row ---
         PollPeriod-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STATUS\_POLL\_DELAY\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STATUS\_POLL\_DELAY\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         PollPeriod-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STATUS\_POLL\_DELAY\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STATUS\_POLL\_DELAY\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:home-enbl-dir}{}\\ \hline
         % --- row ---
         HomeEnblDir-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_HOMEALLOWED\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_HOMEALLOWED\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         HomeEnblDir-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_HOMEALLOWED\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_HOMEALLOWED\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:stop-delay}{}\\ \hline
         % --- row ---
         StopDelay-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STOPDELAY\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STOPDELAY\_SP. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         StopDelay-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_STOPDELAY\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STOPDELAY\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:amp-gain}{}\\ \hline
         % --- row ---
         AmpGain-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPGAIN\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPGAIN\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AmpGain-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPGAIN\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPGAIN\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:amp-curr-loop-gain}{}\\ \hline
         % --- row ---
         AmpCurrLoopGain-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AmpCurrLoopGain-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:low-curr-mode}{}\\ \hline
         % --- row ---
         LowCurrMode-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_SP. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         LowCurrMode-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:pos-err-lim}{}\\ \hline
         % --- row ---
         PosErrLim-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ERRLIMIT\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ERRLIMIT\_SP. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         PosErrLim-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ERRLIMIT\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ERRLIMIT\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:pos-err-mon}{}\\ \hline
         % --- row ---
         PosErr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ERR\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ERR\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:velo-raw-mon}{}\\ \hline
         % --- row ---
         VeloRaw-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_VELOCITYRAW\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_VELOCITYRAW\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:velo-egu-mon}{}\\ \hline
         % --- row ---
         VeloEgu-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_VELOCITYEGU\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_VELOCITYEGU\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:err-lim-type}{}\\ \hline
         % --- row ---
         ErrLimType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_OFFONERR\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_OFFONERR\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         ErrLimType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_OFFONERR\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_OFFONERR\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:axis-mon}{}\\ \hline
         % --- row ---
         Axis-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AXIS\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AXIS\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:mtr-type}{}\\ \hline
         % --- row ---
         MtrType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_MTRTYPE\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MTRTYPE\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         MtrType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_MTRTYPE\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MTRTYPE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:main-enc-type}{}\\ \hline
         % --- row ---
         MainEncType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_MENCTYPE\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MENCTYPE\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         MainEncType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_MENCTYPE\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MENCTYPE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:aux-enc-type}{}\\ \hline
         % --- row ---
         AuxEncType-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AENCTYPE\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AENCTYPE\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AuxEncType-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AENCTYPE\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AENCTYPE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:lim-protect-enbl}{}\\ \hline
         % --- row ---
         LimProtectEnbl-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_WLP\_CMD. Wrong limit protection enable. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_WLP\_CMD. Wrong limit protection enable. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         LimProtectEnbl-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_WLP\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_WLP\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:lim-protect-mon}{}\\ \hline
         % --- row ---
         LimProtect-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_WLPACTIVE\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_WLPACTIVE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:auto-on-off}{}\\ \hline
         % --- row ---
         AutoOnOff-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AUTOONOFF\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AUTOONOFF\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AutoOnOff-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AUTOONOFF\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AUTOONOFF\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:auto-on-delay}{}\\ \hline
         % --- row ---
         AutoOnDelay-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ONDELAY\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ONDELAY\_SP. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AutoOnDelay-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ONDELAY\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ONDELAY\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:auto-off-delay}{}\\ \hline
         % --- row ---
         AutoOffDelay-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_OFFDELAY\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_OFFDELAY\_SP. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AutoOffDelay-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_OFFDELAY\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_OFFDELAY\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:brake-cmd}{}\\ \hline
         % --- row ---
         Brake-Cmd &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKE\_CMD. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BRAKE\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:brake-mon}{}\\ \hline
         % --- row ---
         Brake-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKE\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BRAKE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:auto-brake-enbl}{}\\ \hline
         % --- row ---
         AutoBrakeEnbl-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AUTOBRAKE\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AUTOBRAKE\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AutoBrakeEnbl-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_AUTOBRAKE\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AUTOBRAKE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:auto-brake-dig-port}{}\\ \hline
         % --- row ---
         AutoBrakeDigPort-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEPORT\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEPORT\_SP. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AutoBrakeiDigPort-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEPORT\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEPORT\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:auto-brake-delay}{}\\ \hline
         % --- row ---
         AutoBrakeDelay-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEONDELAY\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEONDELAY\_SP. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AutoBrakeDelay-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEONDELAY\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BRAKEONDELAY\_MON. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:lim-sw-dsbl}{}\\ \hline
         % --- row ---
         LimSwDsbl-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_LIMITDISABLE\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_LIMITDISABLE\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         LimSwDsbl-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_LIMITDISABLE\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_LIMITDISABLE\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:amp-enbl}{}\\ \hline
         % --- row ---
         AmpEnbl-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ON\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ON\_CMD. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AmpEnbl-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_ON\_STATUS. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ON\_STATUS. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:biss-crc-mon}{}\\ \hline
         % --- row ---
         BiSSCRC-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_CRC.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_CRC.
+            \end{tabular} \hypertarget{pv:biss-err-mon}{}\\ \hline
         % --- row ---
         BiSSErr-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_ERROR.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_ERROR.
+            \end{tabular} \hypertarget{pv:biss-poll}{}\\ \hline
         % --- row ---
         BiSSPoll-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_POLL\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_POLL\_CMD.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSPoll-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_POLL.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_POLL.
+            \end{tabular} \hypertarget{pv:biss-timeout-mon}{}\\ \hline
         % --- row ---
         BiSSTimeout-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_TIMEOUT.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_TIMEOUT.
+            \end{tabular} \hypertarget{pv:biss-warn-mon}{}\\ \hline
         % --- row ---
         BiSSWarn-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_WARN.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_WARN.
+            \end{tabular} \hypertarget{pv:biss-capable-mon}{}\\ \hline
         % --- row ---
         BiSSCapable-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)BISSCAPABLE\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)BISSCAPABLE\_STATUS.
+            \end{tabular} \hypertarget{pv:biss-clk-div}{}\\ \hline
         % --- row ---
         BiSSClkDiv-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSCD\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSCD\_SP.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSClkDiv-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSCD\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSCD\_MON.
+            \end{tabular} \hypertarget{pv:biss-num-bits-1}{}\\ \hline
         % --- row ---
         BiSSNumBits1-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA1\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA1\_SP.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSNumBits1-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA1\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA1\_MON.
+            \end{tabular} \hypertarget{pv:biss-num-bits-2}{}\\ \hline
         % --- row ---
         BiSSNumBits2-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA2\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA2\_SP.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSNumBits2-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA2\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA2\_MON.
+            \end{tabular} \hypertarget{pv:biss-num-zero-pad}{}\\ \hline
         % --- row ---
         BiSSNumZeroPad-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSZP\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSZP\_SP.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSNumZeroPad-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSZP\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSZP\_MON.
+            \end{tabular} \hypertarget{pv:biss-in}{}\\ \hline
         % --- row ---
         BiSSIn-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSINPUT\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSINPUT\_CMD.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSIn-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSINPUT\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSINPUT\_STATUS.
+            \end{tabular} \hypertarget{pv:biss-lvl}{}\\ \hline
         % --- row ---
         BiSSLvl-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSLEVEL\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSLEVEL\_CMD.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSLvl-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(M)\_BISSLEVEL\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSLEVEL\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-out-0}{}\\ \hline
         % --- row ---
         DigOut0-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT0)\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT0)\_CMD.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DigOut0-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT0)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT0)\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-out-1}{}\\ \hline
         % --- row ---
         DigOut1-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT1)\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT1)\_CMD.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DigOut1-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT1)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT1)\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-out-2}{}\\ \hline
         % --- row ---
         DigOut2-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT2)\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT2)\_CMD.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DigOut2-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT2)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT2)\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-out-3}{}\\ \hline
         % --- row ---
         DigOut3-Sel &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT3)\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT3)\_CMD.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DigOut3-Sts &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_OUT3)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT3)\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-in-0}{}\\ \hline
         % --- row ---
         DigIn0-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN0)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN0)\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-in-1}{}\\ \hline
         % --- row ---
         DigIn1-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN1)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN1)\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-in-2}{}\\ \hline
         % --- row ---
         DigIn2-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN2)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN2)\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-in-3}{}\\ \hline
         % --- row ---
         DigIn3-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN3)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN3)\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-in-4}{}\\ \hline
         % --- row ---
         DigIn4-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN4)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN4)\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-in-5}{}\\ \hline
         % --- row ---
         DigIn5-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN5)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN5)\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-in-6}{}\\ \hline
         % --- row ---
         DigIn6-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN6)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN6)\_STATUS.
+            \end{tabular} \hypertarget{pv:dig-in-7}{}\\ \hline
         % --- row ---
         DigIn7-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(DIG\_IN7)\_STATUS.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN7)\_STATUS.
+            \end{tabular} \hypertarget{pv:analog-out-0}{}\\ \hline
         % --- row ---
         AnalogOut0-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)\_SP.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogOut0-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)\_MON.
+            \end{tabular} \hypertarget{pv:analog-out-0-dead-band}{}\\ \hline
         % --- row ---
         AnalogOut0DeadBand-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)Deadb\_SP.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogOut0DeadBand-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)Deadb\_SP.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)Deadb\_SP.
+            \end{tabular} \hypertarget{pv:analog-out-1}{}\\ \hline
         % --- row ---
         AnalogOut1-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)\_SP.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogOut1-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)\_MON.
+            \end{tabular} \hypertarget{pv:analog-out-1-dead-band}{}\\ \hline
         % --- row ---
         AnalogOut1DeadBand-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)Deadb\_SP.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogOut1DeadBand-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)Deadb\_SP.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)Deadb\_SP.
+            \end{tabular} \hypertarget{pv:analog-in-0-mon}{}\\ \hline
         % --- row ---
         AnalogIn0-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)\_MON.
+            \end{tabular} \hypertarget{pv:analog-in-0-dead-band}{}\\ \hline
         % --- row ---
         AnalogIn0DeadBand-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)Deadb\_SP.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogIn0DeadBand-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)Deadb\_SP.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)Deadb\_SP.
+            \end{tabular} \hypertarget{pv:analog-in-1-mon}{}\\ \hline
         % --- row ---
         AnalogIn1-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)\_MON.
-            \end{tabular} \hypertarget{}{}\\ \hline
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)\_MON.
+            \end{tabular} \hypertarget{pv:analog-in-1-dead-band}{}\\ \hline
         % --- row ---
         AnalogIn1DeadBand-SP &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)Deadb\_SP.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogIn1DeadBand-RB &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)Deadb\_SP.
+            \end{tabular} \hypertarget{pv:pos-diff-mon}{}\\ \hline
+        % --- row ---
+        PosDiff-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                Difference between encoder reading and commanded position. This PV reads its value from the \emph{Mtr.DIFF} PV.
+            \end{tabular} \hypertarget{pv:done-mov-mon}{}\\ \hline
+        % --- row ---
+        DoneMov-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                Indicates when the motor has completely finished the movement to a given position. If the motor fails to reach the position, but has exhausted all retries, the motion is considered to be finished. This PV reads its value from the value the \emph{Mtr.DMOV} PV.
+            \end{tabular} \hypertarget{pv:rst-cmd}{}\\ \hline
+        % --- row ---
+        Rst-Cmd &  & \begin{tabular}{@{}m{6cm}@{}}
+                Reset command. When set to 1, this PV resets the controller. \textcolor{red}{No command should be sent to the controller while it is resetting}. The reset operation status is displayed by the \hyperlink{pv:rst-done-mon}{RstDone-Mon} PV.
+            \end{tabular} \hypertarget{pv:rst-done-mon}{}\\ \hline
+        % --- row ---
+        RstDone-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                Status of the reset operation. It indicates whether there is an ongoing reset operation or not.
+            \end{tabular} \hypertarget{pv:high-lim-sw-mon}{}\\ \hline
+        % --- row ---
+        HighLimSw-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                High limit switch active status. It indicates whether the high (forward) limit switch is active (is being pressed). The \hyperlink{limit switch type}{pv:lim-sw-type} PV defines whether the switch is normally open or normally closed.
+            \end{tabular} \hypertarget{pv:low-lim-sw-mon}{}\\ \hline
+        % --- row ---
+        LowLimSw-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                Low limit switch active status. It indicates whether the low (reverse) limit switch is active (is being pressed). The \hyperlink{limit switch type}{pv:lim-sw-type} PV defines whether the switch is normally open or normally closed.
+            \end{tabular} \hypertarget{pv:enc-pos-mon}{}\\ \hline
+        % --- row ---
+        EncPos-Mon &  & \begin{tabular}{@{}m{6cm}@{}}
+                Encoder position reading. When the encoder use is enabled, this PV displays the current encoder reading, in engineering units, based on its configured per step resolution.
+            \end{tabular} \hypertarget{pv:move-relative-cmd}{}\\ \hline
+        % --- row ---
+        MoveRelative-Cmd &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:stop-cmd}{}\\ \hline
+        % --- row ---
+        Stop-Cmd &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:tweak-fwd-cmd}{}\\ \hline
+        % --- row ---
+        TweakFwd-Cmd &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:tweak-back-cmd}{}\\ \hline
+        % --- row ---
+        TweakBack-Cmd &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:tweak-step}{}\\ \hline
+        % --- row ---
+        TweakStep-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
-         &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX).
+        TweakStep-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:abs-pos}{}\\ \hline
+        % --- row ---
+        AbsPos-SP &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
-         &  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{Alias} for \$(PV\_PREFIX).
+        AbsPos-RB &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:mtr-on-macro-cte}{}\\ \hline
+        % --- row ---
+        MtrOnMacro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:mtr-type-macro-cte}{}\\ \hline
+        % --- row ---
+        MtrTypeMacro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:amp-gain-macro-cte}{}\\ \hline
+        % --- row ---
+        AmpGainMacro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:dir-macro-cte}{}\\ \hline
+        % --- row ---
+        DirMacro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:enc-type-macro-cte}{}\\ \hline
+        % --- row ---
+        EncTypeMacro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:biss-poll-macro-cte}{}\\ \hline
+        % --- row ---
+        BiSSPollMacro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:biss-clk-div-macro-cte}{}\\ \hline
+        % --- row ---
+        BiSSClkDivMacro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:biss-data-1--macro-cte}{}\\ \hline
+        % --- row ---
+        BiSSData1Macro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:biss-data-2-macro-cte}{}\\ \hline
+        % --- row ---
+        BiSSData2Macro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:biss-zero-pad-macro-cte}{}\\ \hline
+        % --- row ---
+        BiSSZeroPadMacro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:biss-in-macro-cte}{}\\ \hline
+        % --- row ---
+        BiSSInMacro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
+            \end{tabular} \hypertarget{pv:biss-lvl-macro-cte}{}\\ \hline
+        % --- row ---
+        BiSSLvlMacro-Cte &  & \begin{tabular}{@{}m{6cm}@{}}
+                .
             \end{tabular} \hypertarget{}{}\\ \hline
     \end{longtable}
 
