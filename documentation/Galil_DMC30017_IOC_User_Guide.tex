@@ -982,83 +982,83 @@ docker rm <CONTAINER_NAME>
             \end{tabular} \hypertarget{pv:move-relative-cmd}{}\\ \hline
         % --- row ---
         MoveRelative-Cmd & Float & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                A command which moves the motor by the specified amount, in engineering units, relative to its current position.
             \end{tabular} \hypertarget{pv:stop-cmd}{}\\ \hline
         % --- row ---
         Stop-Cmd & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                Command to stop the motor. When this PV is set to 1, the motor decelerates to a stop according to the acceleration/deceleration time specified by Mtr.ACCL.
             \end{tabular} \hypertarget{pv:tweak-fwd-cmd}{}\\ \hline
         % --- row ---
         TweakFwd-Cmd & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                Command motor to move in the forward direction (depends on Mtr.DIR configuration) by the distance specified by \hyperlink{pv:tweak-step}{TweakStep-RB} PV. Setting the PV to 0 does NOT generate a command.
             \end{tabular} \hypertarget{pv:tweak-back-cmd}{}\\ \hline
         % --- row ---
         TweakBack-Cmd & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                Command motor to move in the backward direction (depends on Mtr.DIR configuration) by the distance specified by \hyperlink{pv:tweak-step}{TweakStep-RB} PV. Setting the PV to 0 does NOT generate a command.
             \end{tabular} \hypertarget{pv:tweak-step}{}\\ \hline
         % --- row ---
         TweakStep-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                The step, in engineering units, by which the motor is moved when a tweak command is sent.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         TweakStep-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                The readback value of the tweak step.
             \end{tabular} \hypertarget{pv:abs-pos}{}\\ \hline
         % --- row ---
         AbsPos-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                Command the motor to the specified absolute position, in engineering units.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AbsPos-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                The readback value of the absolute position, in engineering units. This is the value to which the hardware is commanded to move to, but it does not reflect the encoder reading, when one is being used.
             \end{tabular} \hypertarget{pv:mtr-on-macro-cte}{}\\ \hline
         % --- row ---
         MtrOnMacro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{Motor On} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{pv:mtr-type-macro-cte}{}\\ \hline
         % --- row ---
         MtrTypeMacro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{Motor Type} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{pv:amp-gain-macro-cte}{}\\ \hline
         % --- row ---
         AmpGainMacro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{Amplifier Gain} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{pv:dir-macro-cte}{}\\ \hline
         % --- row ---
         DirMacro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{Motor Direction} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{pv:enc-type-macro-cte}{}\\ \hline
         % --- row ---
         EncTypeMacro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{Encoder Type} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{pv:biss-poll-macro-cte}{}\\ \hline
         % --- row ---
         BiSSPollMacro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{BiSS Polling Enable} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{pv:biss-clk-div-macro-cte}{}\\ \hline
         % --- row ---
         BiSSClkDivMacro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{BiSS Clock Divider} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{pv:biss-data-1--macro-cte}{}\\ \hline
         % --- row ---
         BiSSData1Macro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{BiSS Data 1} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{pv:biss-data-2-macro-cte}{}\\ \hline
         % --- row ---
         BiSSData2Macro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{BiSS Data 2} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{pv:biss-zero-pad-macro-cte}{}\\ \hline
         % --- row ---
         BiSSZeroPadMacro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{BiSS Zero Padding} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{pv:biss-in-macro-cte}{}\\ \hline
         % --- row ---
         BiSSInMacro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{BiSS Input} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{pv:biss-lvl-macro-cte}{}\\ \hline
         % --- row ---
         BiSSLvlMacro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                .
+                \emph{BiSS Level} macro value passed at initialization. When this macro is set, its value overrides autosave at initialization.
             \end{tabular} \hypertarget{}{}\\ \hline
     \end{longtable}
 
