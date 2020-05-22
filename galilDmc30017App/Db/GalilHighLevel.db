@@ -96,7 +96,7 @@ alias(  "$(P)$(M)_BRAKE_CMD",             "$(P)Brake-Cmd")              # Motor 
 alias(  "$(P)$(M)_BRAKE_STATUS",          "$(P)Brake-Mon")              # Motor brake manual control (read)
 alias(  "$(P)$(M)_AUTOBRAKE_CMD",         "$(P)AutoBrakeEnbl-Sel")      # Motor auto brake enable (set)
 alias(  "$(P)$(M)_AUTOBRAKE_STATUS",      "$(P)AutoBrakeEnbl-Sts")      # Motor auto brake enable (read)
-alias(  "$(P)$(M)_BRAKEPORT_MON",         "$(P)AutoBrakeiDigPort-RB")   # Motor brake digital port (read)
+alias(  "$(P)$(M)_BRAKEPORT_MON",         "$(P)AutoBrakeDigPort-RB")   # Motor brake digital port (read)
 alias(  "$(P)$(M)_BRAKEPORT_SP",          "$(P)AutoBrakeDigPort-SP")    # Motor brake digital port (set)
 alias(  "$(P)$(M)_BRAKEONDELAY_MON",      "$(P)AutoBrakeDelay-RB")      # Motor auto brake on delay (read)
 alias(  "$(P)$(M)_BRAKEONDELAY_SP",       "$(P)AutoBrakeDelay-SP")      # Motor auto brake on delay (set)
