@@ -35,7 +35,7 @@ alias(  "$(P)DEFER_MODE_CMD",             "$(P)DeferredMoveMode-Sel")   # Deferr
 alias(  "$(P)ERROR_MON",                  "$(P)ControllerErr-Mon")      # Controller error monitor
 alias(  "$(P)SEND_STR_CMD",               "$(P)Send-Cmd")               # Send a command string to the controller
 alias(  "$(P)SEND_STR_MON",               "$(P)Response-Mon")           # Last response string received after sending a command to the controller using "Send-Cmd"
-alias(  "$(P)SEND_STRVAL_MON",            "$(P)ReponseVal-Mon")         # Display last response received when it is a number
+alias(  "$(P)SEND_STRVAL_MON",            "$(P)ResponseVal-Mon")         # Display last response received when it is a number
 
 # Extra features not provided by Motor Record
 # Source: <Galil support top directory>/GalilSup/Db/galil_motor_extras.template
