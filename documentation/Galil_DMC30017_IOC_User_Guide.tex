@@ -395,123 +395,123 @@ More information about it can be found in the EPICS Motor Record documentation.
             \end{tabular} \hypertarget{pv:controller-model-mon}{}\\ \hline
         % --- row ---
         ControllerModel-Mon & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)MODEL\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)MODEL\_MON. The controller model information.
             \end{tabular} \hypertarget{pv:controller-addr-mon}{}\\ \hline
         % --- row ---
         ControllerAddr-Mon & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)ADDRESS\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)ADDRESS\_MON. The controller IP address or DNS name.
             \end{tabular} \hypertarget{pv:lim-sw-type}{}\\ \hline
         % --- row ---
         LimSwType-Sel & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)LIMITTYPE\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)LIMITTYPE\_CMD. The desired limit switch configuration type: \emph{normally open} or \emph{normally closed}.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         LimSwType-Sts & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)LIMITTYPE\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)LIMITTYPE\_STATUS. The status of the limit switch type configuration.
             \end{tabular} \hypertarget{pv:home-sw-type}{}\\ \hline
         % --- row ---
         HomeSwType-Sel & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)HOMETYPE\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)HOMETYPE\_CMD. The desired home switch configuration type: \emph{normally open} or \emph{normally closed}.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         HomeSwType-Sts & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)HOMETYPE\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)HOMETYPE\_STATUS. The status of the home switch type configuration.
             \end{tabular} \hypertarget{pv:mac-addr-mon}{}\\ \hline
         % --- row ---
         MacAddr-Mon & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)ETHADDR\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)ETHADDR\_MON. The controller MAC address.
             \end{tabular} \hypertarget{pv:serial-nr-mon}{}\\ \hline
         % --- row ---
         SerialNr-Mon & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SERIALNUM\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SERIALNUM\_MON. The controller serial number.
             \end{tabular} \hypertarget{pv:comm-err-mon}{}\\ \hline
         % --- row ---
         CommErr-Mon & Enum: OK (0), Error (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)COMMERR\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)COMMERR\_STATUS. The status of the communication between IOC and controller.
             \end{tabular} \hypertarget{pv:controller-start-mon}{}\\ \hline
         % --- row ---
         ControllerStart-Mon & Enum: Error (0), OK (1)  & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)START\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)START\_STATUS. The controller start status.
             \end{tabular} \hypertarget{pv:deferred-move}{}\\ \hline
         % --- row ---
         DeferredMove-Sel & Enum: Go (0), Defer (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_CMD. Deferred moves configuration.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DeferredMove-Sts & Enum: Go (0), Defer (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_STATUS. The status of the deferred move configuration.
             \end{tabular} \hypertarget{pv:upload-user-array-cmd}{}\\ \hline
         % --- row ---
         UploadUserArray-Cmd & Enum: Upload (0), Upload (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX))UPLOAD\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX))UPLOAD\_CMD. Command to upload the user array. The command is sent when the PV is set to 1 or 0.
             \end{tabular} \hypertarget{pv:upload-user-array-mon}{}\\ \hline
         % --- row ---
         UploadUserArray-Mon & Enum: Idle (0), Uploading (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)UPLOAD\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)UPLOAD\_STATUS. The status of the user array upload operation.
             \end{tabular} \hypertarget{pv:deferred-move-mode}{}\\ \hline
         % --- row ---
         DeferredMoveMode-Sel & Enum: Sync start only (0), Sync start/stop (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_MODE\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_MODE\_CMD. Deferred move mode selection.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DeferredMoveMode-Sts & Enum: Sync start only (0), Sync start/stop (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_MODE\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)DEFER\_MODE\_STATUS. Status of deferred move mode.
             \end{tabular} \hypertarget{pv:controller-err-mon}{}\\ \hline
         % --- row ---
         ControllerErr-Mon & char[256] & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)ERROR\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)ERROR\_MON. This PV contains the last error string informed by the controller.
             \end{tabular} \hypertarget{pv:send-cmd}{}\\ \hline
         % --- row ---
         Send-Cmd & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SEND\_STR\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SEND\_STR\_CMD. Send the specified command string to the controller.
             \end{tabular} \hypertarget{pv:response-mon}{}\\ \hline
         % --- row ---
         Response-Mon & char[256] & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SEND\_STR\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SEND\_STR\_MON. The response string provided by the controller to a custom command sent.
             \end{tabular} \hypertarget{pv:response-val-mon}{}\\ \hline
         % --- row ---
         ResponseVal-Mon & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SEND\_STRVAL\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)SEND\_STRVAL\_MON. The numerical response provided by the controller to a custom command sent.
             \end{tabular} \hypertarget{pv:estall}{}\\ \hline
         % --- row ---
         Estall-Sts & Enum: Working Ok (0), Stalled (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ESTALL\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ESTALL\_STATUS. In this IOC the macro M="A", by default. This PV indicates if the motor has stalled based on the encoder readings.
             \end{tabular} \hypertarget{pv:estall-time}{}\\ \hline
         % --- row ---
         EstallTime-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ESTALLTIME\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ESTALLTIME\_SP. In this IOC the macro M="A", by default. This PV defines the time interval for the motor to be considered stalled.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         EstallTime-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ESTALLTIME\_MON. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ESTALLTIME\_MON. In this IOC the macro M="A", by default. This is the readback value of the encoder stall time configuration.
             \end{tabular} \hypertarget{pv:step-smooth}{}\\ \hline
         % --- row ---
         StepSmooth-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STEPSMOOTH\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STEPSMOOTH\_SP. In this IOC the macro M="A", by default. This PV defines de smoothing factor for output steps (greater values equals greater somoothing). This feature is most useful when working with half and full steps (the DMC 30017 has a fixed microstepping of 256).
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         StepSmooth-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STEPSMOOTH\_MON. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STEPSMOOTH\_MON. In this IOC the macro M="A", by default. The readback value of the smoothing factor.
             \end{tabular} \hypertarget{pv:mtr-connect-mon}{}\\ \hline
         % --- row ---
         MtrConnect-Mon & Enum: Disconnected (0), Connected (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MCONN\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MCONN\_STATUS. In this IOC the macro M="A", by default. Motor connection status.
             \end{tabular} \hypertarget{pv:use-idx}{}\\ \hline
         % --- row ---
         UseIdx-Sel & Enum: No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_UINDEX\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_UINDEX\_CMD. In this IOC the macro M="A", by default. Defines if the encoder index should be used when performing homing.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         UseIdx-Sts & Enum: No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_UINDEX\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_UINDEX\_STATUS. In this IOC the macro M="A", by default. The status indicating if the encoder index is used during the homing operation.
             \end{tabular} \hypertarget{pv:use-sw}{}\\ \hline
         % --- row ---
         UseSw-Sel & Enum: No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_USWITCH\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_USWITCH\_CMD. In this IOC the macro M="A", by default. Configures whether or not the limit switches should be used as home switch.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         UseSw-Sts & Enum: No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_USWITCH\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_USWITCH\_STATUS. In this IOC the macro M="A", by default. The status indicating if the limit switches are being used as the home switch.
             \end{tabular} \hypertarget{pv:user-data-mon}{}\\ \hline
         % --- row ---
         UserData-Mon & Float & \begin{tabular}{@{}m{6cm}@{}}
@@ -523,19 +523,19 @@ More information about it can be found in the EPICS Motor Record documentation.
             \end{tabular} \hypertarget{pv:jog-after-home-sel}{}\\ \hline
         % --- row ---
         JogAfterHome-Sel & Enum: No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAH\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAH\_CMD. In this IOC the macro M="A", by default. Configure whether the motor should jog to a given position after homing is finished or not.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         JogAfterHome-Sts & Enum: No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAH\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAH\_STATUS. In this IOC the macro M="A", by default. The status indicating if the motor jogs to a given position after hoing is finished.
             \end{tabular} \hypertarget{pv:jog-after-home-sp}{}\\ \hline
         % --- row ---
         JogAfterHome-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAHV\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAHV\_SP. In this IOC the macro M="A", by default. Configure the position to which the motor should jog after homing is finished (jog after homing must be enabled).
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         JogAfterHome-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAHV\_MON. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_JAHV\_MON. In this IOC the macro M="A", by default. The readback value of the position to which the motor should jog after homing is finished.
             \end{tabular} \hypertarget{pv:egu-after-lim}{}\\ \hline
         % --- row ---
         EguAfterLim-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
@@ -555,19 +555,19 @@ More information about it can be found in the EPICS Motor Record documentation.
             \end{tabular} \hypertarget{pv:home-enbl-dir}{}\\ \hline
         % --- row ---
         HomeEnblDir-Sel & Enum: None (0), Reverse (1), Forward (2), Both (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_HOMEALLOWED\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_HOMEALLOWED\_CMD. In this IOC the macro M="A", by default. Enable homing for each direction.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         HomeEnblDir-Sts & Enum: None (0), Reverse (1), Forward (2), Both (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_HOMEALLOWED\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_HOMEALLOWED\_STATUS. In this IOC the macro M="A", by default. The status of homing enable for each direction.
             \end{tabular} \hypertarget{pv:stop-delay}{}\\ \hline
         % --- row ---
         StopDelay-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STOPDELAY\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STOPDELAY\_SP. In this IOC the macro M="A", by default. The delay, in seconds, for the motor to stop after a command.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         StopDelay-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STOPDELAY\_MON. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STOPDELAY\_MON. In this IOC the macro M="A", by default. The readback value of the stop delay.
             \end{tabular} \hypertarget{pv:amp-gain}{}\\ \hline
         % --- row ---
         AmpGain-Sel & Enum: Zero (0), One (1), Two (2), Three (3) & \begin{tabular}{@{}m{6cm}@{}}
@@ -609,87 +609,97 @@ More information about it can be found in the EPICS Motor Record documentation.
             \end{tabular} \hypertarget{pv:amp-curr-loop-gain}{}\\ \hline
         % --- row ---
         AmpCurrLoopGain-Sel & Enum: Zero (0), Point five (1), One (2), One point five (3), Two (4), Three (5), Four (6) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_CMD. In this IOC the macro M="A", by default. Current loop gain option for Galil sine drives internal amplifiers. The gain options should be used to compensate for motor inductance. For recommended values, a Galil controller manual should be consulted.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AmpCurrLoopGain-Sts & Enum: Zero (0), Point five (1), One (2), One point five (3), Two (4), Three (5), Four (6) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_STATUS. In this IOC the macro M="A", by default. The status of the current loop gain of the sine drive internal amplifier.
             \end{tabular} \hypertarget{pv:low-curr-mode}{}\\ \hline
         % --- row ---
         LowCurrMode-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_SP. In this IOC the macro M="A", by default. Configure the low current mode for stepper motors.
+                \begin{itemize}
+                    \item 0: Drive provides 100\% of holding current when Stepper is at rest.
+                    \item 1: Drive drops to 25\% of holding current when Stepper stops moving.
+                    \item 2 - 32767: Drive drops to 25\% of holding current after \emph{n} controller \emph{time samples} since the Stepper has stopped.
+                \end{itemize}
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         LowCurrMode-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_MON. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_MON. In this IOC the macro M="A", by default. Readback value of the low current mode.
+                \begin{itemize}
+                    \item 0: Drive provides 100\% of holding current when Stepper is at rest.
+                    \item 1: Drive drops to 25\% of holding current when Stepper stops moving.
+                    \item 2 - 32767: Drive drops to 25\% of holding current after \emph{n} controller \emph{time samples} since the Stepper has stopped.
+                \end{itemize}
             \end{tabular} \hypertarget{pv:pos-err-lim}{}\\ \hline
         % --- row ---
         PosErrLim-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ERRLIMIT\_SP. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ERRLIMIT\_SP. In this IOC the macro M="A", by default. The position error limit. When the position error is greater than the specified maximum value and \emph{ErrLimType-Sts} is equal to \emph{Position error} or \emph{Both}, the controller enters an error state and motor power is disabled.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         PosErrLim-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ERRLIMIT\_MON. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ERRLIMIT\_MON. In this IOC the macro M="A", by default. Readback value of the position error limit.
             \end{tabular} \hypertarget{pv:pos-err-mon}{}\\ \hline
         % --- row ---
         PosErr-Mon & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ERR\_MON. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ERR\_MON. In this IOC the macro M="A", by default. This PV indicates the difference between commanded position when encoder reading (or hardware step counter).
             \end{tabular} \hypertarget{pv:velo-raw-mon}{}\\ \hline
         % --- row ---
         VeloRaw-Mon & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_VELOCITYRAW\_MON. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_VELOCITYRAW\_MON. In this IOC the macro M="A", by default. This PV indicates the motor velocity in encoder counts per second.
             \end{tabular} \hypertarget{pv:velo-egu-mon}{}\\ \hline
         % --- row ---
         VeloEgu-Mon & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_VELOCITYEGU\_MON. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_VELOCITYEGU\_MON. In this IOC the macro M="A", by default. This PV indicates the motor velocity in engineering units per second (depends on configured encoder resolution).
             \end{tabular} \hypertarget{pv:err-lim-type}{}\\ \hline
         % --- row ---
         ErrLimType-Sel & Enum: Off (0), Position error (1), Limits (2), Both (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_OFFONERR\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_OFFONERR\_CMD. In this IOC the macro M="A", by default. Configure a controller error associated to a position error, defined by \emph{PosErrLim-RB}, and/or limit switch actuation.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         ErrLimType-Sts & Enum: Off (0), Position error (1), Limits (2), Both (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_OFFONERR\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_OFFONERR\_STATUS. In this IOC the macro M="A", by default. The configuration status of the limit error type.
             \end{tabular} \hypertarget{pv:axis-mon}{}\\ \hline
         % --- row ---
         Axis-Mon & Enum: A (0), B (1), C (2), D (3), E (4), F (5), G (6), H (7) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AXIS\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AXIS\_STATUS. In this IOC the macro M="A", by default. Indicates the active axis.
             \end{tabular} \hypertarget{pv:mtr-type}{}\\ \hline
         % --- row ---
         MtrType-Sel & Enum: Servo (0), Rev Servo (1), HA Stepper (2), LA Stepper (3), Rev HA Stepper (4), Rev LA Stepper (5), PWM servo (6), PWM rev servo (7), EtherCat Position (8), EtherCat Torque (9), EtherCat Rev Torque (10) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MTRTYPE\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MTRTYPE\_CMD. In this IOC the macro M="A", by default. Configure the motor type. Amplifier must be Off in order for this parameter to be changed.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         MtrType-Sts & Enum: Servo (0), Rev Servo (1), HA Stepper (2), LA Stepper (3), Rev HA Stepper (4), Rev LA Stepper (5), PWM servo (6), PWM rev servo (7), EtherCat Position (8), EtherCat Torque (9), EtherCat Rev Torque (10) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MTRTYPE\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MTRTYPE\_STATUS. In this IOC the macro M="A", by default. The status of motor type configuration.
             \end{tabular} \hypertarget{pv:main-enc-type}{}\\ \hline
         % --- row ---
         MainEncType-Sel & Enum: Normal Quadrature (0), Pulse and Dir (1), Reverse Quadrature (2), Rev Pulse and Dir (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MENCTYPE\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MENCTYPE\_CMD. In this IOC the macro M="A", by default. Configure the main encoder type.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         MainEncType-Sts & Enum: Normal Quadrature (0), Pulse and Dir (1), Reverse Quadrature (2), Rev Pulse and Dir (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MENCTYPE\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MENCTYPE\_STATUS. In this IOC the macro M="A", by default. Status of the main encoder type configuration.
             \end{tabular} \hypertarget{pv:aux-enc-type}{}\\ \hline
         % --- row ---
         AuxEncType-Sel & Enum: Normal Quadrature (0), Pulse and Dir (1), Reverse Quadrature (2), Rev Pulse and Dir (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AENCTYPE\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AENCTYPE\_CMD. In this IOC the macro M="A", by default. Configure the auxiliary encoder type.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AuxEncType-Sts & Enum: Normal Quadrature (0), Pulse and Dir (1), Reverse Quadrature (2), Rev Pulse and Dir (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AENCTYPE\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AENCTYPE\_STATUS. In this IOC the macro M="A", by default. Status of the auxiliary encoder type configuration.
             \end{tabular} \hypertarget{pv:lim-protect-enbl}{}\\ \hline
         % --- row ---
         LimProtectEnbl-Sel & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_WLP\_CMD. Wrong limit protection enable. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_WLP\_CMD. In this IOC the macro M="A", by default. Enable Wrong limit protection. This parameter defines if the controller should report an error when the wrong limit switch is activated, i.e., the motor is moving in one direction, but the opposite switch becomes active.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         LimProtectEnbl-Sts & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_WLP\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_WLP\_STATUS. In this IOC the macro M="A", by default. The configuration status of the Wrong limit protection.
             \end{tabular} \hypertarget{pv:lim-protect-mon}{}\\ \hline
         % --- row ---
         LimProtect-Mon & Enum: OK (0), Stopped! (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_WLPACTIVE\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_WLPACTIVE\_STATUS. In this IOC the macro M="A", by default. This PV indicates when the \emph{wrong} limit switch has been hit. \emph{Wrong limit protection} must be active for it to happen.
             \end{tabular} \hypertarget{pv:auto-on-off}{}\\ \hline
         % --- row ---
         AutoOnOff-Sel & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
@@ -749,219 +759,219 @@ More information about it can be found in the EPICS Motor Record documentation.
             \end{tabular} \hypertarget{pv:lim-sw-dsbl}{}\\ \hline
         % --- row ---
         LimSwDsbl-Sel & Enum: Off (0), Fwd Disabled (1), Rev Disabled (2), Both Disabled (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_LIMITDISABLE\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_LIMITDISABLE\_CMD. In this IOC the macro M="A", by default. Disable limit switches.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         LimSwDsbl-Sts & Enum: Off (0), Fwd Disabled (1), Rev Disabled (2), Both Disabled (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_LIMITDISABLE\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_LIMITDISABLE\_STATUS. In this IOC the macro M="A", by default. Status of limit switch disable.
             \end{tabular} \hypertarget{pv:amp-enbl}{}\\ \hline
         % --- row ---
         AmpEnbl-Sel & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ON\_CMD. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ON\_CMD. In this IOC the macro M="A", by default. Enable controller amplifier (enable current supply to motor).
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AmpEnbl-Sts & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ON\_STATUS. In this IOC the macro M="A", by default.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ON\_STATUS. In this IOC the macro M="A", by default. Status of controller amplifier.
             \end{tabular} \hypertarget{pv:biss-crc-mon}{}\\ \hline
         % --- row ---
         BiSSCRC-Mon & Enum: Valid CRC (0), Invalid CRC (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_CRC.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_CRC. Status of the BiSS CRC.
             \end{tabular} \hypertarget{pv:biss-err-mon}{}\\ \hline
         % --- row ---
         BiSSErr-Mon & Enum: No Error (0), Error (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_ERROR.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_ERROR. BiSS communication error status.
             \end{tabular} \hypertarget{pv:biss-poll}{}\\ \hline
         % --- row ---
         BiSSPoll-Sel & Enum: No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_POLL\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_POLL\_CMD. BiSS polling configuration.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSPoll-Sts & No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_POLL.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_POLL. Status of BiSS polling.
             \end{tabular} \hypertarget{pv:biss-timeout-mon}{}\\ \hline
         % --- row ---
         BiSSTimeout-Mon & No Timeout (0), Timeout (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_TIMEOUT.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_TIMEOUT. Status of the BiSS timeout.
             \end{tabular} \hypertarget{pv:biss-warn-mon}{}\\ \hline
         % --- row ---
         BiSSWarn-Mon & No Warning (0), Warning (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_WARN.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSSTAT\_WARN. BiSS warning status.
             \end{tabular} \hypertarget{pv:biss-capable-mon}{}\\ \hline
         % --- row ---
         BiSSCapable-Mon & No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)BISSCAPABLE\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)BISSCAPABLE\_STATUS. Status indicating if the controller supports BiSS-C communication.
             \end{tabular} \hypertarget{pv:biss-clk-div}{}\\ \hline
         % --- row ---
         BiSSClkDiv-SP & Long & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSCD\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSCD\_SP. Configure BiSS clock divider.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSClkDiv-RB & Long & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSCD\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSCD\_MON. Readback value of the BiSS clock divider.
             \end{tabular} \hypertarget{pv:biss-num-bits-1}{}\\ \hline
         % --- row ---
         BiSSNumBits1-SP & Long & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA1\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA1\_SP. Configure the number of data bits for BiSS communication. This is the first parameter used for it. For absolute encoders \emph{BiSSNumBits1-RB} and \emph{BiSSNumBits2-RB} should have the same value. If the absolute position rolls over, \emph{BiSSNumBits1-RB} should be equal to -1 $\times$ \emph{BiSSNumBits2-RB}. This allows for the firmware to compensate, counting past the boundaries. Renishaw encoders transmit a leading zero, so the number of bits should be incremented by 1 when configuring this parameter.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSNumBits1-RB & Long & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA1\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA1\_MON. Readback value of the \emph{first} parameter which determines the number of data bits used by the BiSS communication.
             \end{tabular} \hypertarget{pv:biss-num-bits-2}{}\\ \hline
         % --- row ---
         BiSSNumBits2-SP & Long & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA2\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA2\_SP. Configure the number of data bits for BiSS communication. This is the second parameter used for it. For absolute encoders \emph{BiSSNumBits1-RB} and \emph{BiSSNumBits2-RB} should have the same value. If the absolute position rolls over, \emph{BiSSNumBits1-RB} should be equal to -1 $\times$ \emph{BiSSNumBits2-RB}. This allows for the firmware to compensate, counting past the boundaries. Renishaw encoders transmit a leading zero, so the number of bits should be incremented by 1 when configuring this parameter.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSNumBits2-RB & Long & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA2\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSDATA2\_MON. Readback value of the \emph{second} parameter which determines the number of data bits used by the BiSS communication.
             \end{tabular} \hypertarget{pv:biss-num-zero-pad}{}\\ \hline
         % --- row ---
         BiSSNumZeroPad-SP & Long & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSZP\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSZP\_SP. Configure the number of zero padding bits required by the BiSS communication.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSNumZeroPad-RB & Long & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSZP\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSZP\_MON. Readback value of configured number of zero padding bits for the BiSS communication.
             \end{tabular} \hypertarget{pv:biss-in}{}\\ \hline
         % --- row ---
         BiSSIn-Sel & Enum: Off (0), Replace main (1), Replace aux (2) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSINPUT\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSINPUT\_CMD. Configure how the BiSS data input should be used: off, main encoder or auxiliary encoder.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSIn-Sts & Enum: Off (0), Replace main (1), Replace aux (2) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSINPUT\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSINPUT\_STATUS. The configuration status of the BiSS input.
             \end{tabular} \hypertarget{pv:biss-lvl}{}\\ \hline
         % --- row ---
         BiSSLvl-Sel & Enum: Low/Low (0), Low/High (1), High/Low (2), High/High (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSLEVEL\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSLEVEL\_CMD. Configure BiSS level.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         BiSSLvl-Sts & Enum: Low/Low (0), Low/High (1), High/Low (2), High/High (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSLEVEL\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_BISSLEVEL\_STATUS. Status of BiSS level configuration.
             \end{tabular} \hypertarget{pv:dig-out-0}{}\\ \hline
         % --- row ---
         DigOut0-Sel & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT0)\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT0)\_CMD. Configure digital output 0 state.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DigOut0-Sts & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT0)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT0)\_STATUS. Status of digital output 0.
             \end{tabular} \hypertarget{pv:dig-out-1}{}\\ \hline
         % --- row ---
         DigOut1-Sel & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT1)\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT1)\_CMD. Configure digital output 1 state.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DigOut1-Sts & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT1)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT1)\_STATUS. Status digital output 1.
             \end{tabular} \hypertarget{pv:dig-out-2}{}\\ \hline
         % --- row ---
         DigOut2-Sel & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT2)\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT2)\_CMD. Configure digital output 2 state.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DigOut2-Sts & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT2)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT2)\_STATUS. Status of digital output 2.
             \end{tabular} \hypertarget{pv:dig-out-3}{}\\ \hline
         % --- row ---
         DigOut3-Sel & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT3)\_CMD.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT3)\_CMD. Configure digital output 3 state.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         DigOut3-Sts & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT3)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_OUT3)\_STATUS. Status of digital output 3.
             \end{tabular} \hypertarget{pv:dig-in-0}{}\\ \hline
         % --- row ---
         DigIn0-Mon & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN0)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN0)\_STATUS. Status of digital input 0.
             \end{tabular} \hypertarget{pv:dig-in-1}{}\\ \hline
         % --- row ---
         DigIn1-Mon & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN1)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN1)\_STATUS. Status of digital input 1.
             \end{tabular} \hypertarget{pv:dig-in-2}{}\\ \hline
         % --- row ---
         DigIn2-Mon & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN2)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN2)\_STATUS. Status of digital input 2.
             \end{tabular} \hypertarget{pv:dig-in-3}{}\\ \hline
         % --- row ---
         DigIn3-Mon & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN3)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN3)\_STATUS. Status of digital input 3.
             \end{tabular} \hypertarget{pv:dig-in-4}{}\\ \hline
         % --- row ---
         DigIn4-Mon & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN4)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN4)\_STATUS. Status of digital input 4.
             \end{tabular} \hypertarget{pv:dig-in-5}{}\\ \hline
         % --- row ---
         DigIn5-Mon & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN5)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN5)\_STATUS. Status of digital input 5.
             \end{tabular} \hypertarget{pv:dig-in-6}{}\\ \hline
         % --- row ---
         DigIn6-Mon & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN6)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN6)\_STATUS. Status of digital input 6.
             \end{tabular} \hypertarget{pv:dig-in-7}{}\\ \hline
         % --- row ---
         DigIn7-Mon & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN7)\_STATUS.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(DIG\_IN7)\_STATUS. Status of digital input 7.
             \end{tabular} \hypertarget{pv:analog-out-0}{}\\ \hline
         % --- row ---
         AnalogOut0-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)\_SP. Configure analog output 0 level, in volts. For the DMC 30017, this analog output is only available when the controller is configured for brushless motor control.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogOut0-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)\_MON. Readback value of analog output 0 level, in volts. For the DMC 30017, this analog output is only available when the controller is configured for brushless motor control.
             \end{tabular} \hypertarget{pv:analog-out-0-dead-band}{}\\ \hline
         % --- row ---
         AnalogOut0DeadBand-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)Deadb\_SP. Configure analog output 0 deadband, in volts. For the DMC 30017, this analog output is only available when the controller is configured for brushless motor control.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogOut0DeadBand-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT0)Deadb\_SP. Readback value of the analog output 0 deadband, in volts. For the DMC 30017, this analog output is only available when the controller is configured for brushless motor control.
             \end{tabular} \hypertarget{pv:analog-out-1}{}\\ \hline
         % --- row ---
         AnalogOut1-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)\_SP. Configure analog output 1 level, in volts.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogOut1-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)\_MON. Readback value of analog output 1 level, in volts.
             \end{tabular} \hypertarget{pv:analog-out-1-dead-band}{}\\ \hline
         % --- row ---
         AnalogOut1DeadBand-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)Deadb\_SP. Configure analog output 1 deadband, in volts.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogOut1DeadBand-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_OUT1)Deadb\_SP. Readback value of the analog output 1 deadband, in volts.
             \end{tabular} \hypertarget{pv:analog-in-0-mon}{}\\ \hline
         % --- row ---
         AnalogIn0-Mon & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)\_MON. Display the level, in volts, of the analog input 0.
             \end{tabular} \hypertarget{pv:analog-in-0-dead-band}{}\\ \hline
         % --- row ---
         AnalogIn0DeadBand-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)Deadb\_SP. Configure the analog input 0 deadband, in volts.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogIn0DeadBand-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN0)Deadb\_SP. Readback value of the configured deadband for the analog input 0, in volts.
             \end{tabular} \hypertarget{pv:analog-in-1-mon}{}\\ \hline
         % --- row ---
         AnalogIn1-Mon & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)\_MON.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)\_MON. Display the level, in volts, of the analog input 1.
             \end{tabular} \hypertarget{pv:analog-in-1-dead-band}{}\\ \hline
         % --- row ---
         AnalogIn1DeadBand-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)Deadb\_SP. Configure the analog input 1 deadband, in volts.
             \end{tabular} \hypertarget{}{}\\ \hline
         % --- row ---
         AnalogIn1DeadBand-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)Deadb\_SP.
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)Deadb\_SP. Readback value of the configured deadband for the analog input 1, in volts.
             \end{tabular} \hypertarget{pv:pos-diff-mon}{}\\ \hline
         % --- row ---
         PosDiff-Mon & Float & \begin{tabular}{@{}m{6cm}@{}}
-                Difference between encoder reading and commanded position. This PV reads its value from the \emph{Mtr.DIFF} PV.
+                Difference between encoder reading and commanded position, in engineering units. This PV reads its value from the \emph{Mtr.DIFF} PV.
             \end{tabular} \hypertarget{pv:done-mov-mon}{}\\ \hline
         % --- row ---
         DoneMov-Mon & Enum: No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
