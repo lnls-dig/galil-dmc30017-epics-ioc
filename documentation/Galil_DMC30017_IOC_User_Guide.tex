@@ -239,26 +239,64 @@ docker rm <CONTAINER_NAME>
 
         \paragraph{} You can also run the contaier with the \emph{--rm} flag to clean up the container and remove the file system when it exits.
 
-%--- Section: Alises for Driver PVs ---
-\section{Alises for Driver PVs}\label{sec:dev-reference-frame}
+%--- Section: Aliases for Driver PVs ---
+\section{Aliases for Driver PVs}
 
-    This document is still under development.
+    The main purpose of this IOC is to translate the Driver PV names to the Sirius naming convention. Most part of the IOC PVs are just aliases for the driver PVs. The aliases description and corresponding driver PV are provided in \nameref{sec:process-variables}.
 
 %--- Section: Auto Settings ---
 \section{Auto Settings}
 
-    This document is still under development.
+    In order to reduce the number of settings needed to be configured, some low level PVs have their values force by other PVs.
+
+    \begin{itemize}
+        \item Jog acceleratior is set equal to motor accelaration: (Mtr.JAR = Mtr.VELO/Mtr.ACCL).
+        \item Jog velocity is set equal to motor velocity (Mtr.JAR = Mtr.VELO).
+    \end{itemize}
 
 %--- Section: Startup Configuration ---
 \section{Startup Configuration}
 
-    This document is still under development.
+    \paragraph{} There are different arguments that can be passed to the IOC startup script \emph{$<$TOP$>$ /iocBoot/iocGalilDmc30017/runGalilDmc30017.sh}. The full list of options is available in the \emph{README.md} file at the IOC $<$TOP$>$ directory.
+
+    \paragraph{} Besides options such as PV prefix and device address, there are also options that define the initial controller settings. Some of these settings are overwritten when an \emph{Autosave} file is available at startup, while others are not, i.e., when passed as argument to the startup script, some of these values take precedence over the \emph{Autosave} values. Actually, this is done by storing the arguments values to auxiliary PVs, and when not empty, writing the values to the corresponding PVs after autosave restore is complete, thus erasing the values set by autosave.
+
+    \paragraph{} The arguments which overwrite the corresponding \emph{Autosave} values can be found by looking at the \hyperlink{pv:mtr-on-macro-cte}{PVs used to store those arguments}. These PVs have names containing the substring *Macro*.
 
 %--- Section: CS-Studio OPI Overview ---
 \section{CS-Studio OPI Overview}
 
-    This document is still under development.
+    \begin{figure}[!h]
+        \caption{OPI main groups}
+        \label{fig:opi-main}
+        \centering
+        \includegraphics[width=1.1\textwidth]{opi_details}
+    \end{figure}
+    \FloatBarrier
 
+    \begin{enumerate}
+        \item Prefix used for PVs. Indicate the device instance being controlled.
+        \item \hyperlink{pv:controller-addr-mon}{Device identification group}: these PVs give information such as device serial number and IP address.
+        \item \hyperlink{pv:comm-err-mon}{Device network connection error status}.
+        \item \hyperlink{pv:controller-err-mon}{Device error message}.
+        \item \hyperlink{pv:rst-cmd}{Controller reset}.
+        \item \hyperlink{pv:amp-enbl}{Controller amplifier settings and enable}.
+        \item \hyperlink{pv:mtr-mres}{Motor step configuration}.
+        \item Encoder settings, such as: \hyperlink{pv:mtr-ueip}{enable}, \hyperlink{pv:main-enc-type}{type}, \hyperlink{pv:mtr-eres}{resolution}, \hyperlink{pv:estall}{stall time} and \hyperlink{pv:poll-period}{poll period}.
+        \item \hyperlink{pv:dig-out-0}{Digital output control}.
+        \item \hyperlink{pv:biss-crc-mon}{BiSS encoder settings}.
+        \item \hyperlink{pv:high-lim-sw-mon}{Motor control}.
+        \item \hyperlink{pv:mtr-velo}{Speed settings}.
+        \item Motion additional settings, such as: \hyperlink{pv:mtr-dir}{motor direction}, \hyperlink{pv:mtr-hlm}{software limits}, \hyperlink{pv:mtr-off}{user position offset}, \hyperlink{pv:mtr-bdst}{backlash compensation}, \hyperlink{pv:mtr-ntm}{new target policy}, \hyperlink{pv:mtr-rtry}{retry options} and \hyperlink{pv:mtr-egu}{motion engineering unit}.
+        \item \hyperlink{pv:dig-in-0}{Digital input status}.
+        \item Homing \hyperlink{pv:home-sw-type}{settings} and \hyperlink{pv:mtr-homf}{control}.
+        \item \hyperlink{pv:analog-out-0}{Analog output settings}.
+        \item \hyperlink{pv:send-cmd}{Custom command to controller}.
+        \item \hyperlink{pv:mtr-type}{Motor} and \hyperlink{pv:lim-sw-type}{limit switch} types.
+        \item \hyperlink{pv:analog-in-0-mon}{Analog input status}.
+        \item Link to low level OPIs.
+    \end{enumerate}
+    
 \newpage
 \section{Process Variables Description}\label{sec:process-variables}
 
@@ -400,22 +438,6 @@ More information about it can be found in the EPICS Motor Record documentation.
         % --- row ---
         ControllerAddr-Mon & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
                 \textbf{\color{blue} Alias} for \$(PV\_PREFIX)ADDRESS\_MON. The controller IP address or DNS name.
-            \end{tabular} \hypertarget{pv:lim-sw-type}{}\\ \hline
-        % --- row ---
-        LimSwType-Sel & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)LIMITTYPE\_CMD. The desired limit switch configuration type: \emph{normally open} or \emph{normally closed}.
-            \end{tabular} \hypertarget{}{}\\ \hline
-        % --- row ---
-        LimSwType-Sts & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)LIMITTYPE\_STATUS. The status of the limit switch type configuration.
-            \end{tabular} \hypertarget{pv:home-sw-type}{}\\ \hline
-        % --- row ---
-        HomeSwType-Sel & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)HOMETYPE\_CMD. The desired home switch configuration type: \emph{normally open} or \emph{normally closed}.
-            \end{tabular} \hypertarget{}{}\\ \hline
-        % --- row ---
-        HomeSwType-Sts & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)HOMETYPE\_STATUS. The status of the home switch type configuration.
             \end{tabular} \hypertarget{pv:mac-addr-mon}{}\\ \hline
         % --- row ---
         MacAddr-Mon & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
@@ -520,6 +542,14 @@ More information about it can be found in the EPICS Motor Record documentation.
         % --- row ---
         UserDataDeadBand-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
                 \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_USERDATADEADB\_SP. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{pv:home-sw-type}{}\\ \hline
+        % --- row ---
+        HomeSwType-Sel & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)HOMETYPE\_CMD. The desired home switch configuration type: \emph{normally open} or \emph{normally closed}.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        HomeSwType-Sts & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)HOMETYPE\_STATUS. The status of the home switch type configuration.
             \end{tabular} \hypertarget{pv:jog-after-home-sel}{}\\ \hline
         % --- row ---
         JogAfterHome-Sel & Enum: No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
@@ -544,14 +574,6 @@ More information about it can be found in the EPICS Motor Record documentation.
         % --- row ---
         EguAfterLim-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
                 \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_EGUAFTLIMIT\_MON. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{pv:poll-period}{}\\ \hline
-        % --- row ---
-        PollPeriod-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STATUS\_POLL\_DELAY\_CMD. In this IOC the macro M="A", by default.
-            \end{tabular} \hypertarget{}{}\\ \hline
-        % --- row ---
-        PollPeriod-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STATUS\_POLL\_DELAY\_MON. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{pv:home-enbl-dir}{}\\ \hline
         % --- row ---
         HomeEnblDir-Sel & Enum: None (0), Reverse (1), Forward (2), Both (3) & \begin{tabular}{@{}m{6cm}@{}}
@@ -560,6 +582,14 @@ More information about it can be found in the EPICS Motor Record documentation.
         % --- row ---
         HomeEnblDir-Sts & Enum: None (0), Reverse (1), Forward (2), Both (3) & \begin{tabular}{@{}m{6cm}@{}}
                 \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_HOMEALLOWED\_STATUS. In this IOC the macro M="A", by default. The status of homing enable for each direction.
+            \end{tabular} \hypertarget{pv:poll-period}{}\\ \hline
+        % --- row ---
+        PollPeriod-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STATUS\_POLL\_DELAY\_CMD. In this IOC the macro M="A", by default.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        PollPeriod-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STATUS\_POLL\_DELAY\_MON. In this IOC the macro M="A", by default.
             \end{tabular} \hypertarget{pv:stop-delay}{}\\ \hline
         % --- row ---
         StopDelay-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
@@ -568,70 +598,6 @@ More information about it can be found in the EPICS Motor Record documentation.
         % --- row ---
         StopDelay-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
                 \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_STOPDELAY\_MON. In this IOC the macro M="A", by default. The readback value of the stop delay.
-            \end{tabular} \hypertarget{pv:amp-gain}{}\\ \hline
-        % --- row ---
-        AmpGain-Sel & Enum: Zero (0), One (1), Two (2), Three (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPGAIN\_CMD. In this IOC the macro M="A", by default. This PV controls the internal amplifier gain. The options mean different things for each motor mode:
-
-                Servo motor mode
-                \begin{itemize}
-                    \item Zero: 0.4 [Amps/Volt]
-                    \item One: 0.8 [Amps/Volt]
-                    \item Two: 1.6 [Amps/Volt]
-                    \item Three: N/A
-                \end{itemize}
-                Stepper motor mode
-                \begin{itemize}
-                    \item Zero: 0.75 [Amps per phase]
-                    \item One: 1.5 [Amps per phase]
-                    \item Two: 3.0 [Amps per phase]
-                    \item Three: 6.0 [Amps per phase]
-                \end{itemize}
-            \end{tabular} \hypertarget{}{}\\ \hline
-        % --- row ---
-        AmpGain-Sts & Enum: Zero (0), One (1), Two (2), Three (3) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPGAIN\_STATUS. In this IOC the macro M="A", by default. This PV displays the internal amplifier gain configuration. The options mean different things for each motor mode:
-
-                Servo motor mode
-                \begin{itemize}
-                    \item Zero: 0.4 [Amps/Volt]
-                    \item One: 0.8 [Amps/Volt]
-                    \item Two: 1.6 [Amps/Volt]
-                    \item Three: N/A
-                \end{itemize}
-                Stepper motor mode
-                \begin{itemize}
-                    \item Zero: 0.75 [Amps per phase]
-                    \item One: 1.5 [Amps per phase]
-                    \item Two: 3.0 [Amps per phase]
-                    \item Three: 6.0 [Amps per phase]
-                \end{itemize}
-            \end{tabular} \hypertarget{pv:amp-curr-loop-gain}{}\\ \hline
-        % --- row ---
-        AmpCurrLoopGain-Sel & Enum: Zero (0), Point five (1), One (2), One point five (3), Two (4), Three (5), Four (6) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_CMD. In this IOC the macro M="A", by default. Current loop gain option for Galil sine drives internal amplifiers. The gain options should be used to compensate for motor inductance. For recommended values, a Galil controller manual should be consulted.
-            \end{tabular} \hypertarget{}{}\\ \hline
-        % --- row ---
-        AmpCurrLoopGain-Sts & Enum: Zero (0), Point five (1), One (2), One point five (3), Two (4), Three (5), Four (6) & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_STATUS. In this IOC the macro M="A", by default. The status of the current loop gain of the sine drive internal amplifier.
-            \end{tabular} \hypertarget{pv:low-curr-mode}{}\\ \hline
-        % --- row ---
-        LowCurrMode-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_SP. In this IOC the macro M="A", by default. Configure the low current mode for stepper motors.
-                \begin{itemize}
-                    \item 0: Drive provides 100\% of holding current when Stepper is at rest.
-                    \item 1: Drive drops to 25\% of holding current when Stepper stops moving.
-                    \item 2 - 32767: Drive drops to 25\% of holding current after \emph{n} controller \emph{time samples} since the Stepper has stopped.
-                \end{itemize}
-            \end{tabular} \hypertarget{}{}\\ \hline
-        % --- row ---
-        LowCurrMode-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
-                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_MON. In this IOC the macro M="A", by default. Readback value of the low current mode.
-                \begin{itemize}
-                    \item 0: Drive provides 100\% of holding current when Stepper is at rest.
-                    \item 1: Drive drops to 25\% of holding current when Stepper stops moving.
-                    \item 2 - 32767: Drive drops to 25\% of holding current after \emph{n} controller \emph{time samples} since the Stepper has stopped.
-                \end{itemize}
             \end{tabular} \hypertarget{pv:pos-err-lim}{}\\ \hline
         % --- row ---
         PosErrLim-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
@@ -672,6 +638,14 @@ More information about it can be found in the EPICS Motor Record documentation.
         % --- row ---
         MtrType-Sts & Enum: Servo (0), Rev Servo (1), HA Stepper (2), LA Stepper (3), Rev HA Stepper (4), Rev LA Stepper (5), PWM servo (6), PWM rev servo (7), EtherCat Position (8), EtherCat Torque (9), EtherCat Rev Torque (10) & \begin{tabular}{@{}m{6cm}@{}}
                 \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_MTRTYPE\_STATUS. In this IOC the macro M="A", by default. The status of motor type configuration.
+            \end{tabular} \hypertarget{pv:lim-sw-type}{}\\ \hline
+        % --- row ---
+        LimSwType-Sel & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)LIMITTYPE\_CMD. The desired limit switch configuration type: \emph{normally open} or \emph{normally closed}.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        LimSwType-Sts & Enum: NO (0), NC (1) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)LIMITTYPE\_STATUS. The status of the limit switch type configuration.
             \end{tabular} \hypertarget{pv:main-enc-type}{}\\ \hline
         % --- row ---
         MainEncType-Sel & Enum: Normal Quadrature (0), Pulse and Dir (1), Reverse Quadrature (2), Rev Pulse and Dir (3) & \begin{tabular}{@{}m{6cm}@{}}
@@ -772,6 +746,70 @@ More information about it can be found in the EPICS Motor Record documentation.
         % --- row ---
         AmpEnbl-Sts & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
                 \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_ON\_STATUS. In this IOC the macro M="A", by default. Status of controller amplifier.
+            \end{tabular} \hypertarget{pv:amp-gain}{}\\ \hline
+        % --- row ---
+        AmpGain-Sel & Enum: Zero (0), One (1), Two (2), Three (3) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPGAIN\_CMD. In this IOC the macro M="A", by default. This PV controls the internal amplifier gain. The options mean different things for each motor mode:
+
+                Servo motor mode
+                \begin{itemize}
+                    \item Zero: 0.4 [Amps/Volt]
+                    \item One: 0.8 [Amps/Volt]
+                    \item Two: 1.6 [Amps/Volt]
+                    \item Three: N/A
+                \end{itemize}
+                Stepper motor mode
+                \begin{itemize}
+                    \item Zero: 0.75 [Amps per phase]
+                    \item One: 1.5 [Amps per phase]
+                    \item Two: 3.0 [Amps per phase]
+                    \item Three: 6.0 [Amps per phase]
+                \end{itemize}
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AmpGain-Sts & Enum: Zero (0), One (1), Two (2), Three (3) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPGAIN\_STATUS. In this IOC the macro M="A", by default. This PV displays the internal amplifier gain configuration. The options mean different things for each motor mode:
+
+                Servo motor mode
+                \begin{itemize}
+                    \item Zero: 0.4 [Amps/Volt]
+                    \item One: 0.8 [Amps/Volt]
+                    \item Two: 1.6 [Amps/Volt]
+                    \item Three: N/A
+                \end{itemize}
+                Stepper motor mode
+                \begin{itemize}
+                    \item Zero: 0.75 [Amps per phase]
+                    \item One: 1.5 [Amps per phase]
+                    \item Two: 3.0 [Amps per phase]
+                    \item Three: 6.0 [Amps per phase]
+                \end{itemize}
+            \end{tabular} \hypertarget{pv:amp-curr-loop-gain}{}\\ \hline
+        % --- row ---
+        AmpCurrLoopGain-Sel & Enum: Zero (0), Point five (1), One (2), One point five (3), Two (4), Three (5), Four (6) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_CMD. In this IOC the macro M="A", by default. Current loop gain option for Galil sine drives internal amplifiers. The gain options should be used to compensate for motor inductance. For recommended values, a Galil controller manual should be consulted.
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        AmpCurrLoopGain-Sts & Enum: Zero (0), Point five (1), One (2), One point five (3), Two (4), Three (5), Four (6) & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPCLGAIN\_STATUS. In this IOC the macro M="A", by default. The status of the current loop gain of the sine drive internal amplifier.
+            \end{tabular} \hypertarget{pv:low-curr-mode}{}\\ \hline
+        % --- row ---
+        LowCurrMode-SP & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_SP. In this IOC the macro M="A", by default. Configure the low current mode for stepper motors.
+                \begin{itemize}
+                    \item 0: Drive provides 100\% of holding current when Stepper is at rest.
+                    \item 1: Drive drops to 25\% of holding current when Stepper stops moving.
+                    \item 2 - 32767: Drive drops to 25\% of holding current after \emph{n} controller \emph{time samples} since the Stepper has stopped.
+                \end{itemize}
+            \end{tabular} \hypertarget{}{}\\ \hline
+        % --- row ---
+        LowCurrMode-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
+                \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(M)\_AMPLC\_MON. In this IOC the macro M="A", by default. Readback value of the low current mode.
+                \begin{itemize}
+                    \item 0: Drive provides 100\% of holding current when Stepper is at rest.
+                    \item 1: Drive drops to 25\% of holding current when Stepper stops moving.
+                    \item 2 - 32767: Drive drops to 25\% of holding current after \emph{n} controller \emph{time samples} since the Stepper has stopped.
+                \end{itemize}
             \end{tabular} \hypertarget{pv:biss-crc-mon}{}\\ \hline
         % --- row ---
         BiSSCRC-Mon & Enum: Valid CRC (0), Invalid CRC (1) & \begin{tabular}{@{}m{6cm}@{}}
@@ -968,14 +1006,6 @@ More information about it can be found in the EPICS Motor Record documentation.
         % --- row ---
         AnalogIn1DeadBand-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
                 \textbf{\color{blue} Alias} for \$(PV\_PREFIX)\$(ANALOG\_IN1)Deadb\_SP. Readback value of the configured deadband for the analog input 1, in volts.
-            \end{tabular} \hypertarget{pv:pos-diff-mon}{}\\ \hline
-        % --- row ---
-        PosDiff-Mon & Float & \begin{tabular}{@{}m{6cm}@{}}
-                Difference between encoder reading and commanded position, in engineering units. This PV reads its value from the \emph{Mtr.DIFF} PV.
-            \end{tabular} \hypertarget{pv:done-mov-mon}{}\\ \hline
-        % --- row ---
-        DoneMov-Mon & Enum: No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
-                Indicates when the motor has completely finished the movement to a given position. If the motor fails to reach the position, but has exhausted all retries, the motion is considered to be finished. This PV reads its value from the value the \emph{Mtr.DMOV} PV.
             \end{tabular} \hypertarget{pv:rst-cmd}{}\\ \hline
         % --- row ---
         Rst-Cmd & Enum: Off (0), On (1) & \begin{tabular}{@{}m{6cm}@{}}
@@ -1028,6 +1058,14 @@ More information about it can be found in the EPICS Motor Record documentation.
         % --- row ---
         AbsPos-RB & Float & \begin{tabular}{@{}m{6cm}@{}}
                 The readback value of the absolute position, in engineering units. This is the value to which the hardware is commanded to move to, but it does not reflect the encoder reading, when one is being used.
+            \end{tabular} \hypertarget{pv:pos-diff-mon}{}\\ \hline
+        % --- row ---
+        PosDiff-Mon & Float & \begin{tabular}{@{}m{6cm}@{}}
+                Difference between encoder reading and commanded position, in engineering units. This PV reads its value from the \emph{Mtr.DIFF} PV.
+            \end{tabular} \hypertarget{pv:done-mov-mon}{}\\ \hline
+        % --- row ---
+        DoneMov-Mon & Enum: No (0), Yes (1) & \begin{tabular}{@{}m{6cm}@{}}
+                Indicates when the motor has completely finished the movement to a given position. If the motor fails to reach the position, but has exhausted all retries, the motion is considered to be finished. This PV reads its value from the value the \emph{Mtr.DMOV} PV.
             \end{tabular} \hypertarget{pv:mtr-on-macro-cte}{}\\ \hline
         % --- row ---
         MtrOnMacro-Cte & String (char[40]) & \begin{tabular}{@{}m{6cm}@{}}
