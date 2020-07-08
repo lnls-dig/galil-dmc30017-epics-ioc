@@ -469,6 +469,16 @@ record(calcout, "$(P)AutoMotorEnbl"){
 # Desc: Records used to overwrite settings based on macro values.
 #       Undefined macros DO NOT cause overwriting of the corresponding
 #       parameter.
+#
+# OBS: Delays in this section are adjusted so that
+#      Motor is turned off          (at startup)
+#              ||
+#              \/
+#      Listed PVs are set according (~ after 2 seconds)
+#      to arguments or autosave
+#              ||
+#              \/
+#       Motor is turned on          (~ after 3 seconds)
 
 # MOTOR ON/OFF AND MOTOR TYPE
 
@@ -518,6 +528,14 @@ record(calcout, "$(P)ApplyMtrTypeSaved"){
   field(CALC, "A=0")
   field(OOPT, "When Non-zero")
   field(OUT, "$(P)MtrType-Sel.PROC PP")
+  field(FLNK, "$(P)ProcLowCurr")
+}
+
+# process low curr mode since
+# it affects the output current
+record(bo, "$(P)ProcLowCurr"){
+  field(VAL, "1")
+  field(OUT, "$(P)LowCurrMode-SP.PROC PP")
   field(FLNK, "$(P)ApplyMtrOnMacro")
 }
 
