@@ -496,14 +496,53 @@ record(stringin, "$(P)MtrTypeMacro-Cte"){
   field(VAL, "$(MTRTYPE)")
 }
 
-record(calcout, "$(P)MtrOffWhileConfig"){
-  field(DESC, "Turn motor off for configuration")
+record(calcout, "$(P)StoreAmpState"){
+  field(DESC, "Store amplifier config")
   field(PINI, "YES")
   field(INPA, "$(P)AmpEnbl-Sel")
-  field(INPB, "$(P)AmpEnbl-Sel")
-  field(CALC, "B:=A;0")
-  field(OUT, "$(P)AmpEnbl-Sel PP")
-  field(FLNK, "$(P)ApplyMtrTypeMacro")
+  field(CALC, "B:=A;1")
+  field(OUT, "$(P)ApplyMacros1.PROC PP")
+}
+
+record(seq, "$(P)ApplyMacros1"){
+  field(DESC, "Apply macro values sequence 1")
+  field(SELM, "All")
+  field(DLY1, "1")        # delay to make sure ctrl is ready
+  field(DO1, "0")
+  field(LNK1, "$(P)AmpEnbl-Sel PP")
+  field(DLY2, "2")        # delay so amp finishes being disabled
+  field(DO2, "1")
+  field(LNK2, "$(P)ApplyMtrTypeMacro.PROC PP")
+  field(DO3, "1")
+  field(LNK3, "$(P)ApplyAmpGainMacro.PROC PP")
+  field(DO4, "1")
+  field(LNK4, "$(P)ApplyDirMacro.PROC PP")
+  field(DO5, "1")
+  field(LNK5, "$(P)ApplyEncTypeMacro.PROC PP")
+  field(DO6, "1")
+  field(LNK6, "$(P)ApplyBiSSPollMacro.PROC PP")
+  field(DO7, "1")
+  field(LNK7, "$(P)ApplyBiSSClkDivMacro.PROC PP")
+  field(DO8, "1")
+  field(LNK8, "$(P)ApplyBiSSData1Macro.PROC PP")
+  field(DO9, "1")
+  field(LNK9, "$(P)ApplyBiSSData2Macro.PROC PP")
+  field(DOA, "1")
+  field(LNKA, "$(P)ApplyMacros2.PROC PP")
+}
+
+record(seq, "$(P)ApplyMacros2"){
+  field(DESC, "Apply macro values sequence 2")
+  field(SELM, "All")
+  field(DO1, "1")
+  field(LNK1, "$(P)ApplyBiSSZeroPadMacro.PROC PP")
+  field(DO2, "1")
+  field(LNK2, "$(P)ApplyBiSSInMacro.PROC PP")
+  field(DO3, "1")
+  field(LNK3, "$(P)ApplyBiSSLvlMacro.PROC PP")
+  field(DLYA, "1")        # delay to make sure config has finished
+  field(DOA, "1")
+  field(LNKA, "$(P)ApplyMtrOnMacro.PROC PP")
 }
 
 # Initialize $(P)MtrType-Sel if a macro
@@ -515,7 +554,6 @@ record(scalcout, "$(P)ApplyMtrTypeMacro"){
   field(OCAL, "AA")
   field(OOPT, "When Non-zero")
   field(DOPT, "Use OCAL")
-  field(ODLY, "2")                                                    # Wait a little so amp can be turned off
   field(OUT, "$(P)MtrType-Sel PP")
   field(FLNK, "$(P)ApplyMtrTypeSaved")
 }
@@ -536,7 +574,6 @@ record(calcout, "$(P)ApplyMtrTypeSaved"){
 record(bo, "$(P)ProcLowCurr"){
   field(VAL, "1")
   field(OUT, "$(P)LowCurrMode-SP.PROC PP")
-  field(FLNK, "$(P)ApplyMtrOnMacro")
 }
 
 # Initialize $(P)AmpEnl-Sel if a macro
@@ -557,12 +594,11 @@ record(scalcout, "$(P)ApplyMtrOnMacro"){
 record(calcout, "$(P)ApplyMtrOnSaved"){
   field(DESC, "Restore motor on with saved val")
   field(INPA, "$(P)ApplyMtrOnMacro")
-  field(INPB, "$(P)MtrOffWhileConfig.B")
+  field(INPB, "$(P)StoreAmpState.B")
   field(CALC, "A=0")
   field(OCAL, "B")
   field(DOPT, "Use OCAL")
   field(OOPT, "When Non-zero")
-  field(ODLY, "1")                                                    # Give time to controller to process cmds
   field(OUT, "$(P)AmpEnbl-Sel PP")
 }
 
@@ -579,13 +615,11 @@ record(stringin, "$(P)AmpGainMacro-Cte"){
 # was passed on startup by the user
 record(scalcout, "$(P)ApplyAmpGainMacro"){
   field(DESC, "Initialize amp gain if macro not empty")
-  field(PINI, "YES")
   field(INAA, "$(P)AmpGainMacro-Cte")
   field(CALC, "len(AA)=0?0:1")
   field(OCAL, "AA")
   field(OOPT, "When Non-zero")
   field(DOPT, "Use OCAL")
-  field(ODLY, "2")                                                    # Wait a little bit so that the motor type can be set
   field(OUT, "$(P)AmpGain-Sel PP")
 }
 
@@ -601,13 +635,11 @@ record(stringin, "$(P)DirMacro-Cte"){
 # was passed on startup by the user
 record(scalcout, "$(P)ApplyDirMacro"){
   field(DESC, "Init user direction if macro not empty")
-  field(PINI, "YES")
   field(INAA, "$(P)DirMacro-Cte")
   field(CALC, "len(AA)=0?0:1")
   field(OCAL, "AA")
   field(OOPT, "When Non-zero")
   field(DOPT, "Use OCAL")
-  field(ODLY, "2")                                                    # Wait a little bit
   field(OUT, "$(P)$(M).DIR PP")
 }
 
@@ -623,13 +655,11 @@ record(stringin, "$(P)EncTypeMacro-Cte"){
 # was passed on startup by the user
 record(scalcout, "$(P)ApplyEncTypeMacro"){
   field(DESC, "Init encoder type if macro not empty")
-  field(PINI, "YES")
   field(INAA, "$(P)EncTypeMacro-Cte")
   field(CALC, "len(AA)=0?0:1")
   field(OCAL, "AA")
   field(OOPT, "When Non-zero")
   field(DOPT, "Use OCAL")
-  field(ODLY, "2")                                                    # Wait a little bit
   field(OUT, "$(P)$(M)_MENCTYPE_CMD PP")
 }
 
@@ -646,10 +676,8 @@ record(stringin, "$(P)BiSSPollMacro-Cte"){
 # a macro was passed on startup by the user
 record(scalcout, "$(P)ApplyBiSSPollMacro"){
   field(DESC, "Check if BiSS poll macro is empty")
-  field(PINI, "YES")
   field(INAA, "$(P)BiSSPollMacro-Cte")
   field(CALC, "len(AA)=0?1:2")
-  field(ODLY, "2")                                                    # Wait a little bit
   field(OUT, "$(P)RestoreBiSSPoll.PROC PP")
 }
 
@@ -676,10 +704,8 @@ record(stringin, "$(P)BiSSClkDivMacro-Cte"){
 # a macro was passed on startup by the user
 record(scalcout, "$(P)ApplyBiSSClkDivMacro"){
   field(DESC, "Check if BiSS clock div macro is empty")
-  field(PINI, "YES")
   field(INAA, "$(P)BiSSClkDivMacro-Cte")
   field(CALC, "len(AA)=0?1:2")
-  field(ODLY, "2")                                                    # Wait a little bit
   field(OUT, "$(P)RestoreBiSSClkDiv.PROC PP")
 }
 
@@ -706,10 +732,8 @@ record(stringin, "$(P)BiSSData1Macro-Cte"){
 # a macro was passed on startup by the user
 record(scalcout, "$(P)ApplyBiSSData1Macro"){
   field(DESC, "Check if BiSS data 1 macro is empty")
-  field(PINI, "YES")
   field(INAA, "$(P)BiSSData1Macro-Cte")
   field(CALC, "len(AA)=0?1:2")
-  field(ODLY, "2")                                                    # Wait a little bit
   field(OUT, "$(P)RestoreBiSSData1.PROC PP")
 }
 
@@ -736,10 +760,8 @@ record(stringin, "$(P)BiSSData2Macro-Cte"){
 # a macro was passed on startup by the user
 record(scalcout, "$(P)ApplyBiSSData2Macro"){
   field(DESC, "Check if BiSS data 2 macro is empty")
-  field(PINI, "YES")
   field(INAA, "$(P)BiSSData2Macro-Cte")
   field(CALC, "len(AA)=0?1:2")
-  field(ODLY, "2")                                                    # Wait a little bit
   field(OUT, "$(P)RestoreBiSSData2.PROC PP")
 }
 
@@ -766,10 +788,8 @@ record(stringin, "$(P)BiSSZeroPadMacro-Cte"){
 # a macro was passed on startup by the user
 record(scalcout, "$(P)ApplyBiSSZeroPadMacro"){
   field(DESC, "Check if BiSS zero pad macro is empty")
-  field(PINI, "YES")
   field(INAA, "$(P)BiSSZeroPadMacro-Cte")
   field(CALC, "len(AA)=0?1:2")
-  field(ODLY, "2")                                                    # Wait a little bit
   field(OUT, "$(P)RestoreBiSSZeroPad.PROC PP")
 }
 
@@ -796,10 +816,8 @@ record(stringin, "$(P)BiSSInMacro-Cte"){
 # a macro was passed on startup by the user
 record(scalcout, "$(P)ApplyBiSSInMacro"){
   field(DESC, "Check if BiSS Input macro is empty")
-  field(PINI, "YES")
   field(INAA, "$(P)BiSSInMacro-Cte")
   field(CALC, "len(AA)=0?1:2")
-  field(ODLY, "2")                                                    # Wait a little bit
   field(OUT, "$(P)RestoreBiSSIn.PROC PP")
 }
 
@@ -826,10 +844,8 @@ record(stringin, "$(P)BiSSLvlMacro-Cte"){
 # a macro was passed on startup by the user
 record(scalcout, "$(P)ApplyBiSSLvlMacro"){
   field(DESC, "Check if BiSS level macro is empty")
-  field(PINI, "YES")
   field(INAA, "$(P)BiSSLvlMacro-Cte")
   field(CALC, "len(AA)=0?1:2")
-  field(ODLY, "2")                                                    # Wait a little bit
   field(OUT, "$(P)RestoreBiSSLvl.PROC PP")
 }
 
