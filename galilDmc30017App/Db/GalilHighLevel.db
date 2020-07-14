@@ -540,9 +540,12 @@ record(seq, "$(P)ApplyMacros2"){
   field(LNK2, "$(P)ApplyBiSSInMacro.PROC PP")
   field(DO3, "1")
   field(LNK3, "$(P)ApplyBiSSLvlMacro.PROC PP")
-  field(DLYA, "1")        # delay to make sure config has finished
+  field(DLY9, "1")        # delay to make sure config has finished
+  field(DO9, "1")
+  field(LNK9, "$(P)ApplyMtrOnMacro.PROC PP")
+  field(DLYA, "1")        # delay to flag initialization complete
   field(DOA, "1")
-  field(LNKA, "$(P)ApplyMtrOnMacro.PROC PP")
+  field(LNKA, "$(P)InitDone-Mon PP")
 }
 
 # Initialize $(P)MtrType-Sel if a macro
@@ -857,6 +860,17 @@ record(sseq, "$(P)RestoreBiSSLvl"){
   field(DOL2, "$(P)BiSSLvlMacro-Cte")
   field(LNK1, "$(P)$(M)_BISSLEVEL_CMD.PROC PP")
   field(LNK2, "$(P)$(M)_BISSLEVEL_CMD PP")
+}
+
+# INITIALIZATION COMPLETE FLAG
+
+# this is set by macro setup chain
+# which starts at 'StoreAmpState'
+record(bi, "$(P)InitDone-Mon"){
+  field(DESC, "Initialization complete")
+  field(ZNAM, "No")
+  field(ONAM, "Yes")
+  field(VAL, "0")
 }
 
 #####################################################################
